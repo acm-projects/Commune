@@ -32,8 +32,7 @@ Mobile app that simplifies the shared living experience between roommates throug
 > React Native is preferred over Android Studio for cross-platform compatibility and cleaner design reasons.
 
 Install [React Native](https://facebook.github.io/react-native/docs/getting-started) and follow the EXPO CLI Quickstart Guide
-A brief intro to [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript)
-*Javascript will primarily be used for the user interface.*
+A brief intro to [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) *will primarily be used for the user interface.*
 
 #### Additional Resources for setting up React Native
 - Setting up a development environment in [Windows](https://codeburst.io/setting-up-development-environment-using-react-native-on-windows-dd240e69f776?gi=106808b677dc)
