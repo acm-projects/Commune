@@ -29,7 +29,7 @@ Mobile app that simplifies the shared living experience between roommates throug
 ## Dependencies
 
 ### React Native
-> React Native is preferred over Android Studio for cross-platform compatibility and cleaner design reasons.
+> React Native may be used over Android Studio for cross-platform compatibility and cleaner design.
 
 Install [React Native](https://facebook.github.io/react-native/docs/getting-started) and follow the EXPO CLI Quickstart Guide
 A brief intro to [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) *will primarily be used for the user interface.*
@@ -38,6 +38,8 @@ A brief intro to [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaS
 - Setting up a development environment in [Windows](https://codeburst.io/setting-up-development-environment-using-react-native-on-windows-dd240e69f776?gi=106808b677dc)
 
 ### Android Studio *(Option)*
+> Android Studio may be used over React Native for more beginner-friendly implementation of Firebase.
+
 Install by following the guidelines [here](https://developer.android.com/studio)
 
 ### Firebase
@@ -52,6 +54,8 @@ Follow these guidelines to use the [Firebase CLI](https://firebase.google.com/do
 ##### Combining front-end (React Native/Android Studio) with back-end (Firebase)
 - React Native and Firebase: [Manual Integration](https://rnfirebase.io/docs/v5.x.x/getting-started)
 - Android Studio and Firebase: [Integrate](https://www.geeksforgeeks.org/adding-firebase-to-android-app/)
+	- [Connect to Firebase](https://developer.android.com/studio/write/firebase)
+	- [Installation and Set-up](https://firebase.google.com/docs/database/android/start)
 
 ##### Setting up user groups/profiles in Firebase
 - Profiles: Basic [Set-up](https://firebase.google.com/docs/auth/web/manage-users)
@@ -60,6 +64,10 @@ Follow these guidelines to use the [Firebase CLI](https://firebase.google.com/do
 ##### Real-time chat within Firebase
 - [Link](https://www.raywenderlich.com/5359-firebase-tutorial-real-time-chat) to website
 - [Video](https://www.youtube.com/watch?v=wVCz1a3ogqk) Tutorial
+
+##### Firebase Authentication using Android Studio
+- [Authentication](https://firebase.google.com/docs/auth/)
+- [Password-based Accounts](https://firebase.google.com/docs/auth/android/password-auth)
 
 ##### Setting up a Calendar in React Native
 - To learn how to set up the Calendar Component, click [here](https://code.tutsplus.com/tutorials/how-to-create-a-react-native-calendar-component--cms-33664)
