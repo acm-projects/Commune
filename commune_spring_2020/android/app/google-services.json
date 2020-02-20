@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "305320012566",
+    "firebase_url": "https://commune-a6421.firebaseio.com",
+    "project_id": "commune-a6421",
+    "storage_bucket": "commune-a6421.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305320012566:android:2ff7695ffce36dde67be37",
+        "android_client_info": {
+          "package_name": "com.example.commune_spring_2020"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305320012566-p3uvun86fd8ntm226fm7vfr0isracarf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCBNcMkGQurIt7ClnHsnfH1tfe1cFpaTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305320012566-p3uvun86fd8ntm226fm7vfr0isracarf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
