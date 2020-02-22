@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
+import 'services/auth.dart';
+
 void main() => runApp(MyApp());
-//test 1 234 i was here
 class MyApp extends StatelessWidget {
+
+  
+  //signIn("bru@bruhmail.com", "Bruh11");
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+     
+     Future u = AuthServices().signIn("bruh45678@bruhmail.com", "Bruh11");
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
