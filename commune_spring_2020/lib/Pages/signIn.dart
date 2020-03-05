@@ -74,13 +74,12 @@ class _signInPageState extends State<signInPage> {
         var auth = FirebaseAuth.instance;
         auth.sendPasswordResetEmail(email: _email);
         _showDialogForPasswordReset();
-        
+
       }catch(e)
       {
          print(e.message);
       }
       
-      //_showDialogForPasswordReset();
 
     }
 
