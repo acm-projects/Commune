@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:commune_spring_2020/Pages/home.dart';
+import 'package:commune_spring_2020/Home/home.dart';
 
 class signInPage extends StatefulWidget {
   @override
@@ -85,7 +85,7 @@ class _signInPageState extends State<signInPage> {
 
    }
 
-  Future<void> signIn() async {
+  Future signIn() async {
    
     final formState = _formKey.currentState;
     if(formState.validate())
@@ -95,15 +95,28 @@ class _signInPageState extends State<signInPage> {
         AuthResult user = (await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password));
 
         if(user.user.isEmailVerified){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> Home(user:user.user)));
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> Home(userUid: user.user.uid)));
         }
         else
         {
           _showDialogForUnVerifiedEmail();
         }
       }catch(e){
-      print(e.message);
-      
+       
+       print(e.toString());
+         if(e.toString().contains('ERROR_USER_NOT_FOUND'))
+          {
+            String error='ERROR_USER_NOT_FOUND';
+           _showDialogErroLoginUser(error);
+          }
+
+          if(e.toString().contains('The password is invalid or the user does not have a password'))
+          {
+            String error='ERROR_WRONG_PASSWORD';
+           _showDialogErroLoginUser(error);
+          }
+
+      return e;
      }
     }
   }
@@ -146,6 +159,45 @@ class _signInPageState extends State<signInPage> {
             ),
           ],
         );
+      },
+    );
+  }
+
+  void _showDialogErroLoginUser(String error)
+  {
+    showDialog(
+      context: context,
+      builder:(BuildContext context){
+        if(error=='ERROR_USER_NOT_FOUND')
+        {
+        return AlertDialog(
+          title: new Text("User Does Not Exist"),
+          content: new Text("There is no user registered with "+_email+". Try a different email."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed:() {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        }
+         if(error=='ERROR_WRONG_PASSWORD')
+        {
+        return AlertDialog(
+          title: new Text("Wrong Password"),
+          content: new Text("That password is incorrect for "+_email+". Try again."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed:() {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+        }
       },
     );
   }

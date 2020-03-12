@@ -1,8 +1,9 @@
 
 import 'package:commune_spring_2020/Pages/signIn.dart';
+import 'package:commune_spring_2020/Services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 class signUpPage extends StatefulWidget {
   @override
@@ -10,10 +11,9 @@ class signUpPage extends StatefulWidget {
 }
 
 class _signUpPageState extends State<signUpPage> {
-  String _email, _password, _schoolName, _userFirstName, _userLastName;
-  int age;
+  String _email, _password, _userFirstName, _userLastName, _age;
   
-  Firestore db = Firestore.instance;
+ // Firestore db = Firestore.instance;
 
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -29,25 +29,42 @@ class _signUpPageState extends State<signUpPage> {
             TextFormField(
                 validator: (input){
                   if(input.isEmpty){
-                    return 'Type in a first name';
+                    return 'Type in a First Name';
                   }
                 },
-                onSaved: (input) => _userFirstName= input,
+                onSaved: (input) => _userFirstName = input,
                 decoration: InputDecoration(
                   labelText: 'First Name'
                 ),
+                
               ),
+              ///////////////////////////////
               TextFormField(
                 validator: (input){
                   if(input.isEmpty){
-                    return 'Type in a last name';
+                    return 'Type in a Last Name';
                   }
                 },
                 onSaved: (input) => _userLastName = input,
                 decoration: InputDecoration(
                   labelText: 'Last Name'
                 ),
+                
               ),
+              //////////////////////////////
+              TextFormField(
+                validator: (input){
+                  if(input.isEmpty){
+                    return 'Type in an age';
+                  }
+                },
+                onSaved: (input) => _age = input,
+                decoration: InputDecoration(
+                  labelText: 'Age'
+                ),
+                
+              ),
+              /////////////////////////////
               TextFormField(
                 validator: (input){
                   if(input.isEmpty){
@@ -77,16 +94,6 @@ class _signUpPageState extends State<signUpPage> {
                 ),
                 obscureText: true,
               ),
-              TextFormField(
-                decoration: new InputDecoration(labelText: "Enter Your School"),
-                keyboardType: TextInputType.number,
-                validator: (input){
-                  if(input.isEmpty){
-                    return 'Type in an school';
-                  }
-                },
-                onSaved: (input) => _schoolName = input,
-              ),
               RaisedButton(
                 onPressed: signUp,
                 child: Text('Create Account'),
@@ -104,12 +111,42 @@ class _signUpPageState extends State<signUpPage> {
       _formKey.currentState.save();
       try{
         AuthResult user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email, password: _password));
-        
         user.user.sendEmailVerification();
+
+        //Create a new document for the user with the uid
+        await DatabaseService(uid: user.user.uid).updateUserData(_userFirstName, _userLastName, _email, _age, 'Null');
+
+
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> signInPage()));
       }catch(e){
-      print(e.message);
+
+       if(e.toString().contains('The email address is already in use by another account'))
+        {
+          _showDialogForExistingAccount();
+        }
      }
     }
   }
+
+  void _showDialogForExistingAccount()
+  {
+    showDialog(
+      context: context,
+      builder:(BuildContext context){
+        return AlertDialog(
+          title: new Text("Account Exists"),
+          content: new Text(_email+" has already been used for a commune account. Either reset your password or use a different email."),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed:() {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
