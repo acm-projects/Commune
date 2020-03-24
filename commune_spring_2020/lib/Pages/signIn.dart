@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:commune_spring_2020/Home/home.dart';
+
+import 'package:commune_spring_2020/Pages/HouseHoldSelection.dart';
 
 class signInPage extends StatefulWidget {
   @override
@@ -95,7 +98,24 @@ class _signInPageState extends State<signInPage> {
         AuthResult user = (await FirebaseAuth.instance.signInWithEmailAndPassword(email: _email, password: _password));
 
         if(user.user.isEmailVerified){
-        Navigator.push(context, MaterialPageRoute(builder: (context)=> Home(userUid: user.user.uid)));
+
+         var db= Firestore.instance;
+         var userDoc = db.collection('users').document(user.user.uid);
+         var houseHoldName='';
+         await userDoc.get().then((doc){
+             houseHoldName=doc['HouseHoldName'];
+         });
+         
+
+         if(houseHoldName=='Null')
+         {
+           Navigator.push(context, MaterialPageRoute(builder: (context)=> HouseHoldSelectionPage()));
+         }
+         else
+         {
+           Navigator.push(context, MaterialPageRoute(builder: (context)=> Home(userUid: user.user.uid, houseName: houseHoldName)));
+         }
+          //Navigator.push(context, MaterialPageRoute(builder: (context)=> Home(userUid: user.user.uid)));
         }
         else
         {
@@ -201,4 +221,6 @@ class _signInPageState extends State<signInPage> {
       },
     );
   }
+
+  
 }

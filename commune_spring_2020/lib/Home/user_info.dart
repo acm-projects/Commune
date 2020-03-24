@@ -12,13 +12,12 @@ class UserInfoForDisplay extends StatefulWidget {
 
 class _UserInfoForDisplayState extends State<UserInfoForDisplay> {
    final String uid;
-
    _UserInfoForDisplayState({this.uid});
 
   @override
   Widget build(BuildContext context) {
      return Padding(
-        padding: EdgeInsets.fromLTRB(0,50,0,0),
+        padding: EdgeInsets.fromLTRB(0,160,0,0),
         child: new StreamBuilder(
         stream: Firestore.instance.collection('users').document(uid).snapshots(),
         builder: (context, snapshot) {
@@ -55,7 +54,6 @@ class _UserInfoForDisplayState extends State<UserInfoForDisplay> {
 
   
   void deleteChore(String index){
-      print(index);
       var choreArray = Firestore.instance.collection("users").document(uid);
       choreArray.updateData({
         'Chores': FieldValue.arrayRemove([index]),

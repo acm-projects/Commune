@@ -1,22 +1,22 @@
 
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:commune_spring_2020/Home/Household_info.dart';
 import 'package:flutter/material.dart';
-import 'package:commune_spring_2020/Services/database.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Home/user_info.dart';
 
 class Home extends StatefulWidget {
   final String userUid;
-  Home({this.userUid});
+  final String houseName;
+  Home({this.userUid,this.houseName});
 
   @override
-  _HomeState createState() => _HomeState(uid: userUid);
+  _HomeState createState() => _HomeState(uid: userUid,houseName: houseName);
 }
 
 class _HomeState extends State<Home> {
   final String uid;
-  _HomeState({this.uid});
+  final String houseName;
+  _HomeState({this.uid,this.houseName});
 
   
   
@@ -29,19 +29,21 @@ class _HomeState extends State<Home> {
        ),
        body: Stack(
         children: <Widget>[
+        Text("Users In the Group "+houseName+": "),
+        householdInfo(houseName:houseName),
         UserInfoForDisplay(uid:uid),
-        RaisedButton(
+        new Padding(
+        padding: EdgeInsets.fromLTRB(0,120,0,0),
+        child: RaisedButton(
            onPressed: _showBoxForAddingChore,
            child: Text("Add"),
          ),
+        ),
         ]
        ),
       );
   }
 
-  void yo(){
-
-  }
   void _showBoxForAddingChore()
   {
     String chore="";
@@ -78,4 +80,6 @@ class _HomeState extends State<Home> {
         'Chores': FieldValue.arrayUnion([choreName]),
       });
     }
+
+    
 }

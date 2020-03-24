@@ -115,8 +115,6 @@ class _signUpPageState extends State<signUpPage> {
 
         //Create a new document for the user with the uid
         await DatabaseService(uid: user.user.uid).updateUserData(_userFirstName, _userLastName, _email, _age, 'Null');
-
-
         Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> signInPage()));
       }catch(e){
 
