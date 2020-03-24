@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:propersetupcheck/common/app_card.dart';
+import 'app_card.dart';
 
 
 class LoginPage extends StatelessWidget {
