@@ -1,3 +1,7 @@
+import 'package:commune_spring_2020/screens/home/home.dart';
+import 'package:commune_spring_2020/screens/home/home.dart';
+import 'package:commune_spring_2020/screens/register_user/register_user.dart';
+import 'package:commune_spring_2020/screens/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 
 import 'services/auth.dart';
@@ -11,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      
-     Future u = AuthServices().signIn("bruh45678@bruhmail.com", "Bruh11");
+    Future u = AuthServices().signIn("bruh45678@bruhmail.com", "Bruh11");
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -26,9 +30,9 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: Home()
     );
-  }
+  } 
 }
 
 class MyHomePage extends StatefulWidget {
