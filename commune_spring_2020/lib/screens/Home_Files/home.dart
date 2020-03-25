@@ -1,6 +1,7 @@
-import 'package:commune_spring_2020/screens/home/choresPage.dart';
-import 'package:commune_spring_2020/screens/home/users.dart';
-import 'package:commune_spring_2020/services/auth2.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
+import 'package:commune_spring_2020/screens/Home_Files/users.dart';
+import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -12,11 +13,17 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   AuthService _auth = new AuthService();
+
   final String uid;
   _HomeState({this.uid});
 
+  String householdName;
+
   @override
   Widget build(BuildContext context) {
+    
+    updateUserHousehold(uid);
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -60,5 +67,13 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
+  }
+
+  void updateUserHousehold(String userID) async {
+    var db= Firestore.instance;
+    var userDoc = db.collection('users').document(userID);
+    await userDoc.get().then((doc){
+      householdName= doc['HouseHoldName'];
+    });
   }
 }

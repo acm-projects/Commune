@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class ChoresPage extends StatefulWidget {
-  final String uid;
-  ChoresPage({this.uid});
+  final String uid, householdName;
+  ChoresPage({this.uid, this.householdName});
   @override
   _ChoresPageState createState() => _ChoresPageState();
 }
@@ -79,15 +79,15 @@ class _ChoresPageState extends State<ChoresPage> {
                             itemBuilder: (context, index) {
                               String id = roomMatesList[index];
                               
-                              var OneRoomMate = Firestore.instance
-                                  .collection('users2')
-                                  .document(id)
-                                  .get()
-                                  .then((v) {
-                                    // setState(() {
-                                    //   name=name = v.data['Display Name'];
-                                    // }); 
-                              });
+                             //var OneRoomMate = Firestore.instance
+                             //    .collection('users')
+                             //    .document(id)
+                             //    .get()
+                             //    .then((v) {
+                             //      // setState(() {
+                             //      //   name=name = v.data['Display Name'];
+                             //      // }); 
+                             //});
                               print("name: "+name.toString());
                               return new RaisedButton(
                                 child: Text("user "+ name.toString()),
@@ -106,8 +106,8 @@ class _ChoresPageState extends State<ChoresPage> {
             //column of chores to do
             StreamBuilder(
               stream: Firestore.instance
-                  .collection('users2')
-                  .document(widget.uid)
+                  .collection('HouseHoldGroups')
+                  .document(widget.householdName)
                   .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {

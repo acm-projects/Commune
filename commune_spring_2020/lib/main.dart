@@ -1,6 +1,6 @@
 import 'package:commune_spring_2020/Models/User.dart';
 import 'package:commune_spring_2020/screens/wrapper.dart';
-import 'package:commune_spring_2020/services/auth2.dart';
+import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

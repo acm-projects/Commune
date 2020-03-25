@@ -28,7 +28,7 @@ class _UsersListState extends State<UsersList> {
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: new StreamBuilder(
             stream: Firestore.instance
-                .collection('users2')
+                .collection('users')
                 .document(widget.uid)
                 .snapshots(),
             builder: (context, snapshot) {
@@ -118,7 +118,7 @@ class _UsersListState extends State<UsersList> {
                     Text("Amount"),
                     new StreamBuilder(
                         stream: Firestore.instance
-                            .collection('users2')
+                            .collection('users')
                             .document(widget.uid)
                             .snapshots(),
                         builder: (context, snapshot) {
