@@ -85,7 +85,7 @@ class _BudgetState extends State<Budget> {
                     RaisedButton(
                       child: Text("minus"),
                       onPressed: () {
-                        changeBudget(false, userDoc.data['budget'], tempCost);
+                        changeBudget(false, userDoc.data['Budget'], tempCost);
                         fullDesc = "-" +
                             tempCost.toString() +
                             "&#" +
@@ -126,7 +126,7 @@ class _BudgetState extends State<Budget> {
                             return Text("loading");
                           } else {
                             var userDoc = snapshot.data;
-                            List budgetChangeList = userDoc["Budget changes"];
+                            List budgetChangeList = userDoc["Budget Changes"];
                             if (budgetChangeList.length == 0) {
                               return Text("No history");
                             } else {
@@ -169,7 +169,7 @@ class _BudgetState extends State<Budget> {
                             return Text('Loading...');
                           }
                           var userDoc = snapshot.data;
-                          List descriptionsList = userDoc['Budget changes'];
+                          List descriptionsList = userDoc['Budget Changes'];
                           if (descriptionsList.length == 0) {
                             return Text('No history');
                           } else {
@@ -207,7 +207,7 @@ class _BudgetState extends State<Budget> {
                       if (!snapshot.hasData) {
                         return Text('loading...');
                       } else {
-                        List datesList = snapshot.data['Budget changes'];
+                        List datesList = snapshot.data['Budget Changes'];
                         if (datesList.length == 0) {
                           return Text("no history");
                         } else {
@@ -238,15 +238,16 @@ class _BudgetState extends State<Budget> {
 
   void addBudgetChangeDescription(String budgetDesctiption) {
     var budgetDiscArray =
-        Firestore.instance.collection("HouseHoldName").document(widget.hhname);
+        Firestore.instance.collection("HouseHoldGroups").document(widget.hhname);
     budgetDiscArray.updateData({
-      'Budget changes': FieldValue.arrayUnion([budgetDesctiption]),
+      'Budget Changes': FieldValue.arrayUnion([budgetDesctiption]),
     });
   }
 
-  void changeBudget(bool add, int original, int change) {
-    Firestore.instance
-        .collection('HouseHoldName')
+  void changeBudget(bool add, int original, int change){
+    print(original.toString());
+     Firestore.instance
+        .collection('HouseHoldGroups')
         .document(widget.hhname)
         .updateData({'Budget': add ? original + change : original - change});
   }
@@ -310,11 +311,13 @@ class _BudgetState extends State<Budget> {
 
   //get array of string from the list of strings
   getlistOfDescriptions(List l) {
+   
     List l2 = new List();
     String tempString;
     for (String x in l) {
       tempString = getDescriptionFromDescription(x);
       l2.add(tempString);
+      
     }
     return l2;
   }

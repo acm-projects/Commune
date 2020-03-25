@@ -22,8 +22,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     
-    updateUserHousehold(uid);
-
+    // updateUserHousehold(uid);
+    // print(householdName+"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -62,7 +62,7 @@ class _HomeState extends State<Home> {
       body: Column(
         children: <Widget>[
           Budget(
-            uid: widget.uid,
+            uid: widget.uid, hhname: 'bruh',
           ),
         ],
       ),
@@ -74,6 +74,6 @@ class _HomeState extends State<Home> {
     var userDoc = db.collection('users').document(userID);
     await userDoc.get().then((doc){
       householdName= doc['HouseHoldName'];
-    });
+    }); 
   }
 }

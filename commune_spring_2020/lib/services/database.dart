@@ -18,7 +18,7 @@ class DatabaseService {
       'HouseHoldName':"Null",
       'uid':userID,
       'Chores':new List(),
-      'budget': budget,
+      'Budget': budget,
       'Budget Changes':new List()
       //'Display Name': displayName,
       //'name': email,
