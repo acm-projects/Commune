@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
-import 'package:commune_spring_2020/screens/Home_Files/users.dart';
+import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
       ),
       body: Column(
         children: <Widget>[
-          UsersList(
+          Budget(
             uid: widget.uid,
           ),
         ],

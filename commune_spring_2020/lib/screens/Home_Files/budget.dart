@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-class UsersList extends StatefulWidget {
-  String uid;
-  UsersList({this.uid});
+class Budget extends StatefulWidget {
+  final String uid, hhname;
+  Budget({this.uid,this.hhname});
 
   @override
-  _UsersListState createState() => _UsersListState();
+  _BudgetState createState() => _BudgetState();
 }
 
-class _UsersListState extends State<UsersList> {
+class _BudgetState extends State<Budget> {
   // TODO: implement widget
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class _UsersListState extends State<UsersList> {
           padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
           child: new StreamBuilder(
             stream: Firestore.instance
-                .collection('users')
-                .document(widget.uid)
+                .collection('HouseHoldGroups')
+                .document(widget.hhname)
                 .snapshots(),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
@@ -37,7 +37,7 @@ class _UsersListState extends State<UsersList> {
               }
 
               var userDoc = snapshot.data;
-              int budgetInt = userDoc.data['budget'];
+              int budgetInt = userDoc.data['Budget'];
               int tempCost = 0;
               TextEditingController _con = new TextEditingController();
               TextEditingController _desc = new TextEditingController();
@@ -67,7 +67,7 @@ class _UsersListState extends State<UsersList> {
                       child: Text("add"),
                       onPressed: () {
                         //change the budget
-                        changeBudget(true, userDoc.data['budget'], tempCost);
+                        changeBudget(true, userDoc.data['Budget'], tempCost);
                         /*
                         budget description format:
                         amt &# description &# date
@@ -118,8 +118,8 @@ class _UsersListState extends State<UsersList> {
                     Text("Amount"),
                     new StreamBuilder(
                         stream: Firestore.instance
-                            .collection('users')
-                            .document(widget.uid)
+                            .collection('HouseHoldGroups')
+                            .document(widget.hhname)
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -161,8 +161,8 @@ class _UsersListState extends State<UsersList> {
                     Text("Description"),
                     new StreamBuilder(
                         stream: Firestore.instance
-                            .collection('users2')
-                            .document(widget.uid)
+                            .collection('HouseHoldGroups')
+                            .document(widget.hhname)
                             .snapshots(),
                         builder: (context, snapshot) {
                           if (!snapshot.hasData) {
@@ -200,8 +200,8 @@ class _UsersListState extends State<UsersList> {
                   Text("Date Changed"),
                   new StreamBuilder(
                     stream: Firestore.instance
-                        .collection('users2')
-                        .document(widget.uid)
+                        .collection('HouseHoldGroups')
+                        .document(widget.hhname)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (!snapshot.hasData) {
@@ -238,7 +238,7 @@ class _UsersListState extends State<UsersList> {
 
   void addBudgetChangeDescription(String budgetDesctiption) {
     var budgetDiscArray =
-        Firestore.instance.collection("users2").document(widget.uid);
+        Firestore.instance.collection("HouseHoldName").document(widget.hhname);
     budgetDiscArray.updateData({
       'Budget changes': FieldValue.arrayUnion([budgetDesctiption]),
     });
@@ -246,9 +246,9 @@ class _UsersListState extends State<UsersList> {
 
   void changeBudget(bool add, int original, int change) {
     Firestore.instance
-        .collection('users2')
-        .document(widget.uid)
-        .updateData({'budget': add ? original + change : original - change});
+        .collection('HouseHoldName')
+        .document(widget.hhname)
+        .updateData({'Budget': add ? original + change : original - change});
   }
 
   //get amount per change
