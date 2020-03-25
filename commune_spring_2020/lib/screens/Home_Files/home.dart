@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ChoresPage(uid: widget.uid)),
+                MaterialPageRoute(builder: (context) => ChoresPage(uid: widget.uid,)),
               );
             },
           ),

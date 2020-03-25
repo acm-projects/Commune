@@ -31,6 +31,7 @@ class DatabaseService {
         'Admin': uid,
         'Password': password,
         'Group Users':usersInGroup,
+        'Chores':new List(),
         'Budget Changes':new List(),
         'Budget':0,
     });
