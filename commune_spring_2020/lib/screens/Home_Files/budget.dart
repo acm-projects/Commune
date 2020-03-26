@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 class Budget extends StatefulWidget {
   final String uid, hhname;
-  Budget({this.uid,this.hhname});
+  Budget({this.uid, this.hhname});
 
   @override
   _BudgetState createState() => _BudgetState();
@@ -237,16 +237,16 @@ class _BudgetState extends State<Budget> {
   }
 
   void addBudgetChangeDescription(String budgetDesctiption) {
-    var budgetDiscArray =
-        Firestore.instance.collection("HouseHoldGroups").document(widget.hhname);
+    var budgetDiscArray = Firestore.instance
+        .collection("HouseHoldGroups")
+        .document(widget.hhname);
     budgetDiscArray.updateData({
       'Budget Changes': FieldValue.arrayUnion([budgetDesctiption]),
     });
   }
 
-  void changeBudget(bool add, int original, int change){
-    print(original.toString());
-     Firestore.instance
+  void changeBudget(bool add, int original, int change) {
+    Firestore.instance
         .collection('HouseHoldGroups')
         .document(widget.hhname)
         .updateData({'Budget': add ? original + change : original - change});
@@ -311,13 +311,11 @@ class _BudgetState extends State<Budget> {
 
   //get array of string from the list of strings
   getlistOfDescriptions(List l) {
-   
     List l2 = new List();
     String tempString;
     for (String x in l) {
       tempString = getDescriptionFromDescription(x);
       l2.add(tempString);
-      
     }
     return l2;
   }

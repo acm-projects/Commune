@@ -94,24 +94,24 @@ class _RegisterState extends State<Register> {
                 _password=val;
               },
             ),
-            TextFormField(
-              validator: (b)=>b.isEmpty ? "Enter a budget" : null,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                labelText: "Budget in USD",
-                hintText: "e.g. 500"
-              ),
-              onChanged: (num){
-                _budget=int.parse(num);
-              },
-            ),
+            // TextFormField(
+            //   validator: (b)=>b.isEmpty ? "Enter a budget" : null,
+            //   keyboardType: TextInputType.number,
+            //   decoration: InputDecoration(
+            //     labelText: "Budget in USD",
+            //     hintText: "e.g. 500"
+            //   ),
+            //   onChanged: (num){
+            //     _budget=int.parse(num);
+            //   },
+            // ),
             RaisedButton(
               child: Text("Sign Up"),
               onPressed: () async{
                 if(_formKey.currentState.validate()){
                   dynamic result = await _auth.signUp(_firstName,_lastName,_email,_age,_budget,_password);
                     if(result==null){
-                      setState(()=> _error="Your username or password do not match our records");
+                      setState(()=> _error="something went wrong try again");
                     }
                     else{
                       print("about to go to home");

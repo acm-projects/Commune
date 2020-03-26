@@ -34,6 +34,7 @@ class DatabaseService {
         'Chores':new List(),
         'Budget Changes':new List(),
         'Budget':0,
+        'Points':0,
     });
     await  householdCollection.document(householdName).updateData({
         'Group Users':  FieldValue.arrayUnion([uid]),

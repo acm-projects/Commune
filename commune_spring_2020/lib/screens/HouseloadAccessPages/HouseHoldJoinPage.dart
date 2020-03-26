@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/screens/Home_Files/home.dart';
@@ -76,14 +77,16 @@ class _HouseHoldJoinPageState extends State<HouseHoldJoinPage> {
             {
               FirebaseUser user= (await FirebaseAuth.instance.currentUser());
               updateUserHouseAndUserArray(user.uid);
+
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(uid: user.uid)));
+              // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignIn()));
             }
             else
             {
               _showDialogForHouseHoldWrongPassword();
             }
           }),
-        }
+        } 
         else
         {
           _showDialogForNotExistingHouseHold()

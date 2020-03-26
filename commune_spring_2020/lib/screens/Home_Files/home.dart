@@ -2,11 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
 import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
+import 'package:commune_spring_2020/screens/auth/register.dart';
+import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
   final String uid;
+  bool showSignIn=true;
+
   Home({this.uid});
+  
   @override
   _HomeState createState() => _HomeState();
 }
@@ -22,7 +27,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     
-    // updateUserHousehold(uid);
     // print(householdName+"&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     return Scaffold(
       appBar: AppBar(
@@ -31,6 +35,7 @@ class _HomeState extends State<Home> {
             color: Colors.blue[100],
             onPressed: () async {
               await _auth.signOut();
+              
             },
             child: Text("Logout"),
           ),
@@ -45,7 +50,7 @@ class _HomeState extends State<Home> {
             },
           ),
           RaisedButton(
-            color: Colors.blue[100],
+            color: Colors.blue[200],
             child: Text("Budget"),
             onPressed: () {
               
