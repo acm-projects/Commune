@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ChoresPage extends StatefulWidget {
-  final String uid, householdName = 'bruh';
+  final String uid, householdName ;
   ChoresPage({
     this.uid,
-    // this.householdName
+    this.householdName,
   });
   @override
   _ChoresPageState createState() => _ChoresPageState();
