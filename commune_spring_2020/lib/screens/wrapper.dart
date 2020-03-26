@@ -37,17 +37,6 @@ class Wrapper extends StatelessWidget {
           },
         )
      );
-     //DatabaseService database = new DatabaseService();
-     ////String houseName= database.getUserHousehold(user.uid);
-     ////print("///////////"+database.getUserHousehold(user.uid));
-     //String householdName= await getUserHousehold(user.uid);
-     //
-     //if(householdName=='Null')
-     //{
-     //  print("///////////////////////////////");
-     //}else{
-     //  return Home(uid: user.uid);
-     //}
     }
   }
 

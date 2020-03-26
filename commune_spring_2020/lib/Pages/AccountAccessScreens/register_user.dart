@@ -3,7 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'app_card.dart';
+import 'package:commune_spring_2020/Pages/app_card.dart';
 
 class RegisterUser extends StatefulWidget{
   @override
