@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
 
 class Home extends StatefulWidget{
+  final String uid;
+
+  Home({this.uid});
   @override
-  State<StatefulWidget> createState() {
-    return _HomeState();
-  }
+  _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home>{

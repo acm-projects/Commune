@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class Wrapper extends StatelessWidget {
     if (user == null){
       return Authenticate();
     } else {
-      return Authenticate();
+      return Home(uid:user.uid);
     }
     //retrun the proper widget
   //   if(user==null){
