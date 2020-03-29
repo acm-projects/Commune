@@ -1,364 +1,341 @@
 import 'package:flutter/material.dart';
 
 
-
-
-
 class HouseholdProfile extends StatelessWidget {
   const HouseholdProfile({Key key}) : super(key: key);
 
-
-
+  
 
   @override
   Widget build(BuildContext context) {
+
     
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 251, 244, 245),
-      body: Column(
-          children: <Widget>[
-            Padding(padding: EdgeInsets.fromLTRB(0, 60, 0, 0)),
+    return MaterialApp(
 
-            Container(
-              child: Image(
-              height: 100.0,
-              width: 100.0,
-              image: AssetImage('assets/LogoV2.png'),),
-              margin: EdgeInsets.fromLTRB(0, 0, 0, 23)
-            ),
-            Text(
-              "Swaraaj's Clubhouse yessirrski",
-              style: TextStyle(
-                  color: Color.fromARGB(255, 88, 45, 143),
-                  fontSize: 24.0,
-                  fontFamily: 'Raleway'
-                ),
-            ),
-
-          // begin 
-          Container(
-            width: 400,
-            height: 120,
-            
-            margin: EdgeInsets.fromLTRB(18, 35, 18 ,10),
-
-            child: Container(
-             
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[ 
-
-
-                Container( 
-                  
-                  margin: EdgeInsets.fromLTRB(0, 0, 0 ,0),
-                  color: Color.fromARGB(255, 159, 166, 248),
-                  padding: EdgeInsets.fromLTRB(14.0, 40, 40, 40),
-                
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 50,
-                        height: 120,
-                        child: FittedBox(
-                          child: Icon(
-                        const IconData(0xe900, fontFamily: 'chore'),
-                        color: Colors.white,
-                        ),
-                        ),
-                        padding: EdgeInsets.fromLTRB(0, 0, 12, 0),
-                        
-                      ),
-
-                
-                 Container(
-                   width: 171,
-                   height: 120,
-                  child: FittedBox(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                  "Next Chore(s) Due:",
-                  style: TextStyle(
-                    color: Colors.white,
-                    //fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Raleway'
-                      ),
-                     ),
-                    ),
-                  
-                  ),
-                
-
-                  Container(
-                    width: 80,
-                    height: 120,
-                    margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: FittedBox(
-                       child: Text(
-                    "4/12/20",
-                    style: TextStyle(
-                    color: Colors.white,
-                    //fontSize: 24.0,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Raleway'
-                  ),
-                  )
-                    )
-                   
-                  )
-                ]
-                )
-                ),
-                ],
-              ),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 4.0,
-                  color: Color.fromARGB(255, 159, 166, 248)
-                ),
-                borderRadius: BorderRadius.all(
-                  Radius.circular(14.0)
-                )
-              ),
-        ),
-
-            
-          ),
-            // Base Rent 
-            Container(
-              width: 400,
-              height: 120,
-              margin: EdgeInsets.fromLTRB(18, 30, 18 ,10),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[ 
-              Container( 
-              margin: EdgeInsets.fromLTRB(0, 0, 0 ,0),
-              color: Color.fromARGB(255, 159, 166, 248),
-              padding: EdgeInsets.fromLTRB(14.0, 40, 40, 40),
-             
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 50,
-                    height: 120,
-                    padding: EdgeInsets.fromLTRB(0, 0, 12, 0),
-                    child: FittedBox(
-                      child: Icon(
-                    const IconData(0xe900, fontFamily: 'rent'),
-                    color: Colors.white,
-               //     size: 28.0,
-                    ),
-                    )
-                    
-                  ),
-
-                Container(
-                   width: 171,
-                   height: 120,
-                   child: FittedBox(
-                     alignment: Alignment.centerLeft,
-                    child: Text(
-                    "Base Rent:",
-                    style: TextStyle(
-                      color: Colors.white,
-                 //     fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Raleway'
-                    ),
-                    ),
-                   )
-                ),
-                
-                Container(
-                    width: 80,
-                    height: 120,
-                    margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                    child: FittedBox(
-                       child: Text(
-                  "\$436",
-                  style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                //  fontSize: 24.0,
-                  fontFamily: 'Raleway'
-                ),
-                )
-                    )
-                 
-                )
-              ]
-              )
-              ),
-              ],
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 4.0,
-                color: Color.fromARGB(255, 159, 166, 248)
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(14.0)
-              )
-            ),
-            ),
-
-
-            // Monthly Budget
-            Container(
-              width: 400,
-              height: 120,
-               margin: EdgeInsets.fromLTRB(18, 30, 18 ,28),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[ 
-              Container( 
-              margin: EdgeInsets.fromLTRB(0, 0, 0 ,0),
-              color: Color.fromARGB(255, 159, 166, 248),
-              padding: EdgeInsets.fromLTRB(14.0, 40, 40, 40),
-             
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    width: 50,
-                    height: 120,
-                    padding: EdgeInsets.fromLTRB(0, 0, 12, 0),
-                    alignment: Alignment.centerLeft,
-                    child: FittedBox(
-                      child: Icon(
-                    const IconData(0xe900, fontFamily: 'budget'),
-                    color: Colors.white,
-                   // size: 28.0,
-                    ),
-                    ),
-                    
-                  ),
-              
-                   Container(
-                   width: 171,
-                   height: 120,
-                   child: FittedBox(
-                     alignment: Alignment.centerLeft,
-                      child: Text(
-                          "Monthly Budget:",
-                          style: TextStyle(
-                            color: Colors.white,
-                            //fontSize: 24.0,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'Raleway'
-                          ),
-                          ),
-                   )
-                   ),
-                Container(
-                  width: 80,
-                  height: 120,
-                  margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                  child: FittedBox(
-                    alignment: Alignment.centerLeft,
-                     child: Text(
-                  "\$1500",
-                  style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w400,
-                 // fontSize: 24.0,
-                  fontFamily: 'Raleway'
-                ),
-                )
-                  )
-                 
-                )
-              ]
-              )
-              ),
-              ],
-            ),
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 4.0,
-                color: Color.fromARGB(255, 159, 166, 248)
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(14.0)
-              )
-            ),
-            ),
-
-
-            Row(              
-              children: <Widget>[  
-              Padding(padding: EdgeInsets.fromLTRB(0, 0, 18, 0)),
-              FlatButton(
-                padding: EdgeInsets.all(6.0),
-                onPressed: () {},
-                child: Text("Add a Chore",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Raleway',
-                  fontSize: 17.0,
-              ),
-              ),
-              color: Color.fromARGB(255, 27, 64, 121),
-              shape: RoundedRectangleBorder(
-                
-                borderRadius: new BorderRadius.circular(12.0),
-                side: BorderSide(color: Colors.white),
-                 ),
-                 
-            ),
-              Padding(
-                padding: EdgeInsets.fromLTRB(160,0,18,0) 
-              ),
-              
-              
-              FlatButton(
-              padding: EdgeInsets.all(6.0),
-              onPressed: () {},
-              child: Text("Add a Bill",
-              style: TextStyle(
-                color: Colors.white,
-                fontFamily: 'Raleway',
-                fontSize: 17.0,
-              ),
-              ),
-              color: Color.fromARGB(255, 27, 64, 121),
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(12.0),
-                side: BorderSide(color: Colors.white),
-                 ),
-                 
-            )
-              ],
-              
-            )
-          ]
-        ,
-
-      ),
-      );
-    
+      home: Foundation()
+    );
   }
 }
 
 
-// Container(
-//             width: 400,
-//             height: 120,
-            
-//             margin: EdgeInsets.fromLTRB(18, 35, 18 ,10),
+class Foundation extends StatelessWidget {
+  const Foundation({Key key}) : super(key: key);
 
-//             child: Container(
-             
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 mainAxisSize: MainAxisSize.max,
-//                 crossAxisAlignment: CrossAxisAlignment.stretch,
-//                 children: <Widget>[ 
+  @override
+  Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context);
+    return Scaffold(
+        body: Column(
+          children: <Widget>[
+            Container(height: 0.05 * screenSize.size.height, color: Color.fromARGB(255, 251, 244, 245)),
+            Container(
+              color: Color.fromARGB(255, 251, 244, 245),
+              height: 0.875 * screenSize.size.height,
+
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 0.1 * screenSize.size.height,
+                    child: Image(
+                    //height: 100.0,
+                    //width: 100.0,
+                    image: AssetImage('assets/LogoV2.png'),),
+                  ),
 
 
+                  Container(
+                    height: 0.1 * screenSize.size.height,
+                    width: 0.9 * screenSize.size.width,
+                    child: FittedBox(
+                      alignment: Alignment.center,
+                       child: Text(
+                      "Swaraaj's Clubhouse yessirrski",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 27, 64, 121),
+                        fontSize: 24.0,
+                        fontFamily: 'Raleway'
+                        ),
+                      ),
+                    ),
+                     
+                  ),
 
+                  Container(
+                    height: 0.1 * screenSize.size.height,
+                    width: 0.95 * screenSize.size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                        
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.07 * screenSize.size.width,
+                        child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                        const IconData(0xe900, fontFamily: 'chore'),
+                        color: Color.fromARGB(255, 27, 64, 121),
+                           ),
+                          ),
+                        ),
+
+                        //spacing
+                        Container(width: 0.03*screenSize.size.width, color: Color.fromARGB(255, 159, 166, 248)),
+
+                        Container(
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.45 * screenSize.size.width,
+                        child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                          child: Text(
+                        "Next Chore(s) Due: ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: 24.0,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Raleway'
+                            ),
+                          ),
+                          ),
+                        ),
+
+                        Container(
+                          color: Color.fromARGB(255, 159, 166, 248),
+                          height: 0.1 * screenSize.size.height,
+                          width: 0.30 * screenSize.size.width,
+                          child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                          "4/12/20",
+                          style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: 24.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Raleway'
+                            ),
+                          ),
+                          ),
+                          )
+
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.05 * screenSize.size.width,
+                      color: Color.fromARGB(255, 159, 166, 248)
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(14.0)
+                    )
+                  ),
+                  ),
+
+                  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0.01 * screenSize.size.height)),
+
+                  Container(
+                    height: 0.1 * screenSize.size.height,
+                    width: 0.95 * screenSize.size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                        
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.07 * screenSize.size.width,
+                        child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                        const IconData(0xe900, fontFamily: 'rent'),
+                        color: Color.fromARGB(255, 27, 64, 121),
+                           ),
+                          ),
+                        ),
+
+                        Container(width: 0.03*screenSize.size.width, color: Color.fromARGB(255, 159, 166, 248)),
+
+                        Container(
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.45 * screenSize.size.width,
+                        child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                          child: Text(
+                        "Base Rent: ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: 24.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Raleway'
+                            ),
+                          ),
+                          ),
+                        ),
+
+                        Container(
+                          color: Color.fromARGB(255, 159, 166, 248),
+                          height: 0.1 * screenSize.size.height,
+                          width: 0.30 * screenSize.size.width,
+                          child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                          "\$436.00",
+                          style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: 24.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Raleway'
+                            ),
+                          ),
+                          ),
+                          )
+
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.05 * screenSize.size.width,
+                      color: Color.fromARGB(255, 159, 166, 248)
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(14.0)
+                    )
+                  ),
+                  ),
+
+                  //spacing
+                  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0.01 * screenSize.size.height)),
+
+                  Container(
+                    height: 0.1 * screenSize.size.height,
+                    width: 0.95 * screenSize.size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Container(
+                        
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.07 * screenSize.size.width,
+                        child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Icon(
+                        const IconData(0xe900, fontFamily: 'budget'),
+                        color: Color.fromARGB(255, 27, 64, 121),
+                           ),
+                          ),
+                        ),
+
+                        Container(width: 0.03*screenSize.size.width, color: Color.fromARGB(255, 159, 166, 248)),
+
+                        Container(
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.45 * screenSize.size.width,
+                        child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                          child: Text(
+                        "Monthly Budget: ",
+                        style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: 24.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Raleway'
+                            ),
+                          ),
+                          ),
+                        ),
+
+                        Container(
+                          color: Color.fromARGB(255, 159, 166, 248),
+                          height: 0.1 * screenSize.size.height,
+                          width: 0.30 * screenSize.size.width,
+                          child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                          "\$1500.00",
+                          style: TextStyle(
+                          color: Colors.white,
+                          //fontSize: 24.0,
+                          fontWeight: FontWeight.w100,
+                          fontFamily: 'Raleway'
+                            ),
+                          ),
+                          ),
+                          )
+
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                    border: Border.all(
+                      width: 0.05 * screenSize.size.width,
+                      color: Color.fromARGB(255, 159, 166, 248)
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(14.0)
+                    )
+                  ),
+                  ),
+
+                  //spacing
+                  Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0.05 * screenSize.size.height)),
+
+                  Container(
+                    height: 0.1 * screenSize.size.height,
+                    width: 0.95 * screenSize.size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                       FlatButton(
+                      onPressed: () {},
+                      child: FittedBox(
+                      child: Text("Add a Chore",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Raleway',
+                        //fontSize: 17.0,
+                    ),
+                    ),
+                      ),
+                    color: Color.fromARGB(255, 27, 64, 121),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(12.0),
+                      side: BorderSide(color: Colors.white),
+                      ),
+                      
+                  ),
+                    FlatButton(
+                    onPressed: () {},
+                    child: FittedBox(
+                    child: Text("Add a Bill",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Raleway',
+                      //fontSize: 17.0,
+                    ),
+                    ),
+                    ),
+                    color: Color.fromARGB(255, 27, 64, 121),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(12.0),
+                      side: BorderSide(color: Colors.white),
+                      ),
+                      
+                  )
+                      ]
+                    ),
+
+            ),
+
+                ],
+              ),
+            ),
+
+            Container(height: 0.075 * screenSize.size.height, color: Colors.blueGrey,),
+          ]
+        )
+    );
+  }
+}

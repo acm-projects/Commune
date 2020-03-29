@@ -9,6 +9,9 @@ import 'package:commune_spring_2020/Pages/homepage.dart';
 // import 'package:commune_spring_2020/Pages/register_user.dart';
 // import 'package:commune_spring_2020/Pages/welcome.dart';
 import 'package:flutter/material.dart';
+import 'Pages/AccountAccessScreens/login.dart';
+import 'Pages/householdprofile.dart';
+
 
 void main() => runApp(MyApp());
 
