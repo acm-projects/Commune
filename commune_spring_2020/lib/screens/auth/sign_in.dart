@@ -44,7 +44,7 @@ class _SignInState extends State<SignIn> {
                 email=val.toString();
               },
             ),
-            TextFormField(
+            TextFormField( 
               validator: (pas)=> pas.isEmpty ? "Enter a password":null,
               obscureText: true,
               onChanged: (val){

@@ -1,3 +1,4 @@
+import 'package:commune_spring_2020/Pages/assets/bill_expansion.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/Pages/app_card.dart';
@@ -85,16 +86,14 @@ class LoginPage extends StatelessWidget {
               ),
               FlatButton(
                 onPressed: ()async{
-                  final formState = _formKey.currentState;
-                  if(formState.validate()){
-                    formState.save();
+                  if(_formKey.currentState.validate()){
                     dynamic result = await _auth.signIn(email, password);
-                    if(result==null)
-                    {
-
-                    }else{
-                      
-                    }
+                      if(result==null){
+                        setState(()=>error="Yout username or password dont match our records");
+                      }else{
+                        
+                      }
+                    print("user is: "+result.toString());
                  }
                 },
                 child: Text("Sign in",

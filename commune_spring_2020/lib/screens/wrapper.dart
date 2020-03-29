@@ -5,7 +5,8 @@ import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
-import 'package:commune_spring_2020/screens/Home_Files/home.dart';
+// import 'package:commune_spring_2020/screens/Home_Files/home.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
 class Wrapper extends StatelessWidget {
   String currentHouseholdName;
 
@@ -25,6 +26,10 @@ class Wrapper extends StatelessWidget {
    *          
    *          Don't add a wiget bc it will mess up the provider (widget that listens to when ).
    *          Instead, in the home page, create an if statement to return the proper widget
+   *    
+   *          e.g. 
+   *          if (userHouseHoldName== null)
+   *              return HouseHoldSelectionPage();
    *          
    *          
    *          
@@ -36,7 +41,7 @@ class Wrapper extends StatelessWidget {
     if (user == null){
       return Authenticate();
     } else {
-      return Home();
+      return Authenticate();
     }
     //retrun the proper widget
   //   if(user==null){
