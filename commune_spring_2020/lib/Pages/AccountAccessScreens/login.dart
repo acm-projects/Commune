@@ -1,4 +1,4 @@
-import 'package:commune_spring_2020/Pages/assets/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/Pages/app_card.dart';
