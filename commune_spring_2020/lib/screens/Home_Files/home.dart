@@ -35,19 +35,28 @@ class _HomeState extends State<Home> {
             color: Colors.blue[100],
             onPressed: () async {
               await _auth.signOut();
-              
+               
             },
             child: Text("Logout"),
           ),
-          RaisedButton(
-            color: Colors.blue[100],
-            child: Text("Chores"),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ChoresPage(uid: widget.uid,householdName: householdName,)),
+          StreamBuilder(
+            stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+            builder: (context, snapshot) {
+              if(!snapshot.hasData){
+                return Text("loading...");
+              }
+              householdName=snapshot.data['HouseHoldName'];
+              return RaisedButton(
+                color: Colors.blue[100],
+                child: Text("Chores"),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChoresPage(uid: widget.uid,householdName: householdName,)),
+                  );
+                },
               );
-            },
+            }
           ),
           RaisedButton(
             color: Colors.blue[200],

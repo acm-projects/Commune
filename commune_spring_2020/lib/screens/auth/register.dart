@@ -1,3 +1,4 @@
+import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:commune_spring_2020/screens/Home_Files/home.dart';
@@ -115,7 +116,6 @@ class _RegisterState extends State<Register> {
                     }
                     else{
                       print("about to go to home");
-                      HouseHoldSelectionPage();
                     }
                 }   
               }
