@@ -17,43 +17,38 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
-  /*
-   StreamBuilder(
-                    stream: Firestore.instance.collection("users").document(admin).snapshots(),
-                    builder: (context, snapshot) {
-                      return Container(
-  */
-  /*
-  child: StreamBuilder(
-                stream: Firestore.instance.collection("users").document(uid).snapshots(),
-                builder: (context, snapshot) {
-                     String name= snapshot.data["First Name"];
-                     return Text(
-                        name+" "+snapshot.data["Last Name"],
-                        //style: TextStyle(
-                        //color: Colors.white,
-                        //fontSize: 10.0,
-                        //fontWeight: FontWeight.w100,
-                        //fontFamily: 'Raleway'),
-                       );
-                  }
-            ),
-            */
+  
     return StreamBuilder (
         stream: Firestore.instance.collection("users").document(uid).snapshots(),
         builder: (context, snapshot) {
           return Container(
                 child: StreamBuilder(
                 stream: Firestore.instance.collection("users").document(uid).snapshots(),
-                 builder: (context, snapshot) {
-                   return Text(
-                     snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                     //style: TextStyle(
-                     //color: Colors.white,
-                     //fontSize: 10.0,
-                     //fontWeight: FontWeight.w100,
-                     //fontFamily: 'Raleway'),
-                   );
+                builder: (context, snapshot) {
+                   return Scaffold(
+                     appBar: new AppBar(
+                       title: Text('User Profile'),
+                     ),
+                     body:Column(children: <Widget>[
+                       Text(
+                       snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                       style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 25.0,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: 'Raleway'),
+                      ),
+                      Text(
+                      snapshot.data["Email"],
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 25.0,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Raleway'),
+                      ),
+                     ]
+                    )
+                  );
                  }
                ),
             );
