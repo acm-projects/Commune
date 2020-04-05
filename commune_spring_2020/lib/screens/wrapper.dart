@@ -2,13 +2,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
-<<<<<<< HEAD
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
-=======
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
->>>>>>> 38ee757d2c4399897d3f2f0e6ac93c1e43fcec88
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
@@ -49,7 +47,7 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
     
     if (user == null){
-      return SignIn();
+      return LoginPage();
     } else {
       return HouseholdProfile(uid:user.uid);
       // return Home(uid:user.uid);

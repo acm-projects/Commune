@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/material.dart';
 
 class HouseholdProfile extends StatefulWidget {
@@ -23,7 +24,8 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
 
   // @override
   // Widget build(BuildContext context) {
-    String householdName;
+    String householdName,admin;
+    choresServices cs= new choresServices();
     // print(uid+"8888888888888888888888888888888888888888");
     final screenSize = MediaQuery.of(context);
     return Scaffold(
@@ -112,23 +114,38 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                       ),
                     ),
                   ),
-
-                  Container(
-                    color: Color.fromARGB(255, 159, 166, 248),
-                    height: 0.1 * screenSize.size.height,
-                    width: 0.30 * screenSize.size.width,
-                    child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "4/12/20",
-                        style: TextStyle(
-                            color: Colors.white,
-                            //fontSize: 24.0,
-                            fontWeight: FontWeight.w100,
-                            fontFamily: 'Raleway'),
-                      ),
-                    ),
-                  )
+                  
+                  new StreamBuilder(
+                    stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
+                    builder: (context, snapshots) {
+                      // print(snapshots.data["Admin"].toString());
+                      return Container(
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.30 * screenSize.size.width,
+                        child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: StreamBuilder(
+                            stream: Firestore.instance.collection("HouseHoldGroups").document(householdName).snapshots(),
+                            builder: (context, snapshot) {
+                              admin=snapshot.data["Admin"];
+                              List chores= snapshot.data["Chores"];
+                              if(!snapshot.hasData){
+                                return Text("Loading...");
+                              }
+                              return Text(
+                                cs.getDateFromDescription(chores[0]),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    //fontSize: 24.0,
+                                    fontWeight: FontWeight.w100,
+                                    fontFamily: 'Raleway'),
+                              );
+                            }
+                          ),
+                        ),
+                      );
+                    })
                 ],
               ),
               decoration: BoxDecoration(
@@ -170,7 +187,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                     child: FittedBox(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Base Rent: ",
+                        "Admin: ",
                         style: TextStyle(
                             color: Colors.white,
                             //fontSize: 24.0,
@@ -179,21 +196,31 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                       ),
                     ),
                   ),
-                  Container(
-                    color: Color.fromARGB(255, 159, 166, 248),
-                    height: 0.1 * screenSize.size.height,
-                    width: 0.30 * screenSize.size.width,
-                    child: FittedBox(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "\$436.00",
-                        style: TextStyle(
-                            color: Colors.white,
-                            //fontSize: 24.0,
-                            fontWeight: FontWeight.w100,
-                            fontFamily: 'Raleway'),
-                      ),
-                    ),
+                  StreamBuilder(
+                    stream: Firestore.instance.collection("users").document(admin).snapshots(),
+                    builder: (context, snapshot) {
+                      return Container(
+                        color: Color.fromARGB(255, 159, 166, 248),
+                        height: 0.1 * screenSize.size.height,
+                        width: 0.30 * screenSize.size.width,
+                        child: FittedBox(
+                          alignment: Alignment.centerLeft,
+                          child: StreamBuilder(
+                            stream: Firestore.instance.collection("users").document(admin).snapshots(),
+                            builder: (context, snapshot) {
+                              return Text(
+                                snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    //fontSize: 24.0,
+                                    fontWeight: FontWeight.w100,
+                                    fontFamily: 'Raleway'),
+                              );
+                            }
+                          ),
+                        ),
+                      );
+                    }
                   )
                 ],
               ),
@@ -259,9 +286,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               .snapshots(),
                           builder: (context, snapshot){                        
                             if(snapshot.hasData==null){
-
-                              return Text('89');
-                              
+                              return Text('loading');
                             }
                             return StreamBuilder(
                               stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
