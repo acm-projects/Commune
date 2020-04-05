@@ -1,14 +1,24 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
+import 'package:commune_spring_2020/Pages/homescreen.dart';
+import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
+import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
+import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/authScreen.dart';
+import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 // import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
+
+
 class Wrapper extends StatelessWidget {
   String currentHouseholdName;
 
@@ -38,12 +48,15 @@ class Wrapper extends StatelessWidget {
   */
   @override
   Widget build(BuildContext context) {
+
     final user = Provider.of<User>(context);
     
     if (user == null){
-      return Home();
+      return LoginPage();
     } else {
-      return Home();
+      print(user.uid+"****************88");
+      return UserProfile(uid:user.uid);
+      // return Home(uid:user.uid);
     }
     //retrun the proper widget
   //   if(user==null){

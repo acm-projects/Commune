@@ -116,9 +116,7 @@ class _RegisterUserState extends State {
                   if (result == null) {
                     setState(() => _error = "something went wrong try again");
                   } else {
-                    print('88888888888888888888888888888888');
                     print("about to go to home");
-                    Home();
                   }
                 },
                 child: Text(
