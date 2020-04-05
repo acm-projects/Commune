@@ -14,6 +14,7 @@ import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
 // import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 
