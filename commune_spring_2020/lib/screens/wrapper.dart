@@ -6,6 +6,7 @@ import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
 // import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 class Wrapper extends StatelessWidget {
@@ -40,9 +41,9 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
     
     if (user == null){
-      return Authenticate();
+      return Home();
     } else {
-      return Home(uid:user.uid);
+      return Home();
     }
     //retrun the proper widget
   //   if(user==null){
