@@ -50,15 +50,15 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<User>(context);
-    
+
     if (user == null){
       return LoginPage();
     } else {
-      print(user.uid+"****************88");
       return UserProfile(uid:user.uid);
       // return Home(uid:user.uid);
     }
     //retrun the proper widget
+    //DO NOT DELETE
   //   if(user==null){
   //     return Authenticate();
   //   }else{
@@ -93,4 +93,5 @@ class Wrapper extends StatelessWidget {
       currentHouseholdName=houseName;
       return houseName;
    }
+
 } 
