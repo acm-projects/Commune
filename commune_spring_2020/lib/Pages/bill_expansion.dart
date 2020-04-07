@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:commune_spring_2020/Pages/homescreen.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
 
 
 // im not sure how to read in the people organically and process that
@@ -9,7 +11,7 @@ class BillsExpansion extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   String title;
   
-  final List<String> persons =
+   List<String> persons =
   [ "Swaraaj Bhattacharya", "Neha Rode", "Olimjon Nematov", "Trevor Tomer" ];
 
   @override
@@ -29,7 +31,7 @@ class BillsExpansion extends StatelessWidget {
       child: Container( color: Color.fromARGB(255, 251, 244, 245),
       child: Column(
         children: <Widget>[
-          Container(height: 0.04 * screenSize.size.height, color: Color.fromARGB(255, 251, 244, 245),),
+          Container(height: 0.04 * screenSize.size.height, color: Color.fromARGB(255, 251, 244, 245)),
           Container(
             height: 0.85 * screenSize.size.height,
             width: 0.95 * screenSize.size.width,
@@ -351,14 +353,20 @@ class BillsExpansion extends StatelessWidget {
                 color: Color.fromARGB(230, 174, 181, 255)
               ),
               borderRadius: BorderRadius.all(
-                Radius.circular(14.0)
+                Radius.circular(5.0)
                 )
               ),
           ),
 
+          // Container(
+          //   height: 0.11 * screenSize.size.height,
+            
+          // ),
+
           Container(height: 0.035 * screenSize.size.height, color: Color.fromARGB(255, 251, 244, 245),),
           Container(height: 0.075 * screenSize.size.height, color: Color.fromARGB(255, 27, 64, 121),),
         ],
+        
       )
       )
     );

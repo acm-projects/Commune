@@ -8,6 +8,8 @@ import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
 import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/chore_expansion.dart';
+import 'package:commune_spring_2020/Pages/householdprofile.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
@@ -52,7 +54,8 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
 
     if (user == null){
-      return LoginPage();
+      //return Authenticate();
+       return ChoreExpansion();
     } else {
       return UserProfile(uid:user.uid);
       // return Home(uid:user.uid);
