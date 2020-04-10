@@ -1,4 +1,6 @@
 import 'package:commune_spring_2020/Pages/homescreen.dart';
+import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/Pages/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
@@ -14,11 +16,11 @@ class Home extends StatefulWidget{
 class _HomeState extends State<Home>{
   int _currentIndex = 2;
   final List<Widget> _children = [
-    PlaceholderWidget(Colors.white),
+    UserProfile(),
     PlaceholderWidget(Colors.blue),
     Homescreen(),
     PlaceholderWidget(Colors.yellow),
-    PlaceholderWidget(Colors.red)
+    HouseholdProfile()
   ];
 
   @override
@@ -26,6 +28,7 @@ class _HomeState extends State<Home>{
     return Scaffold(
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         backgroundColor: Color( 0xFFFBF4F5 ),

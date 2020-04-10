@@ -1,6 +1,10 @@
 import 'package:commune_spring_2020/services/budgetServices.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/homescreen.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
+import 'package:intl/intl.dart';
+
 // im not sure how to read in the people organically and process that
 // in addition right now the page only supports up to four people
 
@@ -18,10 +22,16 @@ class _BillsExpansionState extends State<BillsExpansion> {
   String title;
   List<String> persons = ["olimjon", "olimjon", "olimjon", "olimjon"];
 
-  String desc;
-  double budgetChange, original;
+  String desc=" ";
+  double budgetChange=0, original;
   bool add;
+  String date=(new DateFormat('MMMM').format(DateTime.now())) +
+        " " +
+        (new DateFormat('d').format(DateTime.now())) +
+        ", " +
+        (new DateFormat('y').format(DateTime.now()));
   Color buttonColor = Color.fromARGB(255, 27, 64, 121);
+  String budgetProfile;
   @override
   bool checkBoxValue = false;
   int counter = 0;
@@ -72,9 +82,12 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                               return StreamBuilder(
                                                 stream: Firestore.instance.collection("HouseHoldGroups").document(widget.hhname).snapshots(),
                                                 builder: (context, snap) {
-                                                  original=snap.data["Budget"];
+                                                  if(!snap.hasData){
+                                                    return Text("Loading...");
+                                                  }
+                                                  original=double.parse(snap.data["Budget"].toString());
                                                   return Text(
-                                                    "Current Budget =\$ "+snap.data["Budget"].toString(),
+                                                    "Current Budget =\$ "+snap.data["Budget"].toStringAsFixed(2),
                                                     style: TextStyle(
                                                         color: Color.fromARGB(
                                                             255, 245, 229, 252),
@@ -172,7 +185,9 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                   children: <Widget>[
                                     FlatButton(
                                       onPressed: () {
-                                        add = true;
+                                        budgetProfile=createDescription(desc,budgetChange, date);
+                                        addBudgetChangeDescription(budgetProfile);
+                                        changeBudget(original, budgetChange);
                                       },
                                       child: FittedBox(
                                         child: Text(
@@ -180,7 +195,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontFamily: 'Raleway',
-                                            //fontSize: 17.0,
+                                            fontSize: 17.0,
                                           ),
                                         ),
                                       ),
@@ -193,7 +208,10 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                     ),
                                     FlatButton(
                                       onPressed: () {
-                                        add = false;
+                                        budgetChange=budgetChange*(-1);
+                                        budgetProfile=createDescription(desc,budgetChange, date);
+                                        addBudgetChangeDescription(budgetProfile);
+                                        changeBudget(original, budgetChange);
                                       },
                                       child: FittedBox(
                                         child: Text(
@@ -214,182 +232,9 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                     )
                                   ]),
                             ),
-
-                            //Padding(padding: EdgeInsets.fromLTRB(0, 0, 0, 0.01 * screenSize.size.height)),
-
-                            // Container(
-                            //     height: 0.05 * screenSize.size.height,
-                            //     width: 0.95 * screenSize.size.width,
-                            //     child: Align(
-                            //       alignment: Alignment.centerLeft,
-                            //       child: FittedBox(
-                            //         child: Text(
-                            //           "Assign Bill to:",
-                            //           style: TextStyle(
-                            //               color: Colors.white,
-                            //               fontSize: 20.0,
-                            //               fontWeight: FontWeight.w100,
-                            //               fontFamily: 'Raleway'),
-                            //         ),
-                            //       ),
-                            //     )),
-/*
-                      //       Container(
-                      //         height: 0.28 * screenSize.size.height,
-                      //         width: 1 * screenSize.size.width,
-                      //         color: Color.fromARGB(255, 159, 166, 248),
-                      //         child: Column(
-                      //           children: <Widget>[
-                      //             Container(
-                      //               height: 0.07 * screenSize.size.height,
-                      //               width: (0.95) * screenSize.size.width,
-                      //               child: Align(
-                      //                 alignment: Alignment.centerLeft,
-                      //                 child: FittedBox(
-                      //                   child: Row(
-                      //                     children: <Widget>[
-                      //                       Checkbox(
-                      //                         value: checkBoxValue,
-                      //                         onChanged: (bool value) {
-                      //                           setState(() {
-                      //                             checkBoxValue = value;
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                       FittedBox(
-                      //                         child: Text(
-                      //                           persons[0],
-                      //                           style: TextStyle(
-                      //                               //color: Colors.white,
-                      //                               //fontSize: 18.0
-                      //                               ),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //             Container(
-                      //               height: 0.07 * screenSize.size.height,
-                      //               width: (0.95) * screenSize.size.width,
-                      //               child: Align(
-                      //                 alignment: Alignment.centerLeft,
-                      //                 child: FittedBox(
-                      //                   child: Row(
-                      //                     children: <Widget>[
-                      //                       Checkbox(
-                      //                         value: checkBoxValue,
-                      //                         onChanged: (bool value) {
-                      //                           setState(() {
-                      //                             checkBoxValue = value;
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                       FittedBox(
-                      //                         child: Text(
-                      //                           persons[1],
-                      //                           style: TextStyle(
-                      //                               //color: Colors.white,
-                      //                               //fontSize: 18.0
-                      //                               ),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //             Container(
-                      //               height: 0.07 * screenSize.size.height,
-                      //               width: (0.95) * screenSize.size.width,
-                      //               child: Align(
-                      //                 alignment: Alignment.centerLeft,
-                      //                 child: FittedBox(
-                      //                   child: Row(
-                      //                     children: <Widget>[
-                      //                       Checkbox(
-                      //                         value: checkBoxValue,
-                      //                         onChanged: (bool value) {
-                      //                           setState(() {
-                      //                             checkBoxValue = value;
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                       FittedBox(
-                      //                         child: Text(
-                      //                           persons[2],
-                      //                           style: TextStyle(
-                      //                               //color: Colors.white,
-                      //                               //fontSize: 18.0
-                      //                               ),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //             Container(
-                      //               height: 0.07 * screenSize.size.height,
-                      //               width: (0.95) * screenSize.size.width,
-                      //               child: Align(
-                      //                 alignment: Alignment.centerLeft,
-                      //                 child: FittedBox(
-                      //                   child: Row(
-                      //                     children: <Widget>[
-                      //                       Checkbox(
-                      //                         value: checkBoxValue,
-                      //                         onChanged: (bool value) {
-                      //                           setState(() {
-                      //                             checkBoxValue = value;
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                       FittedBox(
-                      //                         child: Text(
-                      //                           persons[3],
-                      //                           style: TextStyle(
-                      //                               //color: Colors.white,
-                      //                               //fontSize: 18.0
-                      //                               ),
-                      //                         ),
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //       ),
-                      */
                           ])),
                         ),
                       ),
-                      //       Container(
-                      //           height: 0.0465 * screenSize.size.height,
-                      //           width: 1 * screenSize.size.width,
-                      //           color: Colors.blue,
-                      //           child: Container(
-                      //             height: 0.0465 * screenSize.size.height,
-                      //             width: 0.35 * screenSize.size.width,
-                      //             child: FlatButton(
-                      //               onPressed: () {},
-                      //               child: FittedBox(
-                      //                 child: Text(
-                      //                   "Assign",
-                      //                   style: TextStyle(
-                      //                     color: Color.fromARGB(255, 27, 64, 121),
-                      //                     fontFamily: 'Raleway',
-                      //                     fontWeight: FontWeight.bold,
-                      //                     fontSize: 24.0,
-                      //                   ),
-                      //                 ),
-                      //               ),
-                      //               color: Colors.white,
-                      //             ),
-                      //           ))
                     ],
                   ),
                   decoration: BoxDecoration(
@@ -409,7 +254,11 @@ class _BillsExpansionState extends State<BillsExpansion> {
               ],
             )));
   }
-
+  String createDescription(String memo, double change,String date){
+    //example: amt&#description&#date
+    String desc=change.toString()+"&#"+memo+"&#"+date;
+    return desc;
+  }
   void addBudgetChangeDescription(String budgetDesctiption) {
     var budgetDiscArray = Firestore.instance
         .collection("HouseHoldGroups")
@@ -419,11 +268,11 @@ class _BillsExpansionState extends State<BillsExpansion> {
     });
   }
 
-  void changeBudget(bool add, int original, int change) {
+  void changeBudget(double original, double change) {
     Firestore.instance
         .collection('HouseHoldGroups')
         .document(widget.hhname)
-        .updateData({'Budget': add ? original + change : original - change});
+        .updateData({'Budget': original + change});
   }
 }
 

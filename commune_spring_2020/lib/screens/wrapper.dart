@@ -8,12 +8,15 @@ import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
 import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/chore_expansion.dart';
+import 'package:commune_spring_2020/Pages/householdprofile.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
 // import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 
@@ -49,18 +52,22 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<User>(context);
-    
+
     if (user == null){
-      return LoginPage();
+      //return Authenticate();
+       return ChoreExpansion();
     } else {
       print(user.uid+"****************88");
       // return ChoresPage(uid:user.uid, householdName: "bruh",);
+      // return UserProfile(uid:user.uid);
       // return Home(uid:user.uid);
       // return HouseholdProfile(uid: user.uid,);
       return BillsExpansion(uid: user.uid);
       // return Budget(uid: user.uid);
     }
+    
     //retrun the proper widget
+    //DO NOT DELETE
   //   if(user==null){
   //     return Authenticate();
   //   }else{
@@ -95,4 +102,5 @@ class Wrapper extends StatelessWidget {
       currentHouseholdName=houseName;
       return houseName;
    }
+
 } 
