@@ -55,11 +55,15 @@ class Wrapper extends StatelessWidget {
 
     if (user == null){
       //return Authenticate();
-       return ChoreExpansion();
+      return Home();
     } else {
-      
-      return ChoreExpansion(uid:user.uid);
-      
+      print(user.uid+"****************88");
+      // return ChoresPage(uid:user.uid, householdName: "bruh",);
+     // return UserProfile(uid:user.uid);
+       return Home(uid:user.uid);
+      // return HouseholdProfile(uid: user.uid,);
+      //return BillsExpansion(uid: user.uid);
+      // return Budget(uid: user.uid);
     }
 
     //retrun the proper widget

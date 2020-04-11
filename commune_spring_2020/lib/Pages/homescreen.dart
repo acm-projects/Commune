@@ -1,34 +1,54 @@
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 
-class Homescreen extends StatelessWidget{
-  final List<String> entries = <String>['A', 'B', 'C'];
-  
+import 'chore_expansion.dart';
+
+class Homescreen extends StatefulWidget{
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Color(0xFFFFFFFF), Color(0xFFFBF4F5)]
-        )
-      ),
-      child: Scaffold(
-        body: Stack(
+  _HomescreenState createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen>{
+  final List<String> items = List<String>.generate(100, (i) => "Item $i");
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Color(0xFFFFFFFF), Color(0xFFFBF4F5)]
+          )
+        ),
+        child: Column(
           children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Align(
-                    alignment: Alignment.topCenter,
+            //to do container
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.fromLTRB(15, 15, 0, 30),
+              margin: EdgeInsets.fromLTRB(25, 40, 30, 10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
                 ),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: Text('To-Do',
+                shape: BoxShape.rectangle,
+                borderRadius: new BorderRadius.circular(25)
+              ),
+              child: Column(
+                children: <Widget>[
+                  //To Do title
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: Row(
+                      children: <Widget>[
+                        Text('To-Do',
                           style: TextStyle(
                             color: Color(0xFFF2F2F2),
                             fontSize: 40,
@@ -36,66 +56,238 @@ class Homescreen extends StatelessWidget{
                             fontWeight: FontWeight.bold
                           )
                         ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
+                        Spacer(),
+                        FlatButton(
+                          onPressed: (){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  content: ChoreExpansion(),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(25.0)
+                                  ),
+                                );
+                              }
+                            );
+                          },
+                          child: Icon(
+                            Icons.add,
+                            size: 30,
+                            color: Color(0xFF7E86DF)
                           ),
-                          shape: BoxShape.rectangle,
-                          borderRadius: new BorderRadius.circular(25)
-                        ),
-                        padding: EdgeInsets.fromLTRB(15, 15, 0, 380),
-                        margin: EdgeInsets.fromLTRB(25, 0, 25, 0),
-                      )
-                      // Container(
-                      //   child: ListView.builder(
-                      //     padding: const EdgeInsets.all(8),
-                      //     itemCount: entries.length,
-                      //     itemBuilder: (BuildContext context, int index) {
-                      //       return Container(
-                      //         height: 50,
-                      //         color: Colors.amber,
-                      //         child: Center(child: Text('Entry ${entries[index]}')),
-                      //       );
-                      //     }
-                      //   )
-                      // )
-                    ],
-                  )
-                ),
-                Container(
-                  child: Column(
-                    children: <Widget>[
-                      Container(
-                        alignment: Alignment.topLeft,
-                        child: Text('Bills',
-                          style: TextStyle(
-                            color: Color(0xFFF2F2F2),
-                            fontSize: 40,
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.bold
-                          )
-                        ),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              color: Color(0xB3FFFFFF),
+                              width: 2.0,
+                            )
                           ),
-                          shape: BoxShape.rectangle,
-                          borderRadius: new BorderRadius.circular(25)
-                        ),
-                        padding: EdgeInsets.fromLTRB(15, 15, 0, 150),
-                        margin: EdgeInsets.fromLTRB(25, 20, 25, 0),
-                      )
-                    ],
+                          color: Color(0xB3FFFFFF),
+                        )
+                      ],
+                    )
+                  ),
+                  //actual list
+                  Container(
+                    height: 380.0,
+                    padding: EdgeInsets.fromLTRB(0, 5.0, 0, 2.0),
+                    child: new ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: items.length,
+                      itemBuilder: (context, index){
+                        return ListTile(
+                          title: Text(
+                            '${items[index]}',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto',
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600
+                            )
+                          ),
+                          trailing: Text(
+                            '30 pts',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Roboto',
+                              fontSize: 20
+                            )
+                          ),
+                        );
+                      }
+                    )
                   )
+                ],
+              )
+            ),
+            //bills container
+            Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.fromLTRB(15, 15, 0, 60),
+              margin: EdgeInsets.fromLTRB(25, 10, 30, 0),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
                 ),
-              ],
+                shape: BoxShape.rectangle,
+                borderRadius: new BorderRadius.circular(25)
+              ),
+              child: Column(
+                children: <Widget>[
+                  //bills title
+                  Container(
+                    alignment: Alignment.topLeft,
+                    child: Text('Bills',
+                      style: TextStyle(
+                        color: Color(0xFFF2F2F2),
+                        fontSize: 35,
+                        fontFamily: 'Raleway',
+                        fontWeight: FontWeight.bold
+                      )
+                    )
+                  ),
+                  //values
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(top: 15.0),
+                    child: Row(
+                      children: <Widget>[
+                        Column(
+                          children: <Widget>[
+                            FlatButton(
+                              onPressed:(){
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context){
+                                    return AlertDialog(
+                                      //the BillList class is defined at the bottom of this doc
+                                      content: BillList(),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.circular(25.0)
+                                      ),
+                                    );
+                                  }
+                                );
+                              },
+                              child: Text('\$450',
+                                style: TextStyle(
+                                  fontSize: 45,
+                                  color: Color(0xFFF2F2F2),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w600
+                                )
+                              ),
+                            ),
+                            Text('due by April 12',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xFFF2F2F2),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w300
+                                )
+                            )
+                          ],
+                        ),
+                        Spacer(),
+                        FlatButton(
+                          onPressed: (){
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context){
+                                return AlertDialog(
+                                  content: BillsExpansion(),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(25.0)
+                                  ),
+                                );
+                              }
+                            );
+                          },
+                          child: Icon(
+                            Icons.add,
+                            size: 50,
+                            color: Color(0xFF7E86DF)
+                          ),
+                          shape: CircleBorder(
+                            side: BorderSide(
+                              color: Color(0xB3FFFFFF),
+                              width: 2.0,
+                            )
+                          ),
+                          color: Color(0xB3FFFFFF),
+                        )
+                      ],
+                    )
+                  )
+                ],
+              )
             )
           ],
-        ),
+        )
+      )
+    );
+  }  
+}
+
+class BillList extends StatefulWidget{
+  @override
+  _BillListState createState() => _BillListState();
+}
+
+
+class _BillListState extends State<BillList>{
+  final List<String> items = List<String>.generate(100, (i) => "Item $i");
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      body: Column(
+        children: <Widget>[
+          //To Do title
+          Container(
+            alignment: Alignment.centerLeft,
+            child: Text('Bills',
+              style: TextStyle(
+                color: Color(0xFF6D77E0),
+                fontSize: 40,
+                fontFamily: 'Raleway',
+                fontWeight: FontWeight.bold
+              )
+            )
+          ),
+          //actual list
+          Container(
+            height: 600.0,
+            padding: EdgeInsets.only(top: 2.0),
+            child: new ListView.builder(
+              scrollDirection: Axis.vertical,
+              itemCount: items.length,
+              itemBuilder: (context, index){
+                return ListTile(
+                  title: Text(
+                    //this should be the bill amount
+                    '${items[index]}',
+                    style: TextStyle(
+                      color: Color(0xFF6D77E0),
+                      fontFamily: 'Roboto',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600
+                    )
+                  ),
+                  trailing: Text(
+                    '04/20/20',
+                    style: TextStyle(
+                      color: Color(0xFF6D77E0),
+                      fontFamily: 'Roboto',
+                      fontSize: 20
+                    )
+                  ),
+                );
+              }
+            )
+          )
+        ],
       )
     );
   }
