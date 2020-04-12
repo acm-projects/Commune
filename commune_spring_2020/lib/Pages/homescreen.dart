@@ -15,6 +15,7 @@ class _HomescreenState extends State<Homescreen>{
   final List<String> items = List<String>.generate(100, (i) => "Item $i");
   @override
   Widget build(BuildContext context){
+    final screenSize = MediaQuery.of(context);
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -64,9 +65,9 @@ class _HomescreenState extends State<Homescreen>{
                               builder: (BuildContext context){
                                 return AlertDialog(
                                   content: ChoreExpansion(),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(25.0)
-                                  ),
+                                  // shape: RoundedRectangleBorder(
+                                  //   borderRadius: new BorderRadius.circular(25.0)
+                                  // ),
                                 );
                               }
                             );
@@ -197,10 +198,12 @@ class _HomescreenState extends State<Homescreen>{
                               context: context,
                               builder: (BuildContext context){
                                 return AlertDialog(
-                                  content: BillsExpansion(),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(25.0)
-                                  ),
+                                    
+                                    content: BillsExpansion(),
+                                  
+                                  // shape: RoundedRectangleBorder(
+                                  //   borderRadius: new BorderRadius.circular(25.0)
+                                  // ),
                                 );
                               }
                             );
