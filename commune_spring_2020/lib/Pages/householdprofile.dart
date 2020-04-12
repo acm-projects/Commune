@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/chore_expansion.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/material.dart';
 
 class HouseholdProfile extends StatefulWidget {
   final String uid;
   // const HouseholdProfile({Key key, this.uid}) : super(key: key);
-const HouseholdProfile({this.uid});
+  const HouseholdProfile({this.uid});
 
   @override
   _HouseholdProfileState createState() => _HouseholdProfileState();
@@ -14,18 +15,8 @@ const HouseholdProfile({this.uid});
 class _HouseholdProfileState extends State<HouseholdProfile> {
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp(home: Foundation(uid: widget.uid));
-//   }
-// }
-
-// class Foundation extends StatelessWidget {
-  // final String uid;
-  // const Foundation({Key key, this.uid}) : super(key: key);
-
-  // @override
-  // Widget build(BuildContext context) {
-    String householdName,admin;
-    choresServices cs= new choresServices();
+    String householdName, admin;
+    choresServices cs = new choresServices();
     // print(uid+"8888888888888888888888888888888888888888");
     final screenSize = MediaQuery.of(context);
     return Scaffold(
@@ -58,7 +49,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                         .document(widget.uid)
                         .snapshots(),
                     builder: (context, snapshot) {
-                      if(!snapshot.hasData){
+                      if (!snapshot.hasData) {
                         return Text('loading');
                       }
                       householdName = snapshot.data['HouseHoldName'].toString();
@@ -114,41 +105,47 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                       ),
                     ),
                   ),
-                  
+
                   new StreamBuilder(
-                    stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
-                    builder: (context, snapshots) {
-                      if(!snapshots.hasData){
-                        return Text("loading...");
-                      }
-                      // print(snapshots.data["Admin"].toString());
-                      return Container(
-                        color: Color.fromARGB(255, 159, 166, 248),
-                        height: 0.1 * screenSize.size.height,
-                        width: 0.30 * screenSize.size.width,
-                        child: FittedBox(
-                          alignment: Alignment.centerLeft,
-                          child: StreamBuilder(
-                            stream: Firestore.instance.collection("HouseHoldGroups").document(householdName).snapshots(),
-                            builder: (context, snapshot) {
-                              if(!snapshot.hasData){
-                                return Text("Loading...");
-                              }
-                              admin=snapshot.data["Admin"];
-                              List chores= snapshot.data["Chores"];
-                              return Text(
-                                cs.getDateFromDescription(chores[0]),
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    //fontSize: 24.0,
-                                    fontWeight: FontWeight.w100,
-                                    fontFamily: 'Raleway'),
-                              );
-                            }
+                      stream: Firestore.instance
+                          .collection('HouseHoldGroups')
+                          .document(householdName)
+                          .snapshots(),
+                      builder: (context, snapshots) {
+                        if (!snapshots.hasData) {
+                          return Text("loading...");
+                        }
+                        // print(snapshots.data["Admin"].toString());
+                        return Container(
+                          color: Color.fromARGB(255, 159, 166, 248),
+                          height: 0.1 * screenSize.size.height,
+                          width: 0.30 * screenSize.size.width,
+                          child: FittedBox(
+                            alignment: Alignment.centerLeft,
+                            child: StreamBuilder(
+                                stream: Firestore.instance
+                                    .collection("HouseHoldGroups")
+                                    .document(householdName)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Text("Loading...");
+                                  }
+                                  admin = snapshot.data["Admin"];
+
+                                  List chores = snapshot.data["Chores"];
+                                  return Text(
+                                    cs.getDateFromDescription(chores[0]),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        //fontSize: 24.0,
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Raleway'),
+                                  );
+                                }),
                           ),
-                        ),
-                      );
-                    })
+                        );
+                      })
                 ],
               ),
               decoration: BoxDecoration(
@@ -200,39 +197,56 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                     ),
                   ),
                   StreamBuilder(
-                    stream: Firestore.instance.collection("users").document(admin).snapshots(),
-                    builder: (context, snapshot) {
-                      if(!snapshot.hasData){
-                        return Text("loading...");
-                      }
-                      print(admin);
-                      return Container(
-                        color: Color.fromARGB(255, 159, 166, 248),
-                        height: 0.1 * screenSize.size.height,
-                        width: 0.30 * screenSize.size.width,
-                        child: FittedBox(
-                          alignment: Alignment.centerLeft,
-                          child: StreamBuilder(
-                            stream: Firestore.instance.collection("users").document(admin).snapshots(),
+                      stream: Firestore.instance
+                          .collection("HouseHoldGroups")
+                          .document(householdName)
+                          .snapshots(),
+                      builder: (context, snap) {
+                        if (!snap.hasData) {
+                          return Text("loading...");
+                        }
+                        return StreamBuilder(
+                            stream: Firestore.instance
+                                .collection("users")
+                                .document(admin)
+                                .snapshots(),
                             builder: (context, snapshot) {
-                              if(!snapshot.hasData){
+                              if (!snapshot.hasData) {
                                 return Text("loading...");
                               }
-                              String name=snapshot.data["First Name"]+" "+snapshot.data["Last Name"];
-                              return Text(
-                                name,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    //fontSize: 24.0,
-                                    fontWeight: FontWeight.w100,
-                                    fontFamily: 'Raleway'),
+                              print(admin + " @streamBUilder");
+                              return Container(
+                                color: Color.fromARGB(255, 159, 166, 248),
+                                height: 0.1 * screenSize.size.height,
+                                width: 0.30 * screenSize.size.width,
+                                child: FittedBox(
+                                  alignment: Alignment.centerLeft,
+                                  child: StreamBuilder(
+                                      stream: Firestore.instance
+                                          .collection("users")
+                                          .document(admin)
+                                          .snapshots(),
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return Text("loading...");
+                                        }
+                                        String name =
+                                            snapshot.data["First Name"] +
+                                                " " +
+                                                snapshot.data["Last Name"];
+                                        return Text(
+                                          name,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              //fontSize: 24.0,
+                                              fontWeight: FontWeight.w100,
+                                              fontFamily: 'Raleway'),
+                                        );
+                                      }),
+                                ),
                               );
-                            }
-                          ),
-                        ),
-                      );
-                    }
-                  )
+                            });
+                      })
                 ],
               ),
               decoration: BoxDecoration(
@@ -295,26 +309,30 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               .collection('HouseHoldGroups')
                               .document(householdName)
                               .snapshots(),
-                          builder: (context, snapshot){                        
-                            if(snapshot.hasData==null){
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData == null) {
                               return Text('loading');
                             }
                             return StreamBuilder(
-                              stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
-                              builder: (context, snapshot) {
-                                if(!snapshot.hasData){
-                                  return Text("loading...");
-                                }
-                                return Text(
-                                  "\$"+snapshot.data["Budget"].toStringAsFixed(2),
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      //fontSize: 24.0,
-                                      fontWeight: FontWeight.w100,
-                                      fontFamily: 'Raleway'),
-                                );
-                              }
-                            );
+                                stream: Firestore.instance
+                                    .collection('HouseHoldGroups')
+                                    .document(householdName)
+                                    .snapshots(),
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData) {
+                                    return Text("loading...");
+                                  }
+                                  return Text(
+                                    "\$" +
+                                        snapshot.data["Budget"]
+                                            .toStringAsFixed(2),
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        //fontSize: 24.0,
+                                        fontWeight: FontWeight.w100,
+                                        fontFamily: 'Raleway'),
+                                  );
+                                });
                           }),
                     ),
                   )
@@ -384,7 +402,6 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
         color: Colors.blueGrey,
       ),
     ]));
-  // }
-
-}
+    // }
+  }
 }
