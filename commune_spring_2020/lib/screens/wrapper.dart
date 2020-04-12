@@ -4,6 +4,8 @@ import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/Pages/listofbills.dart';
+import 'package:commune_spring_2020/Pages/listofchores.dart';
 import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
 import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
@@ -55,7 +57,7 @@ class Wrapper extends StatelessWidget {
 
     if (user == null){
       //return Authenticate();
-      return Home();
+      return BillsList();
     } else {
       // return ChoresPage(uid:user.uid, householdName: "bruh",);
      // return UserProfile(uid:user.uid);

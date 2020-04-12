@@ -44,21 +44,22 @@ class _BillsExpansionState extends State<BillsExpansion> {
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
     return Material(
+      child: Center(
         child: Container(
             color: Color.fromARGB(255, 251, 244, 245),
             child: Column(
               children: <Widget>[
-                Container(
-                  height: 0.14 * screenSize.size.height,
-                  color: Color.fromARGB(255, 251, 244, 245),
-                ),
+                // Container(
+                //   height: 0.15 * screenSize.size.height,
+                //   color: Color.fromARGB(255, 251, 244, 245),
+                // ),
                 Container(
                   height: 0.55 * screenSize.size.height,
                   width: 0.95 * screenSize.size.width,
                   child: Column(
                     children: <Widget>[
                       Container(
-                          height: 0.05 * screenSize.size.height,
+                          height: 0.00 * screenSize.size.height,
                           width: 0.95 * screenSize.size.width,
                           color: Color.fromARGB(230, 174, 181, 255),
                           child: Row(
@@ -104,7 +105,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                 ),
                               ])),
                       Container(
-                        height: 0.439 * screenSize.size.height,
+                        height: 0.49 * screenSize.size.height,
                         width: 0.95 * screenSize.size.width,
                         color: Color.fromARGB(230, 174, 181, 255),
                         child: Card(
@@ -116,6 +117,27 @@ class _BillsExpansionState extends State<BillsExpansion> {
                           margin: EdgeInsets.all(0.0),
                           child: Form(
                               child: Column(children: <Widget>[
+
+                            Container(height: 0.02* screenSize.size.height, color: Color.fromARGB(230, 174, 181, 255) ),
+
+                            Container(
+                              height: 0.05 * screenSize.size.height,
+                              width: 1.0 * screenSize.size.width,
+                              color: Color.fromARGB(230, 174, 181, 255),
+                              child: FittedBox(
+                                child: Text(
+                                  "Add a Bill",
+                                  style: TextStyle(
+                                      color: Color.fromARGB(255, 245, 229, 252),
+                                      //fontSize: 24.0,
+                                      fontWeight: FontWeight.w400,
+                                      fontFamily: 'Raleway'),
+                                ),
+                              ),
+                            ),
+
+                            Container(height: 0.02* screenSize.size.height, color: Color.fromARGB(230, 174, 181, 255) ),
+
                             Container(
                               height: 0.1 * screenSize.size.height,
                               width: 0.8 * screenSize.size.width,
@@ -229,30 +251,31 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                             new BorderRadius.circular(12.0),
                                         side: BorderSide(color: Colors.white),
                                       ),
-                                    )
+                                    ),
                                   ]),
                             ),
                           ])),
                         ),
                       ),
+                      Expanded(child: Container(color: Color.fromARGB(230, 174, 181, 255),))
                     ],
                   ),
                   decoration: BoxDecoration(
                       border: Border.all(
-                          width: 0.05 * screenSize.size.width,
-                          color: Color.fromARGB(230, 174, 181, 255)),
+                          width: 0.02 * screenSize.size.width,
+                          color: Colors.black),
                       borderRadius: BorderRadius.all(Radius.circular(14.0))),
                 ),
-                Container(
-                  height: 0.235 * screenSize.size.height,
-                  color: Color.fromARGB(255, 251, 244, 245),
-                ),
-                Container(
-                  height: 0.075 * screenSize.size.height,
-                  color: Color.fromARGB(255, 27, 64, 121),
-                ),
+                // Container(
+                //   height: 0.215 * screenSize.size.height,
+                //   color: Color.fromARGB(255, 251, 244, 245),
+                // ),
+                // Container(
+                //   height: 0.075 * screenSize.size.height,
+                //   color: Color.fromARGB(255, 27, 64, 121),
+                // ),
               ],
-            )));
+            ))));
   }
   String createDescription(String memo, double change,String date){
     //example: amt&#description&#date
