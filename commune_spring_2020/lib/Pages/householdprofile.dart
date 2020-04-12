@@ -118,6 +118,9 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                   new StreamBuilder(
                     stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
                     builder: (context, snapshots) {
+                      if(!snapshots.hasData){
+                        return Text("loading...");
+                      }
                       // print(snapshots.data["Admin"].toString());
                       return Container(
                         color: Color.fromARGB(255, 159, 166, 248),
@@ -128,11 +131,11 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                           child: StreamBuilder(
                             stream: Firestore.instance.collection("HouseHoldGroups").document(householdName).snapshots(),
                             builder: (context, snapshot) {
-                              admin=snapshot.data["Admin"];
-                              List chores= snapshot.data["Chores"];
                               if(!snapshot.hasData){
                                 return Text("Loading...");
                               }
+                              admin=snapshot.data["Admin"];
+                              List chores= snapshot.data["Chores"];
                               return Text(
                                 cs.getDateFromDescription(chores[0]),
                                 style: TextStyle(
@@ -199,6 +202,10 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                   StreamBuilder(
                     stream: Firestore.instance.collection("users").document(admin).snapshots(),
                     builder: (context, snapshot) {
+                      if(!snapshot.hasData){
+                        return Text("loading...");
+                      }
+                      print(admin);
                       return Container(
                         color: Color.fromARGB(255, 159, 166, 248),
                         height: 0.1 * screenSize.size.height,
@@ -208,8 +215,12 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                           child: StreamBuilder(
                             stream: Firestore.instance.collection("users").document(admin).snapshots(),
                             builder: (context, snapshot) {
+                              if(!snapshot.hasData){
+                                return Text("loading...");
+                              }
+                              String name=snapshot.data["First Name"]+" "+snapshot.data["Last Name"];
                               return Text(
-                                snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                name,
                                 style: TextStyle(
                                     color: Colors.white,
                                     //fontSize: 24.0,
@@ -291,8 +302,11 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                             return StreamBuilder(
                               stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
                               builder: (context, snapshot) {
+                                if(!snapshot.hasData){
+                                  return Text("loading...");
+                                }
                                 return Text(
-                                  "\$"+snapshot.data["Budget"].toString(),
+                                  "\$"+snapshot.data["Budget"].toStringAsFixed(2),
                                   style: TextStyle(
                                       color: Colors.white,
                                       //fontSize: 24.0,

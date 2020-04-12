@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/Pages/user_profile.dart';
+import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
@@ -7,14 +9,21 @@ import 'package:flutter/foundation.dart';
 import 'chore_expansion.dart';
 
 class Homescreen extends StatefulWidget{
+
+  final String uid;
+  String hhname;
+  Homescreen({this.uid});
   @override
   _HomescreenState createState() => _HomescreenState();
 }
 
 class _HomescreenState extends State<Homescreen>{
   final List<String> items = List<String>.generate(100, (i) => "Item $i");
+  
   @override
   Widget build(BuildContext context){
+    choresServices cv=new choresServices();
+
     return Scaffold(
       body: Container(
         alignment: Alignment.center,
@@ -27,6 +36,26 @@ class _HomescreenState extends State<Homescreen>{
         ),
         child: Column(
           children: <Widget>[
+            //set up hhname
+            StreamBuilder(
+              stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+              builder:(context, snap){
+                if(!snap.hasData){
+                  return Text("loading....");
+                }
+                widget.hhname=snap.data["HouseHoldName"];
+                return Text("null");
+              }
+            ),
+            StreamBuilder(
+              stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+              builder: (context, snap){
+                if(!snap.hasData){
+                  return Text("loading...");
+                }
+                  return Text("");
+              }
+            ),
             //to do container
             Container(
               alignment: Alignment.center,
@@ -89,30 +118,43 @@ class _HomescreenState extends State<Homescreen>{
                   ),
                   //actual list
                   Container(
-                    height: 380.0,
+                    height: 180.0,
                     padding: EdgeInsets.fromLTRB(0, 5.0, 0, 2.0),
-                    child: new ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: items.length,
-                      itemBuilder: (context, index){
-                        return ListTile(
-                          title: Text(
-                            '${items[index]}',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Roboto',
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600
-                            )
-                          ),
-                          trailing: Text(
-                            '30 pts',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Roboto',
-                              fontSize: 20
-                            )
-                          ),
+                    child: StreamBuilder(
+                      stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+                      builder: (context, snapshot) {
+                        if(!snapshot.hasData){
+                          return Text("loading...");
+                        }
+                        List chores=snapshot.data["Chores"];
+                        return new ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          itemCount: chores.length,
+                          itemBuilder: (context, index){
+                            String desc=cv.getJobFromDescription(chores[index]);
+                            String date=cv.getDateFromDescription(chores[index]);
+                            int points=cv.getPointFromDescription(chores[index]);
+
+                            return ListTile(
+                              title: Text(
+                                desc,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
+                                )
+                              ),
+                              trailing: Text(
+                                date,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20
+                                )
+                              ),
+                            );
+                          }
                         );
                       }
                     )
@@ -171,23 +213,24 @@ class _HomescreenState extends State<Homescreen>{
                                   }
                                 );
                               },
-                              child: Text('\$450',
-                                style: TextStyle(
-                                  fontSize: 45,
-                                  color: Color(0xFFF2F2F2),
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w600
-                                )
+                              child: StreamBuilder(
+                                stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+                                builder: (context, snapshot) {
+                                  if(!snapshot.hasData){
+                                      return Text("Loading...");
+                                  }
+                                  return Text(
+                                    '\$'+snapshot.data['Budget'].toStringAsFixed(2),
+                                    style: TextStyle(
+                                      fontSize: 45,
+                                      color: Color(0xFFF2F2F2),
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w600
+                                    )
+                                  );
+                                }
                               ),
                             ),
-                            Text('due by April 12',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  color: Color(0xFFF2F2F2),
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w300
-                                )
-                            )
                           ],
                         ),
                         Spacer(),
