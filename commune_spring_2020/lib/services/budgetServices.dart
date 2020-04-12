@@ -2,7 +2,7 @@ class budgetServices{
   String hhname,uid;
 
   //get amount per change
-  int getAmountFromDescription(String desc) {
+  double getAmountFromDescription(String desc) {
     String stringAmt = '';
     for (int i = 0; i < desc.length - 1; i++) {
       if ((desc[i] == '&') && (desc[i + 1] == '#')) {
@@ -10,7 +10,7 @@ class budgetServices{
         break;
       }
     }
-    return int.parse(stringAmt);
+    return double.parse(stringAmt);
   }
 
   //get date added

@@ -19,9 +19,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
-// import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
-
+import 'package:commune_spring_2020/Pages/listofbills.dart';
 
 class Wrapper extends StatelessWidget {
   String currentHouseholdName;
@@ -57,7 +56,7 @@ class Wrapper extends StatelessWidget {
 
     if (user == null){
       //return Authenticate();
-      return BillsList();
+      return LoginPage();
     } else {
       // return ChoresPage(uid:user.uid, householdName: "bruh",);
      // return UserProfile(uid:user.uid);

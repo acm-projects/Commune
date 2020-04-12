@@ -4,7 +4,7 @@ import 'package:commune_spring_2020/Pages/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
-
+import 'package:commune_spring_2020/Pages/listofbills.dart';
 class Home extends StatefulWidget {
   final String uid;
   Home({this.uid});
@@ -21,10 +21,13 @@ class _HomeState extends State<Home> {
     final List<Widget> _children = [
       UserHome(),
       PlaceholderWidget(Colors.blue),
-      Homescreen(uid:widget.uid),
-      PlaceholderWidget(Colors.yellow),
-      HouseholdProfile(uid: widget.uid,)
+      Homescreen(uid: widget.uid),
+      BillsList(uid: widget.uid,),
+      HouseholdProfile(
+        uid: widget.uid,
+      )
     ];
+    print(widget.uid+"@home");
     return Scaffold(
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(

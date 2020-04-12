@@ -93,7 +93,7 @@ class _HomescreenState extends State<Homescreen>{
                               context: context,
                               builder: (BuildContext context){
                                 return AlertDialog(
-                                  content: ChoreExpansion(),
+                                  content: ChoreExpansion(uid: widget.uid,),
                                   // shape: RoundedRectangleBorder(
                                   //   borderRadius: new BorderRadius.circular(25.0)
                                   // ),

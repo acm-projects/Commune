@@ -1,14 +1,21 @@
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/services/budgetServices.dart';
 import 'package:flutter/material.dart';
 
 
 class BillsList extends StatefulWidget {
-  BillsList({Key key}) : super(key: key);
+  final String uid;
+  BillsList({this.uid});
+  String hhname;
 
   @override
   _BillsListState createState() => _BillsListState();
 }
 
 class _BillsListState extends State<BillsList> {
+  budgetServices bs= new budgetServices();
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
@@ -136,50 +143,77 @@ class _BillsListState extends State<BillsList> {
                         height: 0.01*screenSize.size.height,),
                         
                         //Container(height: 0.01 * screenSize.size.height, color: Color.fromARGB(255, 83, 185, 249),),
-
-                        Container(
-                          height: 0.6 * screenSize.size.height,
-                          color: Color.fromARGB(255, 83, 185, 249),
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: items.length,
-                            itemBuilder: (context, index){
-                              return Container(
-                                margin: EdgeInsets.fromLTRB(0.03 * screenSize.size.width, 0, 0.03 * screenSize.size.width, 0.03 * screenSize.size.width),
-                                // height: 0.07 * screenSize.size.height,
-                                // width: 0.90 * screenSize.size.width,
-                                decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 0.003 * screenSize.size.width,
-                                  color: Colors.white),
-                                borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                                child: ListTile(
-                                  title: Text(
-                                    '${items[index]}',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w300
-                                    )
-                                  ),
-
-                                  subtitle: Text(
-                                    '\$400.00',
-                                    ),
-
-                                  trailing: Text(
-                                    '4/12/20',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto',
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 20
-                                    )
-                                  ),
-                              ));
+                        StreamBuilder(
+                          stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+                          builder: (context,snap){
+                            if(!snap.hasData){
+                              return Text("loading");
                             }
-                            )
+                            widget.hhname=snap.data["HouseHoldName"];
+                            return Text("");
+                            
+                          }
+                        ),
+                        StreamBuilder(
+                          stream: Firestore.instance.collection('HouseHoldGroups').document(widget.hhname).snapshots(),
+                          builder: (context, snapshot) {
+                            if(!snapshot.hasData){
+                              return Text("loading");
+                            }
+                            return Container(
+                              height: 0.6 * screenSize.size.height,
+                              color: Color.fromARGB(255, 83, 185, 249),
+                              child: StreamBuilder(
+                                stream: Firestore.instance.collection('HouseHoldGroups').document(widget.hhname).snapshots(),
+                                builder: (context, snapshot) {
+                                  if(!snapshot.hasData){
+                                    return Text("loading");
+                                  }
+                                  List bills=snapshot.data["Budget Changes"];
+                                  return ListView.builder(
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: bills.length,
+                                    itemBuilder: (context, index){
+                                      return Container(
+                                        margin: EdgeInsets.fromLTRB(0.03 * screenSize.size.width, 0, 0.03 * screenSize.size.width, 0.03 * screenSize.size.width),
+                                        // height: 0.07 * screenSize.size.height,
+                                        // width: 0.90 * screenSize.size.width,
+                                        decoration: BoxDecoration(
+                                        border: Border.all(
+                                          width: 0.003 * screenSize.size.width,
+                                          color: Colors.white),
+                                        borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                        child: ListTile(
+                                          title: Text(
+                                            bs.getDescriptionFromDescription(bills[index]),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Roboto',
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w300
+                                            )
+                                          ),
+
+                                          subtitle: Text(
+                                            bs.getAmountFromDescription(bills[index]).toString(),
+                                            ),
+
+                                          trailing: Text(
+                                            bs.getDateFromDescription(bills[index]),
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Roboto',
+                                              fontWeight: FontWeight.w300,
+                                              fontSize: 20
+                                            )
+                                          ),
+                                      ));
+                                    }
+                                    );
+                                }
+                              )
+                            );
+                          }
                         ),
 
                         Container(child: Divider(color: Colors.black, thickness: 0.005 * screenSize.size.width,), color: Color.fromARGB(255, 83, 185, 249),
