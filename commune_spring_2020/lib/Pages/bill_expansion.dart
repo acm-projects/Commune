@@ -1,9 +1,12 @@
+import 'package:commune_spring_2020/Models/User.dart';
+import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:commune_spring_2020/services/budgetServices.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 // im not sure how to read in the people organically and process that
 // in addition right now the page only supports up to four people
@@ -11,7 +14,21 @@ import 'package:intl/intl.dart';
 class BillsExpansion extends StatefulWidget {
   final String uid;
   String hhname;
-  BillsExpansion({this.uid});
+  BillsExpansion({this.uid,this.onSignedOut});
+
+  //------------------------------------------------------------------
+  final VoidCallback onSignedOut;
+
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      final AuthService auth = new AuthService();
+      await auth.signOut();
+      onSignedOut();
+    } catch (e) {
+      print(e);
+    }
+  }
+  //------------------------------------------------------------------
   @override
   _BillsExpansionState createState() => _BillsExpansionState();
 }
@@ -21,7 +38,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
   final formKey = GlobalKey<FormState>();
   String title;
   List<String> persons = ["olimjon", "olimjon", "olimjon", "olimjon"];
-
+  
   String desc=" ";
   double budgetChange=0, original;
   bool add;
@@ -40,8 +57,10 @@ class _BillsExpansionState extends State<BillsExpansion> {
       counter++;
     });
   }
-
+  
   Widget build(BuildContext context) {
+    final user=Provider.of<User>(context);
+    print(user.uid+"000000000000000000000000");
     final screenSize = MediaQuery.of(context);
     return Material(
       child: Center(
@@ -207,6 +226,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                   children: <Widget>[
                                     FlatButton(
                                       onPressed: () {
+                                        widget.onSignedOut();
                                         budgetProfile=createDescription(desc,budgetChange, date);
                                         addBudgetChangeDescription(budgetProfile);
                                         changeBudget(original, budgetChange);
