@@ -309,7 +309,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               .document(householdName)
                               .snapshots(),
                           builder: (context, snapshot) {
-                            if (snapshot.hasData == null) {
+                            if (!snapshot.hasData) {
                               return Text('loading');
                             }
                             return StreamBuilder(
@@ -318,7 +318,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                     .document(householdName)
                                     .snapshots(),
                                 builder: (context, snap) {
-                                  if (!snapshot.hasData) {
+                                  if (!snap.hasData) {
                                     return Text("loading...");
                                   }
                                   int t=snap.data["Budget"];
@@ -357,7 +357,9 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        
+                      },
                       child: FittedBox(
                         child: Text(
                           "Add a Chore",

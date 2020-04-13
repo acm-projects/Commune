@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:flutter/material.dart';
 
 
@@ -393,10 +394,6 @@ class _UserProfileState extends State<UserProfile> {
                    title: new Text("Leave Household"),
                    content: new Column(
                      children: <Widget>[
-                       Text(
-                         error,
-                         style: TextStyle(color:Colors.red),
-                       ),
                        Text("Since you are the admin of this household, you need to select the new Admin. Type the email of the user below."),
                        Form(
                          key: _formKey,
@@ -426,12 +423,15 @@ class _UserProfileState extends State<UserProfile> {
                          if(_formKey.currentState.validate()){
 
                               String householdName, adimnEmail="";
-                              List ofUserUIDS;
+                              String newAdminUID;
+                              List listOfUserUIDS;
                               var db= Firestore.instance;
                               bool foundUser=false;
+                              int adminIndex;
                               
-                              var userDoc = db.collection('users').document(uid);
-                              await userDoc.get().then((doc){
+                              
+                              var adminDoc = db.collection('users').document(uid);
+                              await adminDoc.get().then((doc){
                                 adimnEmail = doc['Email'];
                                 householdName = doc["HouseHoldName"];
                               });
@@ -439,41 +439,64 @@ class _UserProfileState extends State<UserProfile> {
                               var householdDoc = db.collection('HouseHoldGroups').document(householdName);
 
                               await householdDoc.get().then((doc){
-                                ofUserUIDS = doc['Group Users'];
+                                listOfUserUIDS = doc['Group Users'];
                               });
 
-                              for(int x=0; x<ofUserUIDS.length; x++)
+                              for(int x=0; x<listOfUserUIDS.length; x++)
                               {
                                 String currentEmail = "";
-                                var currentUsers = db.collection('users').document(ofUserUIDS[x]);
+                                var currentUsers = db.collection('users').document(listOfUserUIDS[x]);
 
                                 await currentUsers.get().then((doc){
                                  currentEmail = doc['Email'];
                                 });
 
+                                if(currentEmail==adimnEmail)
+                                {
+                                  adminIndex=x;
+                                }
+
                                 if(currentEmail==email && currentEmail!=adimnEmail)
                                 {
                                   foundUser=true;
+                                  newAdminUID=listOfUserUIDS[x];
                                 }
                               }
                               
                               if(foundUser)
-                              {
-                                
+                              { 
+                                listOfUserUIDS.removeAt(adminIndex);
+                                await householdDoc.updateData({
+                                          'Group Users': listOfUserUIDS,
+                                          'Admin': newAdminUID,
+                                          
+                               });
+                               await adminDoc.updateData({
+                                          'HouseHoldName': "Null",
+                                          'Budget Changes': new List(),
+                                          'Chores': new List(),   
+                                          'Points':0,
+                               });
                                 Navigator.of(context).pop();
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldSelectionPage()));
                               }
                               else
                               {
-                                 
-                                 setState(()=> error = "A user with that email is not in your household. Try Again");
-                                 
+                                
+                                 setState((){ 
+                                   error = "A user with that email is not in your household. Try Again";
+                                });
+                                  
                               }
 
                            }
                          }
                         ),
-                       ],),                       
-                       
+                       ],),
+                       Text(
+                         error,
+                         style: TextStyle(color:Colors.red),
+                       ),
                      ],
                     ),
                     
@@ -486,146 +509,4 @@ class _UserProfileState extends State<UserProfile> {
 
        }
      }
-
-     //void leaveHouse( bool isAdmin)
-     //{
-     //  if(isAdmin)
-     //  {
-     //    showDialog(
-     //          context: context,
-     //          builder:(BuildContext context){
-     //            return AlertDialog(
-     //              title: new Text("Leave Household"),
-     //              content: StreamBuilder(
-     //                 stream: Firestore.instance.collection('users').document(uid).snapshots(),
-     //                 builder: (context, snapshot) {
-     //                   if (!snapshot.hasData) {
-     //                   return new Text("Loading");
-     //                   }
-     //                   else
-     //                   {
-     //                     return StreamBuilder(
-     //                      stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data['HouseHoldName']).snapshots(),
-     //                      builder: (context, snapshot) {
-     //                        if (!snapshot.hasData) {
-     //                         return new Text("Loading");
-     //                        }
-     //                        else
-     //                        {
-     //                          
-     //                         List userList = snapshot.data['Group Users']; 
-     //                         //if(userNameList!='Null')
-     //                         //{
-     //                         //userNameList.clear();
-     //                         //}
-     //                         //List userNameLis = snapshot.data['Group Users'];
-     //                         //print("!!!!!!!!!!!!"+userNameLis.length.toString());
-
-     //                         //getUserName(userList,userNameLis);
-
-
-     //                        //for(int currentName=0; currentName<userNameList.length; currentName++)
-     //                        //  print(userNameList[currentName]);
-
-     //                         return Column(
-     //                          children: <Widget>[
-     //                           
-     //                           new FutureBuilder<List>(
-     //                             future: getUserName(userList),
-     //                             builder: (BuildContext context, AsyncSnapshot<List> snapshot)
-     //                             {
-     //                               if(snapshot.data!=null)
-     //                               {
-     //                                 List newList= snapshot.data;
-     //                                 print(newList[0]+"***************");
-     //                                 return DropdownButton(
-     //                                   items:newList.asMap((value))
-     //                                   {
-
-     //                                   }
-     //                                 );
-     //                               }
-     //                               
-     //                               return Text("Null");
-
-     //                             }
-     //                           ),
-
-     //                            ]
-     //                           );
-     //                         
-     //                        
-     //                        }
-     //                      }
-     //                     );
-     //                   }
-     //                 }
-     //              ),
-     //              actions: <Widget>[
-     //                new FlatButton(
-     //                  child: new Text("Cancel"),
-     //                  onPressed:() {
-     //                    Navigator.of(context).pop();
-     //                  },
-     //                ),
-     //                new FlatButton(
-     //                  child: new Text("Enter"),
-     //                  onPressed:() {
-     //                    Navigator.of(context).pop();
-     //                  },
-     //                ),
-     //              ],
-     //            );
-     //          },
-     //        );
-     //  }
-     //  else
-     //  {
-
-     //  }
-     //}
-
-
-     //Future<List> getUserName(List currentUIDList)
-     //async {
-     //  List newNameArray= currentUIDList;
-     //  var db= Firestore.instance;
-     //  
-     //  String adminName="";
-     //  
-
-     //   for(int currentName=0; currentName<currentUIDList.length; currentName++)
-     //   {
-     //      String currentUID= currentUIDList[currentName];
-     //      String lastName="";
-     //      String firstName="";
-     //      var userDoc = db.collection('users').document(currentUID);
-     //      await userDoc.get().then((doc){
-     //        lastName = doc['Last Name'];
-     //        firstName = doc['First Name'] ;
-     //      });
-     //      if(currentUID==uid)
-     //      {
-     //        adminName= firstName+" "+lastName[0];
-     //      }
-     //      newNameArray[currentName] = firstName+" "+lastName[0];
-     //      print(newNameArray[currentName]);
-     //   }
-
-     //   for(int x=0; x<newNameArray.length; x++)
-     //   {
-     //     if(newNameArray[x]==adminName)
-     //     {
-     //       newNameArray.removeAt(x);
-     //     }
-     //   }
-
-     //   print("/////////////////////////");
-     //   for(int x=0; x<newNameArray.length; x++)
-     //   {
-     //     print(newNameArray[x]);
-     //   }
-     //  
-     //  return newNameArray;
-     //}
 }

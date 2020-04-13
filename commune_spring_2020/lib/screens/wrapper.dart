@@ -1,13 +1,31 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
+import 'package:commune_spring_2020/Pages/homescreen.dart';
+import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/Pages/listofbills.dart';
+import 'package:commune_spring_2020/Pages/listofchores.dart';
+import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
+import 'package:commune_spring_2020/screens/Home_Files/budget.dart';
+import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/chore_expansion.dart';
+import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
+import 'package:commune_spring_2020/screens/auth/authScreen.dart';
+import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
 // import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:commune_spring_2020/Pages/listofbills.dart';
+import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
 // import 'Home_Files/home.dart';
+// import 'package:commune_spring_2020/screens/Home_Files/home.dart';
+import 'package:commune_spring_2020/Pages/homepage.dart';
+
+
 class Wrapper extends StatelessWidget {
   String currentHouseholdName;
 
