@@ -57,7 +57,7 @@ class _UserProfileState extends State<UserProfile> {
                                    color: Color(0xFF1b4079),
                                    fontSize: 20,
                                    fontFamily: 'Raleway',
-                                   fontWeight: FontWeight.normal
+                                   fontWeight: FontWeight.normal,
                                  )
                                ),
                                StreamBuilder(
@@ -90,107 +90,183 @@ class _UserProfileState extends State<UserProfile> {
                                colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
                              ),
                              shape: BoxShape.rectangle,
-                             borderRadius: new BorderRadius.circular(25)
+                             //borderRadius: new BorderRadius.circular(25)
                            ),
                            padding: EdgeInsets.fromLTRB(15, 15, 0, 15),
-                           margin: EdgeInsets.fromLTRB(25, 75, 25, 0),
+                           margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
                           ),
+                          //leaderboard
                           Container(
                              alignment: Alignment.center,
                              child: Column(
                                children: <Widget>[
                                  Container(
-                                   alignment: Alignment.center,
-                                   margin: EdgeInsets.only(top: 20),
-                                   child: Text('LEADERBOARD',
-                                     style: TextStyle(
-                                       color: Color(0xFFF2F2F2),
-                                       fontSize: 40,
-                                       fontFamily: 'Raleway',
-                                       fontWeight: FontWeight.bold
-                                     )
-                                   ),
-                                   color: Color(0xFF1B4079),
-                                   width: MediaQuery.of(context).size.width,
-                                   height: 60,
-                                 ),
-                                 Container(
-                                   alignment: Alignment.center,
+                                   alignment: Alignment.centerLeft,
                                    //margin: EdgeInsets.only(top: 20),
-                                   child:StreamBuilder (
+                                   child: StreamBuilder (
                                      stream: Firestore.instance.collection("users").document(uid).snapshots(),
                                       builder: (context, snapshot) {
                                        if (!snapshot.hasData) {
                                         return new Text("Loading");
                                        }
-                                       return Text(snapshot.data["HouseHoldName"],
-                                         style: TextStyle(
-                                           color: Color(0xFF1B4079),
-                                           fontSize: 32,
-                                           fontFamily: 'Raleway',
-                                           fontWeight: FontWeight.bold
-                                         )
+                                       return Container(
+                                         margin: EdgeInsets.fromLTRB(15, 25, 0, 0),
+                                         child: Text('Leaderboard | ' + snapshot.data["HouseHoldName"],
+                                           style: TextStyle(
+                                             color: Color(0xFF1B4079),
+                                             fontSize: 32,
+                                             fontFamily: 'Raleway',
+                                             fontWeight: FontWeight.bold
+                                           )
+                                         ),
                                        );
                                       }
                                    ),
-                                   width: MediaQuery.of(context).size.width,
-                                   height: 60,
+                                   width: MediaQuery.of(context).size.width
                                  ),
                                  Container(
-                                  child:StreamBuilder(
-                                    stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                                    builder: (context, snapshot) {
-                                    if (!snapshot.hasData) {
-                                    return new Text("Loading");
-                                    }
-                                    List groupOfUsersList = snapshot.data["Group Users"];                            
-                                    sortList(groupOfUsersList); 
-                                    return Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        for(var item in groupOfUsersList)
-                                        StreamBuilder(
-                                          stream: Firestore.instance.collection('users').document(item).snapshots(),
-                                          builder: (context, snapshot) {
-                                            if (!snapshot.hasData) {
-                                             return new Text("Loading");
-                                            }
-                                            sortList(groupOfUsersList);
-                                            return Container(
-                                              margin: EdgeInsets.only(top: 20),
-                                              child: Column(
-                                                children: <Widget>[
-                                                  Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  children: <Widget>[
-                                                    Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                                                     style: TextStyle(
-                                                     color: Color(0xFF1B4079),
-                                                     fontSize: 25,
-                                                     fontFamily: 'Raleway',
-                                                     fontWeight: FontWeight.normal
-                                                      )
-                                                     ),
-                                                     Text(snapshot.data["Points"].toString(),
-                                                     style: TextStyle(
-                                                       color: Color(0xFF1B4079),
-                                                       fontSize: 25,
-                                                       fontFamily: 'Raleway',
-                                                       fontWeight: FontWeight.normal
-                                                      )
-                                                     )
-                                                  ]
-                                                )
-                                               ]
-                                              )
-                                            );
-                                          }
-                                        )
-                                      ],
-                                    );
-                                   }
+                                   margin: EdgeInsets.only(top: 15),
+                                   color: Color(0xFF1B4079),
+                                   width: MediaQuery.of(context).size.width,
+                                   height: 5
                                  ),
-                                ),
+                                      Container(
+                                        child :StreamBuilder(
+                                          stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                                          builder: (context, snapshot) {
+                                          if (!snapshot.hasData) {
+                                          return new Text("Loading");
+                                          }
+                                          List groupOfUsersList = snapshot.data["Group Users"];                            
+                                          sortList(groupOfUsersList); 
+                                          return Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: <Widget>[
+                                              for(var item in groupOfUsersList)
+                                              StreamBuilder(
+                                                stream: Firestore.instance.collection('users').document(item).snapshots(),
+                                                builder: (context, snapshot) {
+                                                  if (!snapshot.hasData) {
+                                                  return new Text("Loading");
+                                                  }
+                                                  sortList(groupOfUsersList);
+                                                  return Container(
+                                                    margin: EdgeInsets.fromLTRB(20,20,20,0),
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Row(
+                                                        mainAxisAlignment: MainAxisAlignment.start,
+                                                        children: <Widget>[
+                                                          Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                                          style: TextStyle(
+                                                              color: Color(0xFF1B4079),
+                                                              fontSize: 25,
+                                                              fontFamily: 'Raleway',
+                                                              fontWeight: FontWeight.normal
+                                                            )
+                                                          ),
+                                                          Spacer(),
+                                                          Text(snapshot.data["Points"].toString(),
+                                                          style: TextStyle(
+                                                            color: Color(0xFF1B4079),
+                                                            fontSize: 25,
+                                                            fontFamily: 'Raleway',
+                                                            fontWeight: FontWeight.normal
+                                                            )
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                    )
+                                                  );
+                                                }
+                                              )
+                                            ],
+                                          );
+                                        }
+                                      ),
+                                      ),
+                                            //return ListView.builder(
+                                            //   scrollDirection: Axis.vertical,
+                                            //   itemCount: groupOfUsersList.length,
+                                            //   itemBuilder: (context, index){
+                                            //     return ListTile(
+                                            //       leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                            //         style: TextStyle(
+                                            //           color: Color(0xFF1B4079),
+                                            //           fontSize: 25,
+                                            //           fontFamily: 'Raleway',
+                                            //           fontWeight: FontWeight.normal
+                                            //         )
+                                            //       ),
+                                            //       trailing: Text(snapshot.data["Points"].toString(),
+                                            //          style: TextStyle(
+                                            //            color: Color(0xFF1B4079),
+                                            //            fontSize: 25,
+                                            //            fontFamily: 'Raleway',
+                                            //            fontWeight: FontWeight.normal
+                                            //           )
+                                            //          )
+                                            //     );
+                                            //   },
+                                            // );
+
+                                //  Container(
+                                //   child :StreamBuilder(
+                                //     stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                                //     builder: (context, snapshot) {
+                                //     if (!snapshot.hasData) {
+                                //      return new Text("Loading");
+                                //     }
+                                //     List groupOfUsersList = snapshot.data["Group Users"];                            
+                                //     sortList(groupOfUsersList); 
+                                //     return Column(
+                                //       mainAxisAlignment: MainAxisAlignment.center,
+                                //       children: <Widget>[
+                                //         for(var item in groupOfUsersList)
+                                //         StreamBuilder(
+                                //           stream: Firestore.instance.collection('users').document(item).snapshots(),
+                                //           builder: (context, snapshot) {
+                                //             if (!snapshot.hasData) {
+                                //              return new Text("Loading");
+                                //             }
+                                //             sortList(groupOfUsersList);
+                                //             return Container(
+                                //               margin: EdgeInsets.fromLTRB(20,20,20,0),
+                                //               child: Column(
+                                //                 children: <Widget>[
+                                //                   Row(
+                                //                   mainAxisAlignment: MainAxisAlignment.start,
+                                //                   children: <Widget>[
+                                //                     Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                //                      style: TextStyle(
+                                //                         color: Color(0xFF1B4079),
+                                //                         fontSize: 25,
+                                //                         fontFamily: 'Raleway',
+                                //                         fontWeight: FontWeight.normal
+                                //                       )
+                                //                      ),
+                                //                      Spacer(),
+                                //                      Text(snapshot.data["Points"].toString(),
+                                //                      style: TextStyle(
+                                //                        color: Color(0xFF1B4079),
+                                //                        fontSize: 25,
+                                //                        fontFamily: 'Raleway',
+                                //                        fontWeight: FontWeight.normal
+                                //                       )
+                                //                      )
+                                //                   ]
+                                //                 )
+                                //                ]
+                                //               )
+                                //             );
+                                //           }
+                                //         )
+                                //       ],
+                                //     );
+                                //    }
+                                //  ),
+                                // ),
                                 Container(
                                    margin: EdgeInsets.only(top: 35),
                                    color: Color(0xFF1B4079),
