@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Models/User.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/listofbills.dart';
 import 'package:commune_spring_2020/Pages/user_profile.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:commune_spring_2020/services/budgetServices.dart';
@@ -196,13 +197,12 @@ class _HomescreenState extends State<Homescreen> {
                                   children: <Widget>[
                                     FlatButton(
                                       onPressed: () {
-                                        
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 //the BillList class is defined at the bottom of this doc
-                                                content: BillsExpansion(uid: widget.uid,userChange: true,),
+                                                content: BillList(uid: widget.uid),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         new BorderRadius
@@ -279,12 +279,13 @@ class _BillListState extends State<BillList> {
   Widget build(BuildContext context) {
 
     return Container(
-
+      height: 700,
       child: Scaffold(
           body: Column(
         children: <Widget>[
           //To Do title
           Container(
+            height: 40,
               alignment: Alignment.centerLeft,
               child: Text('Bills',
                   style: TextStyle(
@@ -293,39 +294,45 @@ class _BillListState extends State<BillList> {
                       fontFamily: 'Raleway',
                       fontWeight: FontWeight.bold))),
           //actual list
-          StreamBuilder(
-            stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
-            builder: (context, snapshot) {
-              budgetServices bs= budgetServices();
-              String desc,date,amt;
-              if(!snapshot.hasData){
-                return Text("loading...");
+          Container(
+            height: 600,
+            child: StreamBuilder(
+              stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+              builder: (context, snapshot) {
+                budgetServices bs= budgetServices();
+                if(!snapshot.hasData){
+                  return Text("loading...");
+                }
+                List bills=snapshot.data["Budget Changes"];
+                return Container(
+                    height: 500.0,
+                    padding: EdgeInsets.only(top: 2.0),
+                    child: new ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: bills.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 60,
+                            child: ListTile(
+                              title: Text(
+                                  //this should be the bill amount
+                                  bs.getAmountFromDescription(bills[index]).toString(),
+                                  style: TextStyle(
+                                      color: Color(0xFF6D77E0),
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600)),
+                              trailing: Text(
+                                bs.getDateFromDescription(bills[index]),
+                                  style: TextStyle(
+                                      color: Color(0xFF6D77E0),
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20)),
+                            ),
+                          );
+                        }));
               }
-              
-              return Container(
-                  height: 600.0,
-                  padding: EdgeInsets.only(top: 2.0),
-                  child: new ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: items.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(
-                              //this should be the bill amount
-                              '${items[index]}',
-                              style: TextStyle(
-                                  color: Color(0xFF6D77E0),
-                                  fontFamily: 'Roboto',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600)),
-                          trailing: Text('04/20/20',
-                              style: TextStyle(
-                                  color: Color(0xFF6D77E0),
-                                  fontFamily: 'Roboto',
-                                  fontSize: 20)),
-                        );
-                      }));
-            }
+            ),
           )
         ],
       )),
