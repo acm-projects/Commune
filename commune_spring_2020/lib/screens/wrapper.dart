@@ -1,13 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
-<<<<<<< HEAD
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
-=======
-<<<<<<< Updated upstream
-=======
+
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
 import 'package:commune_spring_2020/Pages/createhousehold.dart';
->>>>>>> d50d9c910e979a30c5264122dffd1920ce7b6da9
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/householdprofile.dart';
 import 'package:commune_spring_2020/Pages/listofbills.dart';
@@ -21,33 +17,21 @@ import 'package:commune_spring_2020/Pages/householdprofile.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/authScreen.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
-<<<<<<< HEAD
-=======
->>>>>>> Stashed changes
->>>>>>> d50d9c910e979a30c5264122dffd1920ce7b6da9
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
 // import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
-<<<<<<< Updated upstream
 import 'package:commune_spring_2020/Pages/listofbills.dart';
 import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
 // import 'Home_Files/home.dart';
-<<<<<<< HEAD
 // import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 
-
-=======
-=======
 // import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:commune_spring_2020/Pages/createhousehold.dart';
 
-
->>>>>>> Stashed changes
->>>>>>> d50d9c910e979a30c5264122dffd1920ce7b6da9
 class Wrapper extends StatelessWidget {
   String currentHouseholdName;
 
@@ -81,14 +65,10 @@ class Wrapper extends StatelessWidget {
     final user = Provider.of<User>(context);
     if (user == null){ 
       //return Authenticate();
-<<<<<<< Updated upstream
       return LoginPage();
-=======
-      return CreateHousehold();
->>>>>>> Stashed changes
     } else {
       // return ChoresPage(uid:user.uid, householdName: "bruh",);
-      return UserProfile(uid:user.uid);
+      return Home(uid:user.uid);
       // return Home(uid:user.uid);
       // return HouseholdProfile(uid: user.uid,);
       //return BillsExpansion(uid: user.uid);

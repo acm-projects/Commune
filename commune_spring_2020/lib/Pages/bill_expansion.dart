@@ -262,7 +262,9 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                     changeBudget2(
                                                         o, budgetChange);
                                                     print("3");
+                                                    Navigator.pop(context);
                                                   } else {
+                                                    print("executing the budgetChange");
                                                     budgetProfile =
                                                         createDescription(desc,
                                                             budgetChange, date);
@@ -293,34 +295,57 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                 ),
                                               );
                                             }),
-                                        FlatButton(
-                                          onPressed: () {
-                                            budgetChange = budgetChange * (-1);
-                                            budgetProfile = createDescription(
-                                                desc, budgetChange, date);
-                                            addBudgetChangeDescription2(
-                                                budgetProfile);
-                                            changeBudget2(
-                                                original, budgetChange);
-                                          },
-                                          child: FittedBox(
-                                            child: Text(
-                                              "Minus",
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontFamily: 'Raleway',
-                                                //fontSize: 17.0,
+                                        StreamBuilder(
+                                          stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+                                          builder: (context, snapshot) {
+                                            if(!snapshot.hasData){
+                                              return Text("loading...");
+                                            }
+                                            return FlatButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                budgetChange = budgetChange * (-1);
+                                                 double o = double.parse(
+                                                          snapshot.data["Budget"].toString());
+                                                if(widget.userChange){
+                                                  print(o.toString()+" this is in the current budget");
+                                                  budgetProfile =
+                                                            createDescription(desc,
+                                                                budgetChange, date);
+                                                        addBudgetChangeDescription2(
+                                                            budgetProfile);
+                                                        changeBudget2(
+                                                            o, budgetChange);
+                                                        print("3");
+                                                }else{
+                                                budgetProfile = createDescription(
+                                                    desc, budgetChange, date);
+                                                addBudgetChangeDescription(
+                                                    budgetProfile);
+                                                changeBudget(
+                                                    original, budgetChange);
+                                                }
+                                              },
+                                              child: FittedBox(
+                                                child: Text(
+                                                  "Minus",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontFamily: 'Raleway',
+                                                    //fontSize: 17.0,
+                                                  ),
+                                                ),
                                               ),
-                                            ),
-                                          ),
-                                          color:
-                                              Color.fromARGB(255, 27, 64, 121),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                new BorderRadius.circular(12.0),
-                                            side:
-                                                BorderSide(color: Colors.white),
-                                          ),
+                                              color:
+                                                  Color.fromARGB(255, 27, 64, 121),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    new BorderRadius.circular(12.0),
+                                                side:
+                                                    BorderSide(color: Colors.white),
+                                              ),
+                                            );
+                                          }
                                         ),
                                       ]),
                                 ),
@@ -385,12 +410,13 @@ class _BillsExpansionState extends State<BillsExpansion> {
   }
 
   void changeBudget2(double original, double change) {
-    print(original.toString() + "7777777777777777777777777777777777777777");
     print(change.toString() + "00000000000000000000000000000000000000");
+    double newTot= original+change;
+    print(newTot);
     Firestore.instance
         .collection('users')
         .document(widget.uid)
-        .updateData({'Budget': original + change});
+        .updateData({'Budget': newTot});
   }
   //------------------------------------------------------------------------------------------
 }
