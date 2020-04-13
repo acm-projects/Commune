@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:flutter/material.dart';
@@ -428,8 +430,13 @@ class _UserProfileState extends State<UserProfile> {
                               var db= Firestore.instance;
                               bool foundUser=false;
                               int adminIndex;
+<<<<<<< HEAD
                               
                               
+=======
+                              
+                              
+>>>>>>> d50d9c910e979a30c5264122dffd1920ce7b6da9
                               var adminDoc = db.collection('users').document(uid);
                               await adminDoc.get().then((doc){
                                 adimnEmail = doc['Email'];
