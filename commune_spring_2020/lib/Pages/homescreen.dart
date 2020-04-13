@@ -3,6 +3,7 @@ import 'package:commune_spring_2020/Models/User.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/Pages/user_profile.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
+import 'package:commune_spring_2020/services/budgetServices.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -93,31 +94,31 @@ class _HomescreenState extends State<Homescreen> {
                                         fontFamily: 'Raleway',
                                         fontWeight: FontWeight.bold)),
                                 Spacer(),
-                                FlatButton(
-                                  onPressed: () async {
-                                    await _auth.signOut();
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            content: ChoreExpansion(
-                                              uid: widget.uid,
-                                            ),
-                                            // shape: RoundedRectangleBorder(
-                                            //   borderRadius: new BorderRadius.circular(25.0)
-                                            // ),
-                                          );
-                                        });
-                                  },
-                                  child: Icon(Icons.add,
-                                      size: 30, color: Color(0xFF7E86DF)),
-                                  shape: CircleBorder(
-                                      side: BorderSide(
-                                    color: Color(0xB3FFFFFF),
-                                    width: 2.0,
-                                  )),
-                                  color: Color(0xB3FFFFFF),
-                                )
+                                // FlatButton(
+                                //   onPressed: () async {
+                                //     await _auth.signOut();
+                                //     showDialog(
+                                //         context: context,
+                                //         builder: (BuildContext context) {
+                                //           return AlertDialog(
+                                //             content: ChoreExpansion(
+                                //               uid: widget.uid,
+                                //             ),
+                                //             // shape: RoundedRectangleBorder(
+                                //             //   borderRadius: new BorderRadius.circular(25.0)
+                                //             // ),
+                                //           );
+                                //         });
+                                //   },
+                                //   child: Icon(Icons.add,
+                                //       size: 30, color: Color(0xFF7E86DF)),
+                                //   shape: CircleBorder(
+                                //       side: BorderSide(
+                                //     color: Color(0xB3FFFFFF),
+                                //     width: 2.0,
+                                //   )),
+                                //   color: Color(0xB3FFFFFF),
+                                // )
                               ],
                             )),
                         //actual list
@@ -195,12 +196,13 @@ class _HomescreenState extends State<Homescreen> {
                                   children: <Widget>[
                                     FlatButton(
                                       onPressed: () {
+                                        
                                         showDialog(
                                             context: context,
                                             builder: (BuildContext context) {
                                               return AlertDialog(
                                                 //the BillList class is defined at the bottom of this doc
-                                                content: BillList(),
+                                                content: BillsExpansion(uid: widget.uid,userChange: true,),
                                                 shape: RoundedRectangleBorder(
                                                     borderRadius:
                                                         new BorderRadius
@@ -238,7 +240,7 @@ class _HomescreenState extends State<Homescreen> {
                                         context: context,
                                         builder: (BuildContext context) {
                                           return AlertDialog(
-                                            content: BillsExpansion(),
+                                            content: BillsExpansion(uid: widget.uid,userChange: true,),
 
                                             // shape: RoundedRectangleBorder(
                                             //   borderRadius: new BorderRadius.circular(25.0)
@@ -265,6 +267,8 @@ class _HomescreenState extends State<Homescreen> {
 }
 
 class BillList extends StatefulWidget {
+  final String uid;
+  BillList({this.uid});
   @override
   _BillListState createState() => _BillListState();
 }
@@ -273,43 +277,58 @@ class _BillListState extends State<BillList> {
   final List<String> items = List<String>.generate(100, (i) => "Item $i");
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
-      children: <Widget>[
-        //To Do title
-        Container(
-            alignment: Alignment.centerLeft,
-            child: Text('Bills',
-                style: TextStyle(
-                    color: Color(0xFF6D77E0),
-                    fontSize: 40,
-                    fontFamily: 'Raleway',
-                    fontWeight: FontWeight.bold))),
-        //actual list
-        Container(
-            height: 600.0,
-            padding: EdgeInsets.only(top: 2.0),
-            child: new ListView.builder(
-                scrollDirection: Axis.vertical,
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(
-                        //this should be the bill amount
-                        '${items[index]}',
-                        style: TextStyle(
-                            color: Color(0xFF6D77E0),
-                            fontFamily: 'Roboto',
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600)),
-                    trailing: Text('04/20/20',
-                        style: TextStyle(
-                            color: Color(0xFF6D77E0),
-                            fontFamily: 'Roboto',
-                            fontSize: 20)),
-                  );
-                }))
-      ],
-    ));
+
+    return Container(
+
+      child: Scaffold(
+          body: Column(
+        children: <Widget>[
+          //To Do title
+          Container(
+              alignment: Alignment.centerLeft,
+              child: Text('Bills',
+                  style: TextStyle(
+                      color: Color(0xFF6D77E0),
+                      fontSize: 40,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.bold))),
+          //actual list
+          StreamBuilder(
+            stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+            builder: (context, snapshot) {
+              budgetServices bs= budgetServices();
+              String desc,date,amt;
+              if(!snapshot.hasData){
+                return Text("loading...");
+              }
+              
+              return Container(
+                  height: 600.0,
+                  padding: EdgeInsets.only(top: 2.0),
+                  child: new ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: items.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(
+                              //this should be the bill amount
+                              '${items[index]}',
+                              style: TextStyle(
+                                  color: Color(0xFF6D77E0),
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600)),
+                          trailing: Text('04/20/20',
+                              style: TextStyle(
+                                  color: Color(0xFF6D77E0),
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20)),
+                        );
+                      }));
+            }
+          )
+        ],
+      )),
+    );
   }
 }

@@ -214,7 +214,6 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               if (!snapshot.hasData) {
                                 return Text("loading...");
                               }
-                              print(admin + " @streamBUilder");
                               return Container(
                                 color: Color.fromARGB(255, 159, 166, 248),
                                 height: 0.1 * screenSize.size.height,
@@ -318,13 +317,14 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                     .collection('HouseHoldGroups')
                                     .document(householdName)
                                     .snapshots(),
-                                builder: (context, snapshot) {
+                                builder: (context, snap) {
                                   if (!snapshot.hasData) {
                                     return Text("loading...");
                                   }
+                                  int t=snap.data["Budget"];
                                   return Text(
                                     "\$" +
-                                        snapshot.data["Budget"]
+                                        t
                                             .toStringAsFixed(2),
                                     style: TextStyle(
                                         color: Colors.white,

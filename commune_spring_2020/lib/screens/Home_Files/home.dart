@@ -35,7 +35,6 @@ class _HomeState extends State<Home> {
             color: Colors.blue[100],
             onPressed: () async {
               await _auth.signOut();
-               
             },
             child: Text("Logout"),
           ),
