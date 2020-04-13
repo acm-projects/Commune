@@ -1,5 +1,6 @@
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/Pages/listofchores.dart';
 import 'package:commune_spring_2020/Pages/user_profile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final List<Widget> _children = [
       UserHome(),
-      PlaceholderWidget(Colors.blue),
+      ChoreList(uid:widget.uid),
       Homescreen(uid: widget.uid),
       BillsList(uid: widget.uid,),
       HouseholdProfile(
