@@ -262,7 +262,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                     changeBudget2(
                                                         o, budgetChange);
                                                     print("3");
-                                                    Navigator.pop(context);
+                                                    
                                                   } else {
                                                     print("executing the budgetChange");
                                                     budgetProfile =
@@ -273,6 +273,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                     changeBudget(
                                                         original, budgetChange);
                                                   }
+                                                  Navigator.pop(context);
                                                 },
                                                 child: FittedBox(
                                                   child: Text(
@@ -303,29 +304,55 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                             }
                                             return FlatButton(
                                               onPressed: () {
-                                                Navigator.pop(context);
-                                                budgetChange = budgetChange * (-1);
-                                                 double o = double.parse(
-                                                          snapshot.data["Budget"].toString());
-                                                if(widget.userChange){
-                                                  print(o.toString()+" this is in the current budget");
-                                                  budgetProfile =
-                                                            createDescription(desc,
-                                                                budgetChange, date);
-                                                        addBudgetChangeDescription2(
-                                                            budgetProfile);
-                                                        changeBudget2(
-                                                            o, budgetChange);
-                                                        print("3");
-                                                }else{
-                                                budgetProfile = createDescription(
-                                                    desc, budgetChange, date);
-                                                addBudgetChangeDescription(
-                                                    budgetProfile);
-                                                changeBudget(
-                                                    original, budgetChange);
-                                                }
-                                              },
+                                                 budgetChange = budgetChange * (-1);
+                                                  double o = double.parse(
+                                                      snapshot.data["Budget"].toString());
+                                                  if (widget.userChange) {
+                                                    budgetProfile =
+                                                        createDescription(desc,
+                                                            budgetChange, date);
+                                                    print("1");
+                                                    addBudgetChangeDescription2(
+                                                        budgetProfile);
+                                                    print("2");
+                                                    changeBudget2(
+                                                        o, budgetChange);
+                                                    print("3");
+                                                    
+                                                  } else {
+                                                    print("executing the budgetChange");
+                                                    budgetProfile =
+                                                        createDescription(desc,
+                                                            budgetChange, date);
+                                                    addBudgetChangeDescription(
+                                                        budgetProfile);
+                                                    changeBudget(
+                                                        original, budgetChange);
+                                                  }
+                                                  Navigator.pop(context);
+                                                },
+                                              // onPressed: () {
+                                              //   Navigator.pop(context);
+                                              //   budgetChange = budgetChange * (-1);
+                                              //    double o = double.parse(
+                                              //             snapshot.data["Budget"].toString());
+                                              //   if(widget.userChange){
+                                              //     budgetProfile =
+                                              //               createDescription(desc,
+                                              //                   budgetChange, date);
+                                              //           addBudgetChangeDescription2(
+                                              //               budgetProfile);
+                                              //           changeBudget2(
+                                              //               o, budgetChange);
+                                              //   }else{
+                                              //   budgetProfile = createDescription(
+                                              //       desc, budgetChange, date);
+                                              //   addBudgetChangeDescription(
+                                              //       budgetProfile);
+                                              //   changeBudget(
+                                              //       original, budgetChange);
+                                              //   }
+                                              // },
                                               child: FittedBox(
                                                 child: Text(
                                                   "Minus",

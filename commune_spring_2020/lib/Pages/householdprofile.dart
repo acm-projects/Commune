@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/Pages/chore_expansion.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/material.dart';
@@ -321,11 +322,9 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                   if (!snap.hasData) {
                                     return Text("loading...");
                                   }
-                                  int t=snap.data["Budget"];
+                                  double t = snap.data["Budget"];
                                   return Text(
-                                    "\$" +
-                                        t
-                                            .toStringAsFixed(2),
+                                    "\$" + t.toStringAsFixed(2),
                                     style: TextStyle(
                                         color: Colors.white,
                                         //fontSize: 24.0,
@@ -357,9 +356,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     FlatButton(
-                      onPressed: () {
-                        
-                      },
+                      onPressed: () {},
                       child: FittedBox(
                         child: Text(
                           "Add a Chore",
@@ -377,7 +374,22 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                       ),
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: BillsExpansion(
+                                  uid: widget.uid,
+                                  userChange: false,
+                                ),
+
+                                // shape: RoundedRectangleBorder(
+                                //   borderRadius: new BorderRadius.circular(25.0)
+                                // ),
+                              );
+                            });
+                      },
                       child: FittedBox(
                         child: Text(
                           "Add a Bill",
