@@ -32,388 +32,394 @@ class _UserProfileState extends State<UserProfile> {
           }
          //isAdminCheck(snapshot.data["HouseHoldName"]);
           return Scaffold(
-                     body:Column(
-                       children: <Widget>[
-                        Align(
-                           alignment: Alignment.topCenter
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Column(
-                            children: <Widget>[
-                              Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                               style: TextStyle(
-                               color: Color(0xFFF2F2F2),
-                               fontSize: 35,
-                               fontFamily: 'Raleway',
-                               fontWeight: FontWeight.bold
+            body: SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  Align(
+                      alignment: Alignment.topCenter
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    //user info
+                    child: Column(
+                      children: <Widget>[
+                        Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                          style: TextStyle(
+                          color: Color(0xFFF2F2F2),
+                          fontSize: 35,
+                          fontFamily: 'Raleway',
+                          fontWeight: FontWeight.bold
+                          )
+                          ),
+                          Text(snapshot.data["Email"],
+                            style: TextStyle(
+                              color: Color(0xFF1b4079),
+                              fontSize: 20,
+                              fontFamily: 'Raleway',
+                              fontWeight: FontWeight.normal
+                            )
+                          ),
+                          Text('Age: '+snapshot.data["Age"],
+                            style: TextStyle(
+                              color: Color(0xFF1b4079),
+                              fontSize: 20,
+                              fontFamily: 'Raleway',
+                              fontWeight: FontWeight.normal,
+                            )
+                          ),
+                          StreamBuilder(
+                            stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return new Text("Loading");
+                              }
+                              String isAdminYesNo="No";
+                              if(uid==snapshot.data["Admin"])
+                              {
+                                isAdminYesNo="Yes";
+                              }
+                              return Text('Admin:'+isAdminYesNo,
+                                style: TextStyle(
+                                  color: Color(0xFF1B4079),
+                                  fontSize: 20,
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.normal
                                 )
-                               ),
-                               Text(snapshot.data["Email"],
-                                 style: TextStyle(
-                                   color: Color(0xFF1b4079),
-                                   fontSize: 20,
-                                   fontFamily: 'Raleway',
-                                   fontWeight: FontWeight.normal
-                                 )
-                               ),
-                               Text('Age: '+snapshot.data["Age"],
-                                 style: TextStyle(
-                                   color: Color(0xFF1b4079),
-                                   fontSize: 20,
-                                   fontFamily: 'Raleway',
-                                   fontWeight: FontWeight.normal,
-                                 )
-                               ),
-                               StreamBuilder(
-                                   stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                                   builder: (context, snapshot) {
-                                   if (!snapshot.hasData) {
-                                   return new Text("Loading");
-                                   }
-                                   String isAdminYesNo="No";
-                                   if(uid==snapshot.data["Admin"])
-                                   {
-                                     isAdminYesNo="Yes";
-                                   }
-                                   return Text('Admin:'+isAdminYesNo,
-                                    style: TextStyle(
-                                    color: Color(0xFF1B4079),
-                                    fontSize: 20,
-                                    fontFamily: 'Raleway',
-                                    fontWeight: FontWeight.normal
-                                 )
-                                 );
-                                }),
-
-                            ]
+                              );
+                            }
                           ),
-                          decoration: BoxDecoration(
-                             gradient: LinearGradient(
-                               begin: Alignment.topCenter,
-                               end: Alignment.bottomCenter,
-                               colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
-                             ),
-                             shape: BoxShape.rectangle,
-                             //borderRadius: new BorderRadius.circular(25)
-                           ),
-                           padding: EdgeInsets.fromLTRB(15, 15, 0, 15),
-                           margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
-                          ),
-                          //leaderboard
+                        ]
+                      ),
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
+                      ),
+                      shape: BoxShape.rectangle,
+                      //borderRadius: new BorderRadius.circular(25)
+                    ),
+                    padding: EdgeInsets.fromLTRB(15, 15, 0, 15),
+                    margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                  ),
+                  //leaderboard
+                  Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: <Widget>[
+                          //leaderboard header
                           Container(
-                             alignment: Alignment.center,
-                             child: Column(
-                               children: <Widget>[
-                                 Container(
-                                   alignment: Alignment.centerLeft,
-                                   //margin: EdgeInsets.only(top: 20),
-                                   child: StreamBuilder (
-                                     stream: Firestore.instance.collection("users").document(uid).snapshots(),
-                                      builder: (context, snapshot) {
-                                       if (!snapshot.hasData) {
-                                        return new Text("Loading");
-                                       }
-                                       return Container(
-                                         margin: EdgeInsets.fromLTRB(15, 25, 0, 0),
-                                         child: Text('Leaderboard | ' + snapshot.data["HouseHoldName"],
-                                           style: TextStyle(
-                                             color: Color(0xFF1B4079),
-                                             fontSize: 32,
-                                             fontFamily: 'Raleway',
-                                             fontWeight: FontWeight.bold
-                                           )
-                                         ),
-                                       );
-                                      }
-                                   ),
-                                   width: MediaQuery.of(context).size.width
-                                 ),
-                                 Container(
-                                   margin: EdgeInsets.only(top: 15),
-                                   color: Color(0xFF1B4079),
-                                   width: MediaQuery.of(context).size.width,
-                                   height: 5
-                                 ),
-                                      Container(
-                                        child :StreamBuilder(
-                                          stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                                          builder: (context, snapshot) {
+                            alignment: Alignment.centerLeft,
+                            //margin: EdgeInsets.only(top: 20),
+                            child: StreamBuilder (
+                              stream: Firestore.instance.collection("users").document(uid).snapshots(),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                return new Text("Loading");
+                                }
+                                return Container(
+                                  margin: EdgeInsets.fromLTRB(15, 25, 0, 0),
+                                  child: Text('Leaderboard | ' + snapshot.data["HouseHoldName"],
+                                    style: TextStyle(
+                                      color: Color(0xFF1B4079),
+                                      fontSize: 32,
+                                      fontFamily: 'Raleway',
+                                      fontWeight: FontWeight.bold
+                                    )
+                                  ),
+                                );
+                              }
+                            ),
+                            width: MediaQuery.of(context).size.width
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: 15),
+                            color: Color(0xFF1B4079),
+                            width: MediaQuery.of(context).size.width,
+                            height: 5
+                          ),
+                          //household members
+                              Container(
+                                child: StreamBuilder(
+                                  stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                                  builder: (context, snapshot) {
+                                    
+                                  if (!snapshot.hasData) {
+                                    return new Text("Loading");
+                                  }                                          
+                                  List groupOfUsersList = snapshot.data["Group Users"];                            
+                                  sortList(groupOfUsersList); 
+
+                                  return Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      for(var item in groupOfUsersList)
+                                      StreamBuilder(
+                                        stream: Firestore.instance.collection('users').document(item).snapshots(),
+                                        builder: (context, snapshot) {
                                           if (!snapshot.hasData) {
-                                          return new Text("Loading");
+                                            return new Text("Loading");
                                           }
-                                          List groupOfUsersList = snapshot.data["Group Users"];                            
-                                          sortList(groupOfUsersList); 
-                                          return Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              for(var item in groupOfUsersList)
-                                              StreamBuilder(
-                                                stream: Firestore.instance.collection('users').document(item).snapshots(),
-                                                builder: (context, snapshot) {
-                                                  if (!snapshot.hasData) {
-                                                  return new Text("Loading");
-                                                  }
-                                                  sortList(groupOfUsersList);
-                                                  return Container(
-                                                    margin: EdgeInsets.fromLTRB(20,20,20,0),
-                                                    child: Column(
-                                                      children: <Widget>[
-                                                        Row(
-                                                        mainAxisAlignment: MainAxisAlignment.start,
-                                                        children: <Widget>[
-                                                          Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                                                          style: TextStyle(
-                                                              color: Color(0xFF1B4079),
-                                                              fontSize: 25,
-                                                              fontFamily: 'Raleway',
-                                                              fontWeight: FontWeight.normal
-                                                            )
-                                                          ),
-                                                          Spacer(),
-                                                          Text(snapshot.data["Points"].toString(),
-                                                          style: TextStyle(
-                                                            color: Color(0xFF1B4079),
-                                                            fontSize: 25,
-                                                            fontFamily: 'Raleway',
-                                                            fontWeight: FontWeight.normal
-                                                            )
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
+                                          sortList(groupOfUsersList);
+                                          return Container(
+                                            height: 70.0,
+                                            child: new ListView.builder(
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: groupOfUsersList.length,
+                                              itemBuilder: (context, index){
+                                                return ListTile(
+                                                  leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                                    style: TextStyle(
+                                                      color: Color(0xFF1B4079),
+                                                      fontSize: 25,
+                                                      fontFamily: 'Raleway',
+                                                      fontWeight: FontWeight.normal
                                                     )
-                                                  );
-                                                }
-                                              )
-                                            ],
+                                                  ),
+                                                  trailing: Text(snapshot.data["Points"].toString(),
+                                                    style: TextStyle(
+                                                      color: Color(0xFF1B4079),
+                                                      fontSize: 25,
+                                                      fontFamily: 'Raleway',
+                                                      fontWeight: FontWeight.normal
+                                                      )
+                                                    )
+                                                );
+                                              },
+                                            ),
                                           );
                                         }
-                                      ),
-                                      ),
-                                            //return ListView.builder(
-                                            //   scrollDirection: Axis.vertical,
-                                            //   itemCount: groupOfUsersList.length,
-                                            //   itemBuilder: (context, index){
-                                            //     return ListTile(
-                                            //       leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                                            //         style: TextStyle(
-                                            //           color: Color(0xFF1B4079),
-                                            //           fontSize: 25,
-                                            //           fontFamily: 'Raleway',
-                                            //           fontWeight: FontWeight.normal
-                                            //         )
-                                            //       ),
-                                            //       trailing: Text(snapshot.data["Points"].toString(),
-                                            //          style: TextStyle(
-                                            //            color: Color(0xFF1B4079),
-                                            //            fontSize: 25,
-                                            //            fontFamily: 'Raleway',
-                                            //            fontWeight: FontWeight.normal
-                                            //           )
-                                            //          )
-                                            //     );
-                                            //   },
-                                            // );
+                                      )
+                                    ],
+                                  );
+                                }
+                              ),
+                              ),
+                                    //return ListView.builder(
+                                    //   scrollDirection: Axis.vertical,
+                                    //   itemCount: groupOfUsersList.length,
+                                    //   itemBuilder: (context, index){
+                                    //     return ListTile(
+                                    //       leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                    //         style: TextStyle(
+                                    //           color: Color(0xFF1B4079),
+                                    //           fontSize: 25,
+                                    //           fontFamily: 'Raleway',
+                                    //           fontWeight: FontWeight.normal
+                                    //         )
+                                    //       ),
+                                    //       trailing: Text(snapshot.data["Points"].toString(),
+                                    //          style: TextStyle(
+                                    //            color: Color(0xFF1B4079),
+                                    //            fontSize: 25,
+                                    //            fontFamily: 'Raleway',
+                                    //            fontWeight: FontWeight.normal
+                                    //           )
+                                    //          )
+                                    //     );
+                                    //   },
+                                    // );
 
-                                //  Container(
-                                //   child :StreamBuilder(
-                                //     stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                                //     builder: (context, snapshot) {
-                                //     if (!snapshot.hasData) {
-                                //      return new Text("Loading");
-                                //     }
-                                //     List groupOfUsersList = snapshot.data["Group Users"];                            
-                                //     sortList(groupOfUsersList); 
-                                //     return Column(
-                                //       mainAxisAlignment: MainAxisAlignment.center,
-                                //       children: <Widget>[
-                                //         for(var item in groupOfUsersList)
-                                //         StreamBuilder(
-                                //           stream: Firestore.instance.collection('users').document(item).snapshots(),
-                                //           builder: (context, snapshot) {
-                                //             if (!snapshot.hasData) {
-                                //              return new Text("Loading");
-                                //             }
-                                //             sortList(groupOfUsersList);
-                                //             return Container(
-                                //               margin: EdgeInsets.fromLTRB(20,20,20,0),
-                                //               child: Column(
-                                //                 children: <Widget>[
-                                //                   Row(
-                                //                   mainAxisAlignment: MainAxisAlignment.start,
-                                //                   children: <Widget>[
-                                //                     Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                                //                      style: TextStyle(
-                                //                         color: Color(0xFF1B4079),
-                                //                         fontSize: 25,
-                                //                         fontFamily: 'Raleway',
-                                //                         fontWeight: FontWeight.normal
-                                //                       )
-                                //                      ),
-                                //                      Spacer(),
-                                //                      Text(snapshot.data["Points"].toString(),
-                                //                      style: TextStyle(
-                                //                        color: Color(0xFF1B4079),
-                                //                        fontSize: 25,
-                                //                        fontFamily: 'Raleway',
-                                //                        fontWeight: FontWeight.normal
-                                //                       )
-                                //                      )
-                                //                   ]
-                                //                 )
-                                //                ]
-                                //               )
-                                //             );
-                                //           }
-                                //         )
-                                //       ],
-                                //     );
-                                //    }
-                                //  ),
-                                // ),
-                                Container(
-                                   margin: EdgeInsets.only(top: 35),
-                                   color: Color(0xFF1B4079),
-                                   width: MediaQuery.of(context).size.width,
-                                   height: 5
-                                 ),
-                               ]
-                             )
+                        //  Container(
+                        //   child :StreamBuilder(
+                        //     stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                        //     builder: (context, snapshot) {
+                        //     if (!snapshot.hasData) {
+                        //      return new Text("Loading");
+                        //     }
+                        //     List groupOfUsersList = snapshot.data["Group Users"];                            
+                        //     sortList(groupOfUsersList); 
+                        //     return Column(
+                        //       mainAxisAlignment: MainAxisAlignment.center,
+                        //       children: <Widget>[
+                        //         for(var item in groupOfUsersList)
+                        //         StreamBuilder(
+                        //           stream: Firestore.instance.collection('users').document(item).snapshots(),
+                        //           builder: (context, snapshot) {
+                        //             if (!snapshot.hasData) {
+                        //              return new Text("Loading");
+                        //             }
+                        //             sortList(groupOfUsersList);
+                        //             return Container(
+                        //               margin: EdgeInsets.fromLTRB(20,20,20,0),
+                        //               child: Column(
+                        //                 children: <Widget>[
+                        //                   Row(
+                        //                   mainAxisAlignment: MainAxisAlignment.start,
+                        //                   children: <Widget>[
+                        //                     Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                        //                      style: TextStyle(
+                        //                         color: Color(0xFF1B4079),
+                        //                         fontSize: 25,
+                        //                         fontFamily: 'Raleway',
+                        //                         fontWeight: FontWeight.normal
+                        //                       )
+                        //                      ),
+                        //                      Spacer(),
+                        //                      Text(snapshot.data["Points"].toString(),
+                        //                      style: TextStyle(
+                        //                        color: Color(0xFF1B4079),
+                        //                        fontSize: 25,
+                        //                        fontFamily: 'Raleway',
+                        //                        fontWeight: FontWeight.normal
+                        //                       )
+                        //                      )
+                        //                   ]
+                        //                 )
+                        //                ]
+                        //               )
+                        //             );
+                        //           }
+                        //         )
+                        //       ],
+                        //     );
+                        //    }
+                        //  ),
+                        // ),
+                        Container(
+                            margin: EdgeInsets.only(top: 35),
+                            color: Color(0xFF1B4079),
+                            width: MediaQuery.of(context).size.width,
+                            height: 5
                           ),
-                         Container(
-                           margin: EdgeInsets.only(top: 35),
-                           child: Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                             children: <Widget>[
-                               FlatButton(
-                                 onPressed: () {},
-                                 child: Text( 'Log Out',
-                                   style: TextStyle(
-                                     fontSize: 20,
-                                     fontFamily: 'Raleway',
-                                     color: Color(0xFFF2F2F2)
-                                   )
-                                 ),
-                                 shape: RoundedRectangleBorder(
-                                   borderRadius: new BorderRadius.circular(25),
-                                   side: BorderSide(
-                                     color: Color(0xFF1B4079),
-                                     width: 2.0,
-                                   )
-                                 ),
-                                 padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
-                                 color: Color(0xFF7E86DF),
-                               ),
-                               FlatButton(
-                                 onPressed: () {},
-                                 child: Text( 'Reset Password',
-                                   style: TextStyle(
-                                     fontSize: 20,
-                                     fontFamily: 'Raleway',
-                                     color: Color(0xFFF2F2F2)
-                                   )
-                                 ),
-                                 shape: RoundedRectangleBorder(
-                                   borderRadius: new BorderRadius.circular(25),
-                                   side: BorderSide(
-                                     color: Color(0xFF1B4079),
-                                     width: 2.0,
-                                   )
-                                 ),
-                                 padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
-                                 color: Color(0xFF7E86DF),
-                               )
-                             ]
-                           )
-                         ),
-                         StreamBuilder(
-                                   stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                                   builder: (context, snapshot) {
-                                   if (!snapshot.hasData) {
-                                   return new Text("Loading");
-                                   }
-                                   if(uid==snapshot.data["Admin"])
-                                   {
-                                     return Row(
-                                       children: <Widget>[
-                                         Container(
-                                          alignment: Alignment.bottomRight,
-                                          margin: EdgeInsets.only( top: 15 ),
-                                          child: FlatButton(
-                                            onPressed: () {
-                                             leaveHouse(true);
-                                            },
-                                            child: Text( 'LEAVE HOUSEHOLD',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'Raleway',
-                                                color: Color(0xFFF2F2F2)
-                                              )
-                                            ),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: new BorderRadius.circular(25),
-                                              side: BorderSide(
-                                                color: Color(0xFF1B4079),
-                                                width: 2.0,
-                                              )
-                                            ),
-                                            padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                                            color: Color(0xFF1b4079),
-                                          )
-                                        ),
-                                        Container(
-                                          alignment: Alignment.center,
-                                          margin: EdgeInsets.only( top: 10 ),
-                                          child: FlatButton(
-                                            onPressed: () {},
-                                            child: Text( 'Kick Member',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: 'Raleway',
-                                                color: Color(0xFFF2F2F2)
-                                              )
-                                            ),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: new BorderRadius.circular(25),
-                                              side: BorderSide(
-                                                color: Color(0xFF1B4079),
-                                                width: 2.0,
-                                              )
-                                            ),
-                                            padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                                            color: Color(0xFF1b4079),
-                                          )
-                                        ),
-
-                                       ],);
-                                   }
-                                   return Container(
-                                   alignment: Alignment.center,
-                                   margin: EdgeInsets.only( top: 15 ),
-                                   child: FlatButton(
-                                     onPressed: () {},
-                                     child: Text( 'LEAVE HOUSEHOLD',
-                                       style: TextStyle(
-                                         fontSize: 20,
-                                         fontFamily: 'Raleway',
-                                         color: Color(0xFFF2F2F2)
-                                       )
-                                     ),
-                                     shape: RoundedRectangleBorder(
-                                       borderRadius: new BorderRadius.circular(25),
-                                       side: BorderSide(
-                                         color: Color(0xFF1B4079),
-                                         width: 2.0,
-                                       )
-                                     ),
-                                     padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                                     color: Color(0xFF1b4079),
-                                   )
-                                 );
-                          }),
-                       ]
+                        ]
+                      )
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 35),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FlatButton(
+                          onPressed: () {},
+                          child: Text( 'Log Out',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Raleway',
+                              color: Color(0xFFF2F2F2)
+                            )
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25),
+                            side: BorderSide(
+                              color: Color(0xFF1B4079),
+                              width: 2.0,
+                            )
+                          ),
+                          padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
+                          color: Color(0xFF7E86DF),
+                        ),
+                        FlatButton(
+                          onPressed: () {},
+                          child: Text( 'Reset Password',
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontFamily: 'Raleway',
+                              color: Color(0xFFF2F2F2)
+                            )
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: new BorderRadius.circular(25),
+                            side: BorderSide(
+                              color: Color(0xFF1B4079),
+                              width: 2.0,
+                            )
+                          ),
+                          padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
+                          color: Color(0xFF7E86DF),
+                        )
+                      ]
                     )
+                  ),
+                  StreamBuilder(
+                            stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                            builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                            return new Text("Loading");
+                            }
+                            if(uid==snapshot.data["Admin"])
+                            {
+                              return Row(
+                                children: <Widget>[
+                                  Container(
+                                  alignment: Alignment.bottomRight,
+                                  margin: EdgeInsets.only( top: 15 ),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      leaveHouse(true);
+                                    },
+                                    child: Text( 'LEAVE HOUSEHOLD',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Raleway',
+                                        color: Color(0xFFF2F2F2)
+                                      )
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(25),
+                                      side: BorderSide(
+                                        color: Color(0xFF1B4079),
+                                        width: 2.0,
+                                      )
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                    color: Color(0xFF1b4079),
+                                  )
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  margin: EdgeInsets.only( top: 10 ),
+                                  child: FlatButton(
+                                    onPressed: () {},
+                                    child: Text( 'Kick Member',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Raleway',
+                                        color: Color(0xFFF2F2F2)
+                                      )
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: new BorderRadius.circular(25),
+                                      side: BorderSide(
+                                        color: Color(0xFF1B4079),
+                                        width: 2.0,
+                                      )
+                                    ),
+                                    padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                    color: Color(0xFF1b4079),
+                                  )
+                                ),
+
+                                ],);
+                            }
+                            return Container(
+                            alignment: Alignment.center,
+                            margin: EdgeInsets.only( top: 15 ),
+                            child: FlatButton(
+                              onPressed: () {},
+                              child: Text( 'LEAVE HOUSEHOLD',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: 'Raleway',
+                                  color: Color(0xFFF2F2F2)
+                                )
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(25),
+                                side: BorderSide(
+                                  color: Color(0xFF1B4079),
+                                  width: 2.0,
+                                )
+                              ),
+                              padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                              color: Color(0xFF1b4079),
+                            ),
+                            );
+                             }
+                            ),
+                         ]
+                      ),
+            )
                   );
                  }
                );
