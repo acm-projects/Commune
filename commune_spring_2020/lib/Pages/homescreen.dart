@@ -1,15 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Models/User.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/listofbills.dart';
 import 'package:commune_spring_2020/Pages/user_profile.dart';
+import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
+import 'package:commune_spring_2020/services/budgetServices.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-
+import 'package:provider/provider.dart';
 import 'chore_expansion.dart';
 
-class Homescreen extends StatefulWidget{
-
+class Homescreen extends StatefulWidget {
   final String uid;
   String hhname;
   Homescreen({this.uid});
@@ -17,12 +20,13 @@ class Homescreen extends StatefulWidget{
   _HomescreenState createState() => _HomescreenState();
 }
 
-class _HomescreenState extends State<Homescreen>{
+class _HomescreenState extends State<Homescreen> {
+  AuthService _auth = new AuthService();
   final List<String> items = List<String>.generate(100, (i) => "Item $i");
-  
+
   @override
-  Widget build(BuildContext context){
-    choresServices cv=new choresServices();
+  Widget build(BuildContext context) {
+    choresServices cv = new choresServices();
 
     final screenSize = MediaQuery.of(context);
     return Scaffold(
@@ -275,7 +279,14 @@ class _HomescreenState extends State<Homescreen>{
                     )
                   ],
                 )
-              )
+              ),
+              //sign out button
+              RaisedButton(
+                  child: Text("sign out"),
+                  onPressed: ()async{
+                    await _auth.signOut();
+                  }
+                ),
             ],
           ),
         )
@@ -284,64 +295,76 @@ class _HomescreenState extends State<Homescreen>{
   }  
 }
 
-class BillList extends StatefulWidget{
+class BillList extends StatefulWidget {
+  final String uid;
+  BillList({this.uid});
   @override
   _BillListState createState() => _BillListState();
 }
 
-
-class _BillListState extends State<BillList>{
+class _BillListState extends State<BillList> {
   final List<String> items = List<String>.generate(100, (i) => "Item $i");
   @override
-  Widget build(BuildContext context){
-    return Scaffold(
-      body: Column(
+  Widget build(BuildContext context) {
+
+    return Container(
+      height: 700,
+      child: Scaffold(
+          body: Column(
         children: <Widget>[
           //To Do title
           Container(
-            alignment: Alignment.centerLeft,
-            child: Text('Bills',
-              style: TextStyle(
-                color: Color(0xFF6D77E0),
-                fontSize: 40,
-                fontFamily: 'Raleway',
-                fontWeight: FontWeight.bold
-              )
-            )
-          ),
+            height: 40,
+              alignment: Alignment.centerLeft,
+              child: Text('Bills',
+                  style: TextStyle(
+                      color: Color(0xFF6D77E0),
+                      fontSize: 40,
+                      fontFamily: 'Raleway',
+                      fontWeight: FontWeight.bold))),
           //actual list
           Container(
-            height: 600.0,
-            padding: EdgeInsets.only(top: 2.0),
-            child: new ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: items.length,
-              itemBuilder: (context, index){
-                return ListTile(
-                  title: Text(
-                    //this should be the bill amount
-                    '${items[index]}',
-                    style: TextStyle(
-                      color: Color(0xFF6D77E0),
-                      fontFamily: 'Roboto',
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600
-                    )
-                  ),
-                  trailing: Text(
-                    '04/20/20',
-                    style: TextStyle(
-                      color: Color(0xFF6D77E0),
-                      fontFamily: 'Roboto',
-                      fontSize: 20
-                    )
-                  ),
-                );
+            height: 600,
+            child: StreamBuilder(
+              stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
+              builder: (context, snapshot) {
+                budgetServices bs= budgetServices();
+                if(!snapshot.hasData){
+                  return Text("loading...");
+                }
+                List bills=snapshot.data["Budget Changes"];
+                return Container(
+                    height: 500.0,
+                    padding: EdgeInsets.only(top: 2.0),
+                    child: new ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        itemCount: bills.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 60,
+                            child: ListTile(
+                              title: Text(
+                                  //this should be the bill amount
+                                  bs.getAmountFromDescription(bills[index]).toString(),
+                                  style: TextStyle(
+                                      color: Color(0xFF6D77E0),
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600)),
+                              trailing: Text(
+                                bs.getDateFromDescription(bills[index]),
+                                  style: TextStyle(
+                                      color: Color(0xFF6D77E0),
+                                      fontFamily: 'Roboto',
+                                      fontSize: 20)),
+                            ),
+                          );
+                        }));
               }
-            )
+            ),
           )
         ],
-      )
+      )),
     );
   }
 }

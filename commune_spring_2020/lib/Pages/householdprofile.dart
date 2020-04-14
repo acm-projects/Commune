@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/Pages/chore_expansion.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/material.dart';
@@ -214,7 +215,6 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               if (!snapshot.hasData) {
                                 return Text("loading...");
                               }
-                              print(admin + " @streamBUilder");
                               return Container(
                                 color: Color.fromARGB(255, 159, 166, 248),
                                 height: 0.1 * screenSize.size.height,
@@ -310,7 +310,7 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               .document(householdName)
                               .snapshots(),
                           builder: (context, snapshot) {
-                            if (snapshot.hasData == null) {
+                            if (!snapshot.hasData) {
                               return Text('loading');
                             }
                             return StreamBuilder(
@@ -318,14 +318,13 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                     .collection('HouseHoldGroups')
                                     .document(householdName)
                                     .snapshots(),
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData) {
+                                builder: (context, snap) {
+                                  if (!snap.hasData) {
                                     return Text("loading...");
                                   }
+                                  double t = snap.data["Budget"];
                                   return Text(
-                                    "\$" +
-                                        snapshot.data["Budget"]
-                                            .toStringAsFixed(2),
+                                    "\$" + t.toStringAsFixed(2),
                                     style: TextStyle(
                                         color: Colors.white,
                                         //fontSize: 24.0,
@@ -375,7 +374,22 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                       ),
                     ),
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                content: BillsExpansion(
+                                  uid: widget.uid,
+                                  userChange: false,
+                                ),
+
+                                // shape: RoundedRectangleBorder(
+                                //   borderRadius: new BorderRadius.circular(25.0)
+                                // ),
+                              );
+                            });
+                      },
                       child: FittedBox(
                         child: Text(
                           "Add a Bill",

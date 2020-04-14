@@ -1,4 +1,7 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:flutter/material.dart';
 
 
@@ -15,10 +18,12 @@ class _UserProfileState extends State<UserProfile> {
   final String uid;
   _UserProfileState({this.uid});
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
 
   @override
   Widget build(BuildContext context) { 
-
+   
     return StreamBuilder (
         stream: Firestore.instance.collection("users").document(uid).snapshots(),
          builder: (context, snapshot) {
@@ -322,29 +327,91 @@ class _UserProfileState extends State<UserProfile> {
                              ]
                            )
                          ),
-                         Container(
-                           alignment: Alignment.center,
-                           margin: EdgeInsets.only( top: 15 ),
-                           child: FlatButton(
-                             onPressed: () {},
-                             child: Text( 'LEAVE HOUSEHOLD',
-                               style: TextStyle(
-                                 fontSize: 20,
-                                 fontFamily: 'Raleway',
-                                 color: Color(0xFFF2F2F2)
-                               )
-                             ),
-                             shape: RoundedRectangleBorder(
-                               borderRadius: new BorderRadius.circular(25),
-                               side: BorderSide(
-                                 color: Color(0xFF1B4079),
-                                 width: 2.0,
-                               )
-                             ),
-                             padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                             color: Color(0xFF1b4079),
-                           )
-                         )
+                         StreamBuilder(
+                                   stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                                   builder: (context, snapshot) {
+                                   if (!snapshot.hasData) {
+                                   return new Text("Loading");
+                                   }
+                                   if(uid==snapshot.data["Admin"])
+                                   {
+                                     return Row(
+                                       children: <Widget>[
+                                         Container(
+                                          alignment: Alignment.bottomRight,
+                                          margin: EdgeInsets.only( top: 15 ),
+                                          child: FlatButton(
+                                            onPressed: () {
+                                             leaveHouse(true);
+                                            },
+                                            child: Text( 'LEAVE HOUSEHOLD',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: 'Raleway',
+                                                color: Color(0xFFF2F2F2)
+                                              )
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: new BorderRadius.circular(25),
+                                              side: BorderSide(
+                                                color: Color(0xFF1B4079),
+                                                width: 2.0,
+                                              )
+                                            ),
+                                            padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                            color: Color(0xFF1b4079),
+                                          )
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          margin: EdgeInsets.only( top: 10 ),
+                                          child: FlatButton(
+                                            onPressed: () {},
+                                            child: Text( 'Kick Member',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: 'Raleway',
+                                                color: Color(0xFFF2F2F2)
+                                              )
+                                            ),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: new BorderRadius.circular(25),
+                                              side: BorderSide(
+                                                color: Color(0xFF1B4079),
+                                                width: 2.0,
+                                              )
+                                            ),
+                                            padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                            color: Color(0xFF1b4079),
+                                          )
+                                        ),
+
+                                       ],);
+                                   }
+                                   return Container(
+                                   alignment: Alignment.center,
+                                   margin: EdgeInsets.only( top: 15 ),
+                                   child: FlatButton(
+                                     onPressed: () {},
+                                     child: Text( 'LEAVE HOUSEHOLD',
+                                       style: TextStyle(
+                                         fontSize: 20,
+                                         fontFamily: 'Raleway',
+                                         color: Color(0xFFF2F2F2)
+                                       )
+                                     ),
+                                     shape: RoundedRectangleBorder(
+                                       borderRadius: new BorderRadius.circular(25),
+                                       side: BorderSide(
+                                         color: Color(0xFF1B4079),
+                                         width: 2.0,
+                                       )
+                                     ),
+                                     padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                                     color: Color(0xFF1b4079),
+                                   )
+                                 );
+                          }),
                        ]
                     )
                   );
@@ -354,8 +421,6 @@ class _UserProfileState extends State<UserProfile> {
         
       void sortList(List listUsers) async
       {
-        
-        //String houseHoldName;
         String houseHoldName;
         var db= Firestore.instance;
         bool swapped = true;
@@ -386,11 +451,6 @@ class _UserProfileState extends State<UserProfile> {
               listUsers[item]= listUsers[item+1];
               listUsers[item+1] = temp;
               swapped = true;
-               for(var item = 0; item < listUsers.length; item++)
-               {
-                 print(listUsers[item]+"\n");
-               }
-               print("//////////////////////////////////");
             }
           }
         }
@@ -399,4 +459,134 @@ class _UserProfileState extends State<UserProfile> {
            'Group Users': listUsers,
         });
       }
+
+    void leaveHouse( bool isAdmin)
+     {
+       String error="", email="";
+       if(isAdmin)
+       {
+         showDialog(
+               context: context,
+               builder:(BuildContext context){
+                 return AlertDialog(
+                   title: new Text("Leave Household"),
+                   content: new Column(
+                     children: <Widget>[
+                       Text("Since you are the admin of this household, you need to select the new Admin. Type the email of the user below."),
+                       Form(
+                         key: _formKey,
+                         child: Column(
+                           children: <Widget>[
+                             TextFormField(
+                               validator: (e)=> e.isEmpty? "Enter an email" : null,
+                               onChanged: (val){
+                                 email=val.toString();
+                               },
+                             ),
+                           ],
+                         ),
+                       ),
+                       
+                       Row(children: <Widget>[
+                         RaisedButton(
+                           child: new Text("Cancel"),
+                           onPressed:() {
+                             Navigator.of(context).pop();
+                           },
+                         ),
+                         RaisedButton(
+                         child: Text("Confirm"),
+                         color: Colors.blue[200],
+                         onPressed: ()async{
+                         if(_formKey.currentState.validate()){
+
+                              String householdName, adimnEmail="";
+                              String newAdminUID;
+                              List listOfUserUIDS;
+                              var db= Firestore.instance;
+                              bool foundUser=false;
+                              int adminIndex;
+                              
+                              
+                              
+                              
+                              var adminDoc = db.collection('users').document(uid);
+                              await adminDoc.get().then((doc){
+                                adimnEmail = doc['Email'];
+                                householdName = doc["HouseHoldName"];
+                              });
+
+                              var householdDoc = db.collection('HouseHoldGroups').document(householdName);
+
+                              await householdDoc.get().then((doc){
+                                listOfUserUIDS = doc['Group Users'];
+                              });
+
+                              for(int x=0; x<listOfUserUIDS.length; x++)
+                              {
+                                String currentEmail = "";
+                                var currentUsers = db.collection('users').document(listOfUserUIDS[x]);
+
+                                await currentUsers.get().then((doc){
+                                 currentEmail = doc['Email'];
+                                });
+
+                                if(currentEmail==adimnEmail)
+                                {
+                                  adminIndex=x;
+                                }
+
+                                if(currentEmail==email && currentEmail!=adimnEmail)
+                                {
+                                  foundUser=true;
+                                  newAdminUID=listOfUserUIDS[x];
+                                }
+                              }
+                              
+                              if(foundUser)
+                              { 
+                                listOfUserUIDS.removeAt(adminIndex);
+                                await householdDoc.updateData({
+                                          'Group Users': listOfUserUIDS,
+                                          'Admin': newAdminUID,
+                                          
+                               });
+                               await adminDoc.updateData({
+                                          'HouseHoldName': "Null",
+                                          'Budget Changes': new List(),
+                                          'Chores': new List(),   
+                                          'Points':0,
+                               });
+                                Navigator.of(context).pop();
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldSelectionPage()));
+                              }
+                              else
+                              {
+                                
+                                 setState((){ 
+                                   error = "A user with that email is not in your household. Try Again";
+                                });
+                                  
+                              }
+
+                           }
+                         }
+                        ),
+                       ],),
+                       Text(
+                         error,
+                         style: TextStyle(color:Colors.red),
+                       ),
+                     ],
+                    ),
+                    
+                 );
+               },
+             );
+       }
+       else
+       {
+
+       }
+     }
 }

@@ -147,6 +147,9 @@ class _ChoreListState extends State<ChoreList> {
                             return StreamBuilder(
                               stream: Firestore.instance.collection('HouseHoldGroups').document(widget.hhname).snapshots(),
                               builder: (context, snap) {
+                                if(!snap.hasData){
+                                  return Text("loading...");
+                                }
                                 List chores=snap.data["Chores"];
                                 return Container(
                                   height: 0.6 * screenSize.size.height,

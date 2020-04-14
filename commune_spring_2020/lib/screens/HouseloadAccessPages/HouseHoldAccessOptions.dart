@@ -11,8 +11,8 @@ class _HouseHoldSelectionPageState extends State<HouseHoldSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return new Scaffold(
+      appBar: new AppBar(
         title:Text('Household Options'),
       ),
       body: Column(
