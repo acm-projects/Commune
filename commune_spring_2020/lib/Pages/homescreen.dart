@@ -30,6 +30,7 @@ class _HomescreenState extends State<Homescreen> {
 
     final screenSize = MediaQuery.of(context);
     return Scaffold(
+      key: UniqueKey(),
       body: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -92,33 +93,34 @@ class _HomescreenState extends State<Homescreen> {
                             )
                           ),
                           Spacer(),
-                          FlatButton(
-                            onPressed: (){
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context){
-                                  return AlertDialog(
-                                    content: ChoreExpansion(uid: widget.uid,),
-                                    // shape: RoundedRectangleBorder(
-                                    //   borderRadius: new BorderRadius.circular(25.0)
-                                    // ),
-                                  );
-                                }
-                              );
-                            },
-                            child: Icon(
-                              Icons.add,
-                              size: 30,
-                              color: Color(0xFF7E86DF)
-                            ),
-                            shape: CircleBorder(
-                              side: BorderSide(
-                                color: Color(0xB3FFFFFF),
-                                width: 2.0,
-                              )
-                            ),
-                            color: Color(0xB3FFFFFF),
-                          )
+                          //no need for a button to add chores, this is done in the household profiles page
+                          // FlatButton(
+                          //   onPressed: (){
+                          //     showDialog(
+                          //       context: context,
+                          //       builder: (BuildContext context){
+                          //         return AlertDialog(
+                          //           content: ChoreExpansion(uid: widget.uid,),
+                          //           // shape: RoundedRectangleBorder(
+                          //           //   borderRadius: new BorderRadius.circular(25.0)
+                          //           // ),
+                          //         );
+                          //       }
+                          //     );
+                          //   },
+                          //   child: Icon(
+                          //     Icons.add,
+                          //     size: 30,
+                          //     color: Color(0xFF7E86DF)
+                          //   ),
+                          //   shape: CircleBorder(
+                          //     side: BorderSide(
+                          //       color: Color(0xB3FFFFFF),
+                          //       width: 2.0,
+                          //     )
+                          //   ),
+                          //   color: Color(0xB3FFFFFF),
+                          // )
                         ],
                       )
                     ),
@@ -142,6 +144,7 @@ class _HomescreenState extends State<Homescreen> {
                               int points=cv.getPointFromDescription(chores[index]);
 
                               return Dismissible(
+                                key:UniqueKey(),
                                   child: ListTile(
                                   title: Text(
                                     desc,
@@ -161,14 +164,13 @@ class _HomescreenState extends State<Homescreen> {
                                     )
                                   ),
                                 ), 
-                                key: null,
                                 direction: DismissDirection.horizontal,
                                 onDismissed: (direction) {
                                     setState2(() {
                                       items.removeAt(index);
                                     });
                                 },
-                                background: slideBackground()
+                                background: slideBackground(points)
                               );
                             }
                           );
@@ -371,19 +373,19 @@ class _BillListState extends State<BillList> {
 
 void setState2(Null Function() param0) {}
 
-Widget slideBackground(){
+Widget slideBackground( int pts){
   return Container(
     color: Colors.white,
     child: Align(
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Icon(
             Icons.delete,
             color: Color(0xFF582D8F),
           ),
           Text(
-            "30 points",
+            pts.toString()+" points",
             style: TextStyle(
               color: Color(0xFF582D8F),
               fontWeight: FontWeight.w700,
@@ -395,7 +397,7 @@ Widget slideBackground(){
           ),
         ],
       ),
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
     ),
   );
 }
