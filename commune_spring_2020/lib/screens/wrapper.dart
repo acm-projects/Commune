@@ -68,8 +68,9 @@ class Wrapper extends StatelessWidget {
       return LoginPage();
     } else {
       // return ChoresPage(uid:user.uid, householdName: "bruh",);
-      return Home(uid:user.uid);
-      // return Home(uid:user.uid);
+      //return UserProfile(uid:user.uid);
+       return Home(uid:user.uid);
+      //return LoginPage();
       // return HouseholdProfile(uid: user.uid,);
       //return BillsExpansion(uid: user.uid);
       // return Budget(uid: user.uid);

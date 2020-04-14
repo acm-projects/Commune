@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
     
     return Scaffold(
     backgroundColor: Color.fromARGB(255, 126, 134, 233),
-
+    resizeToAvoidBottomInset: false,
     body: Form(
         key: _formKey,
         child: Center(
