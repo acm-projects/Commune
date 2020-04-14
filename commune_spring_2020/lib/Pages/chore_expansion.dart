@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+
 
 class ChoreExpansion extends StatefulWidget {
   final String uid;
@@ -255,15 +258,15 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                   .collection("users")
                                                   .document(roomates[index])
                                                   .snapshots(),
-                                              builder: (context, snapshot) {
-                                                if (!snapshot.hasData) {
+                                              builder: (context, snap) {
+                                                if (!snap.hasData) {
                                                   return null;
                                                 }
                                                 return new RaisedButton(
                                                   color: Color.fromARGB(
                                                       230, 174, 181, 255),
                                                   child: Text(
-                                                    snapshot.data["First Name"],
+                                                    snap.data["First Name"],
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontFamily: 'Raleway',
@@ -326,4 +329,4 @@ class _ChoreExpansion extends State<ChoreExpansion> {
   }
 }
 
-void setState(Null Function() param0) {}
+// void setState(Null Function() param0) {}

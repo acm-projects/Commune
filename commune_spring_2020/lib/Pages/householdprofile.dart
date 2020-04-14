@@ -3,6 +3,7 @@ import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/Pages/chore_expansion.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
 
 class HouseholdProfile extends StatefulWidget {
   final String uid;
@@ -14,11 +15,14 @@ class HouseholdProfile extends StatefulWidget {
 }
 
 class _HouseholdProfileState extends State<HouseholdProfile> {
+ 
+  String adminUid;
   @override
   Widget build(BuildContext context) {
+     bool isAdmin=true;
     String householdName, admin;
     choresServices cs = new choresServices();
-    // print(uid+"8888888888888888888888888888888888888888");
+
     final screenSize = MediaQuery.of(context);
     return Scaffold(
         body: Column(children: <Widget>[
@@ -116,7 +120,6 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                         if (!snapshots.hasData) {
                           return Text("loading...");
                         }
-                        // print(snapshots.data["Admin"].toString());
                         return Container(
                           color: Color.fromARGB(255, 159, 166, 248),
                           height: 0.1 * screenSize.size.height,
@@ -230,10 +233,12 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                         if (!snapshot.hasData) {
                                           return Text("loading...");
                                         }
+                                        String firstName =
+                                            snapshot.data["First Name"];
+                                        String lastName =
+                                            snapshot.data["Last Name"];
                                         String name =
-                                            snapshot.data["First Name"] +
-                                                " " +
-                                                snapshot.data["Last Name"];
+                                            firstName + " " + lastName;
                                         return Text(
                                           name,
                                           style: TextStyle(
@@ -355,55 +360,97 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    FlatButton(
-                      onPressed: () {},
-                      child: FittedBox(
-                        child: Text(
-                          "Add a Chore",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Raleway',
-                            //fontSize: 17.0,
+                    Visibility(
+                      visible: isAdmin,
+                      child: FlatButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: ChoreExpansion(
+                                    uid: widget.uid,                                    
+                                  ),
+
+                                  // shape: RoundedRectangleBorder(
+                                  //   borderRadius: new BorderRadius.circular(25.0)
+                                  // ),
+                                );
+                              });
+                        },
+                        child: FittedBox(
+                          child: Text(
+                            "Add a Chore",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Raleway',
+                              //fontSize: 17.0,
+                            ),
                           ),
                         ),
-                      ),
-                      color: Color.fromARGB(255, 27, 64, 121),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(12.0),
-                        side: BorderSide(color: Colors.white),
+                        color: Color.fromARGB(255, 27, 64, 121),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(12.0),
+                          side: BorderSide(color: Colors.white),
+                        ),
                       ),
                     ),
-                    FlatButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                content: BillsExpansion(
-                                  uid: widget.uid,
-                                  userChange: false,
-                                ),
+                    StreamBuilder(
+                      stream: Firestore.instance.collection('HouseHoldGroups').document(householdName).snapshots(),
+                      builder: (context, snap){
+                        if(!snap.hasData){
+                          return Text("loading...");
+                        }
+                        if(admin==widget.uid){
+                            isAdmin=true;
+                            // isAdmin=true;
+                        }else{
+                            isAdmin=false;
+                          // isAdmin=false;
+                        }
+                        return Text(" ");
+                      }
+                        ,
+                    ),
+                    Visibility(
+                      visible:(isAdmin),
+                      child: FlatButton(
+                        onPressed: () {
+                          if(!isAdmin){
+                            print("false");
+                          }else{
+                            print("true");
+                          }
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: BillsExpansion(
+                                    uid: widget.uid,
+                                    userChange: false,
+                                  ),
 
-                                // shape: RoundedRectangleBorder(
-                                //   borderRadius: new BorderRadius.circular(25.0)
-                                // ),
-                              );
-                            });
-                      },
-                      child: FittedBox(
-                        child: Text(
-                          "Add a Bill",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Raleway',
-                            //fontSize: 17.0,
+                                  // shape: RoundedRectangleBorder(
+                                  //   borderRadius: new BorderRadius.circular(25.0)
+                                  // ),
+                                );
+                              });
+                        },
+                        child: FittedBox(
+                          child: Text(
+                            "Add a Bill",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Raleway',
+                              //fontSize: 17.0,
+                            ),
                           ),
                         ),
-                      ),
-                      color: Color.fromARGB(255, 27, 64, 121),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(12.0),
-                        side: BorderSide(color: Colors.white),
+                        color: Color.fromARGB(255, 27, 64, 121),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(12.0),
+                          side: BorderSide(color: Colors.white),
+                        ),
                       ),
                     )
                   ]),

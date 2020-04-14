@@ -1,7 +1,12 @@
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
+import 'package:commune_spring_2020/Pages/chore_expansion.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/Pages/app_card.dart';
+import 'package:flutter/src/widgets/framework.dart';
+
+
+import '../chore_expansion.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -89,7 +94,7 @@ class LoginPage extends StatelessWidget {
                   if(_formKey.currentState.validate()){
                     dynamic result = await _auth.signIn(email, password);
                       if(result==null){
-                        setState(()=>error="Yout username or password dont match our records");
+                        // setState(()=>error="Yout username or password dont match our records");
                       }else{
                         
                       }

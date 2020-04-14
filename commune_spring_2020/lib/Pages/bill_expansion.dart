@@ -7,7 +7,7 @@ import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter/src/widgets/framework.dart';
 // im not sure how to read in the people organically and process that
 // in addition right now the page only supports up to four people
 
@@ -39,7 +39,6 @@ class _BillsExpansionState extends State<BillsExpansion> {
   budgetServices budgetService = new budgetServices();
   final formKey = GlobalKey<FormState>();
   String title;
-  List<String> persons = ["olimjon", "olimjon", "olimjon", "olimjon"];
 
   String desc = " ";
   double budgetChange = 0, original;
@@ -52,7 +51,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
   Color buttonColor = Color.fromARGB(255, 27, 64, 121);
   String budgetProfile;
   @override
-  bool checkBoxValue = false;
+  bool checkBoxValue = true;
   int counter = 0;
   void incrementCounter() {
     setState(() {
@@ -448,4 +447,4 @@ class _BillsExpansionState extends State<BillsExpansion> {
   //------------------------------------------------------------------------------------------
 }
 
-void setState(Null Function() param0) {}
+// void setState(Null Function() param0) {}
