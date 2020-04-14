@@ -51,7 +51,7 @@ class _HomescreenState extends State<Homescreen> {
                     return Text("loading....");
                   }
                   widget.hhname=snap.data["HouseHoldName"];
-                  return Text("null");
+                  return Text('');
                 }
               ),
               StreamBuilder(
@@ -284,11 +284,23 @@ class _HomescreenState extends State<Homescreen> {
               ),
               //sign out button
               RaisedButton(
-                  child: Text("sign out"),
-                  onPressed: ()async{
-                    await _auth.signOut();
-                  }
+                onPressed: ()async{
+                  await _auth.signOut();
+                },
+                child: Text(
+                  'Sign Out',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'Raleway',
+                    color: Colors.white
+                  )
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(25),
+                ),
+                padding: EdgeInsets.fromLTRB( 50, 15, 50, 15),
+                color: Color(0xFF8C94EB)
+              ),
             ],
           ),
         )
@@ -382,7 +394,7 @@ Widget slideBackground( int pts){
         children: <Widget>[
           Icon(
             Icons.delete,
-            color: Color(0xFF582D8F),
+            color: Color(0xFF6D77E0),
           ),
           Text(
             pts.toString()+" points",

@@ -6,6 +6,8 @@ import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dar
 import 'package:commune_spring_2020/Pages/createhousehold.dart';
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/householdprofile.dart';
+import 'package:commune_spring_2020/Pages/join_household.dart';
+import 'package:commune_spring_2020/Pages/join_or_create.dart';
 import 'package:commune_spring_2020/Pages/listofbills.dart';
 import 'package:commune_spring_2020/Pages/listofchores.dart';
 import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
@@ -69,7 +71,8 @@ class Wrapper extends StatelessWidget {
     } else {
       // return ChoresPage(uid:user.uid, householdName: "bruh",);
       //return UserProfile(uid:user.uid);
-       return Home(uid:user.uid);
+      return Home(uid:user.uid);
+      //return JoinHousehold();
       //return LoginPage();
       // return HouseholdProfile(uid: user.uid,);
       //return BillsExpansion(uid: user.uid);
