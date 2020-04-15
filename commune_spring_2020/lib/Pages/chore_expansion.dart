@@ -324,7 +324,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
     e.g.
     1000&#dishes plzzzzz :(&#March 27, 2020
     */
-    String desc = (points.toString() + "&#d" + memo + "&#d" + deadline);
+    String desc = (points.toString() + "&#" + memo + "&#" + deadline);
     return desc;
   }
 }
