@@ -3,6 +3,7 @@ import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
 
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/welcome.dart';
 import 'package:commune_spring_2020/Pages/createhousehold.dart';
 import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/householdprofile.dart';
@@ -66,54 +67,46 @@ class Wrapper extends StatelessWidget {
 
     final user = Provider.of<User>(context);
     if (user == null){ 
-      //return Authenticate();
       return LoginPage();
     } else {
-      // return ChoresPage(uid:user.uid, householdName: "bruh",);
-      //return UserProfile(uid:user.uid);
-      return Home(uid:user.uid);
-      //return JoinHousehold();
-      //return LoginPage();
-      // return HouseholdProfile(uid: user.uid,);
-      //return BillsExpansion(uid: user.uid);
-      // return Budget(uid: user.uid);
+      //return Home(uid:user.uid);
+      //print("yoooo");
+      return FutureBuilder(
+      future: householdIsNull(user.uid),
+      builder: (context,AsyncSnapshot<bool> snapshot)
+      {
+         if(snapshot.hasData)
+         {
+           if(snapshot.data)
+           {
+             return JoinOrCreate();
+           }
+           else
+           {
+             return Home(uid:user.uid);
+           }
+         }
+         else
+         {
+           return Text("error");
+         }
+      });
+    
     }
 
-    //retrun the proper widget
-    //DO NOT DELETE
-  //   if(user==null){
-  //     return Authenticate();
-  //   }else{
-  //    return Container(
-  //      height: MediaQuery.of(context).size.height/1.5,
-  //      child: FutureBuilder<String>(
-  //         future: getUserHousehold(user.uid),
-  //         builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-  //           if (snapshot.hasData) {
-  //             if(currentHouseholdName=='Null')
-  //             {
-  //               return HouseHoldSelectionPage();
-  //             }
-  //             else
-  //             {
-  //               return Home(uid: user.uid);
-  //             }
-  //           } else {
-  //             return Text('Getting Household Name...');
-  //           }
-  //         },
-  //       )
-  //    );
-  //   }
+
   }
 
-   Future<String> getUserHousehold(String userID) async {
+   Future<bool> householdIsNull(String userID) async {
      String houseName;
       await Firestore.instance.collection("users").document(userID).get().then((doc){
         houseName= doc.data["HouseHoldName"]; 
       });
-      currentHouseholdName=houseName;
-      return houseName;
+      if(houseName=="Null")
+      {
+        return true;
+      }
+      return false;
    }
 
 } 

@@ -1,4 +1,5 @@
 import 'package:commune_spring_2020/Pages/homepage.dart';
+import 'package:commune_spring_2020/Pages/join_or_create.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/cupertino.dart';
@@ -57,7 +58,24 @@ class _RegisterUserState extends State {
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
-                      labelText: "Name",
+                      labelText: "First Name",
+                      labelStyle: TextStyle(color: Colors.white),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  TextFormField(
+                    //update the var
+                    onChanged: (val) {
+                      _lastName = val;
+                    },
+
+                    obscureText: false,
+                    style: TextStyle(color: Colors.white),
+                    cursorColor: Colors.white,
+                    decoration: InputDecoration(
+                      labelText: "Last Name",
                       labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -79,11 +97,13 @@ class _RegisterUserState extends State {
                     ),
                   ),
                   TextFormField(
-                    obscureText: true,
+                    onChanged: (val) {
+                      _age = val;
+                    },
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
-                      labelText: "Password",
+                      labelText: "Age",
                       labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -99,7 +119,7 @@ class _RegisterUserState extends State {
                     style: TextStyle(color: Colors.white),
                     cursorColor: Colors.white,
                     decoration: InputDecoration(
-                      labelText: "Confirm Password",
+                      labelText: "Password",
                       labelStyle: TextStyle(color: Colors.white),
                       enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
@@ -113,6 +133,7 @@ class _RegisterUserState extends State {
                   
                   dynamic result = await _auth.signUp(
                       _firstName, _lastName, _email, _age, 0, _password);
+                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinOrCreate()));
                   if (result == null) {
                     setState(() => _error = "something went wrong try again");
                   } else {

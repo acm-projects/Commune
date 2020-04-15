@@ -9,7 +9,7 @@ class HouseHoldCreation extends StatefulWidget {
 }
 
 class _HouseHoldCreationState extends State<HouseHoldCreation> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKeyy = GlobalKey<FormState>();
 
   String _admin, _password, _householdName;
 
@@ -21,7 +21,7 @@ class _HouseHoldCreationState extends State<HouseHoldCreation> {
       ),
 
       body: Form(
-        key: _formKey,
+        key: _formKeyy,
         child: Column(
           children: <Widget>[
             TextFormField(
@@ -61,12 +61,12 @@ class _HouseHoldCreationState extends State<HouseHoldCreation> {
   }
 
   Future<void> loginInToHouse() async {
-    if(_formKey.currentState.validate())
+    if(_formKeyy.currentState.validate())
     {
-      _formKey.currentState.save();
+      _formKeyy.currentState.save();
       FirebaseUser user= (await FirebaseAuth.instance.currentUser());
 
-      DatabaseService(uid: user.uid).updateHouseHoldData(_password,_householdName);
+      //DatabaseService(uid: user.uid).updateHouseHoldData(_password,_householdName);
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(uid: user.uid)));
     }

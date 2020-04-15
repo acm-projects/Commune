@@ -2,7 +2,9 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 
 
 class UserProfile extends StatefulWidget {
@@ -14,7 +16,7 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
-
+  AuthService _auth = new AuthService();
   final String uid;
   _UserProfileState({this.uid});
 
@@ -138,88 +140,6 @@ class _UserProfileState extends State<UserProfile> {
                             width: MediaQuery.of(context).size.width,
                             height: 5
                           ),
-                          //household members
-                              //Container(
-                              //  child: StreamBuilder(
-                              //    stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                              //    builder: (context, snapshot) {
-                              //      
-                              //    if (!snapshot.hasData) {
-                              //      return new Text("Loading");
-                              //    }                                          
-                              //    List groupOfUsersList = snapshot.data["Group Users"];                            
-                              //    sortList(groupOfUsersList); 
-
-                              //    return Column(
-                              //      mainAxisAlignment: MainAxisAlignment.center,
-                              //      children: <Widget>[
-                              //        for(var item in groupOfUsersList)
-                              //        StreamBuilder(
-                              //          stream: Firestore.instance.collection('users').document(item).snapshots(),
-                              //          builder: (context, snapshot) {
-                              //            if (!snapshot.hasData) {
-                              //              return new Text("Loading");
-                              //            }
-                              //            sortList(groupOfUsersList);
-                              //            return Container(
-                              //              height: 70.0,
-                              //              child: new ListView.builder(
-                              //                scrollDirection: Axis.vertical,
-                              //                itemCount: groupOfUsersList.length,
-                              //                itemBuilder: (context, index){
-                              //                  return ListTile(
-                              //                    leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                              //                      style: TextStyle(
-                              //                        color: Color(0xFF1B4079),
-                              //                        fontSize: 25,
-                              //                        fontFamily: 'Raleway',
-                              //                        fontWeight: FontWeight.normal
-                              //                      )
-                              //                    ),
-                              //                    trailing: Text(snapshot.data["Points"].toString(),
-                              //                      style: TextStyle(
-                              //                        color: Color(0xFF1B4079),
-                              //                        fontSize: 25,
-                              //                        fontFamily: 'Raleway',
-                              //                        fontWeight: FontWeight.normal
-                              //                        )
-                              //                      )
-                              //                  );
-                              //                },
-                              //              ),
-                              //            );
-                              //          }
-                              //        )
-                              //      ],
-                              //    );
-                              //  }
-                              //),
-                              //),
-                                    //return ListView.builder(
-                                    //   scrollDirection: Axis.vertical,
-                                    //   itemCount: groupOfUsersList.length,
-                                    //   itemBuilder: (context, index){
-                                    //     return ListTile(
-                                    //       leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                                    //         style: TextStyle(
-                                    //           color: Color(0xFF1B4079),
-                                    //           fontSize: 25,
-                                    //           fontFamily: 'Raleway',
-                                    //           fontWeight: FontWeight.normal
-                                    //         )
-                                    //       ),
-                                    //       trailing: Text(snapshot.data["Points"].toString(),
-                                    //          style: TextStyle(
-                                    //            color: Color(0xFF1B4079),
-                                    //            fontSize: 25,
-                                    //            fontFamily: 'Raleway',
-                                    //            fontWeight: FontWeight.normal
-                                    //           )
-                                    //          )
-                                    //     );
-                                    //   },
-                                    // );
-
                         Container(
                          child :StreamBuilder(
                            stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
@@ -291,8 +211,10 @@ class _UserProfileState extends State<UserProfile> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         FlatButton(
-                          onPressed: () {},
-                          child: Text( 'Log Out',
+                          onPressed: () async {
+                            await _auth.signOut();
+                          },
+                          child: Text( 'Sign Out',
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Raleway',
@@ -310,7 +232,17 @@ class _UserProfileState extends State<UserProfile> {
                           color: Color(0xFF7E86DF),
                         ),
                         FlatButton(
-                          onPressed: () {},
+                          onPressed: () async {
+
+                               var db = Firestore.instance;
+                               var adminDoc = db.collection('users').document(uid);
+                               String userEmail;
+                               await adminDoc.get().then((doc){
+                                userEmail = doc['Email'];
+                              });
+                              print(userEmail+"dfgfdd");
+                              resetPassword(userEmail);
+                          },
                           child: Text( 'Reset Password',
                             style: TextStyle(
                               fontSize: 20,
@@ -571,6 +503,18 @@ class _UserProfileState extends State<UserProfile> {
        }
        else
        {
+         //Put this where the user confirms the want to leave
+         //Navigator.of(context).pop();
+          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldSelectionPage()));
+          //var db= Firestore.instance;
+          //var userDoc = db.collection('users').document(uid);
+          //await userDoc.updateData({
+          //              'HouseHoldName': "Null",
+          //               'Budget Changes': new List(),
+          //               'Chores': new List(),   
+          //              'Points':0,
+          // });
+                              
          showDialog(
            context: context,
            builder:(BuildContext context){
@@ -598,5 +542,33 @@ class _UserProfileState extends State<UserProfile> {
            },
          );
        }
+     }
+
+
+     Future<void> resetPassword(String _email) async {     
+          var auth = FirebaseAuth.instance;     
+          auth.sendPasswordResetEmail(email: _email);
+          passwordResetAlert(_email);
+    }
+ 
+     void passwordResetAlert(String email)
+     {
+       showDialog(
+      context: context,
+      builder:(BuildContext context){
+        return AlertDialog(
+          title: new Text("Password Reset"),
+          content: new Text('A password reset link was sent to '+email),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Close"),
+              onPressed:() {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
      }
 }

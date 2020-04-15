@@ -19,13 +19,12 @@ class DatabaseService {
       'uid':userID,
       'Chores':new List(),
       'Budget': budget,
-      'Budget Changes':new List()
-      //'Display Name': displayName,
-      //'name': email,
+      'Budget Changes':new List(),
+      'Points':0,
     });
   }
 
-  void updateHouseHoldData( String password, String householdName) async{
+  void updateHouseHoldData( String password, String householdName, String budget) async{
     List <String> usersInGroup;
     await householdCollection.document(householdName).setData({
         'Admin': uid,
@@ -33,7 +32,7 @@ class DatabaseService {
         'Group Users':usersInGroup,
         'Chores':new List(),
         'Budget Changes':new List(),
-        'Budget':0,
+        'Budget': 0,
         'Points':0,
     });
     await  householdCollection.document(householdName).updateData({

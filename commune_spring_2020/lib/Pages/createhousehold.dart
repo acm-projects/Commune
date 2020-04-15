@@ -1,4 +1,8 @@
+import 'package:commune_spring_2020/Pages/homepage.dart';
+import 'package:commune_spring_2020/services/database.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 class CreateHousehold extends StatefulWidget {
@@ -9,8 +13,14 @@ class CreateHousehold extends StatefulWidget {
 }
 
 class _CreateHouseholdState extends State<CreateHousehold> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _pass, _houseHoldName = "";
+  String budget;
+  
   @override
   Widget build(BuildContext context) {
+    
     final screenSize = MediaQuery.of(context);
     return Material(
     
@@ -55,16 +65,22 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                elevation: 0,
                color: Colors.transparent,
                child: Form(
+                 key: _formKey,
                  child: Column(
                    children: <Widget>[
-                    
                      Container(height: 0.03 * screenSize.size.height, color: Colors.transparent),
-
                      Container(
                       height: 0.1 * screenSize.size.height,
                       width: 0.8 * screenSize.size.width,
                       color: Colors.transparent,
                       child: TextFormField(
+                        validator: (input){
+                          if(input.isEmpty)
+                          {
+                            return "Enter a Name";
+                          }
+                        },
+                        onSaved: (input) => _houseHoldName = input,
                         decoration: InputDecoration(
                           labelText: 'Household Name',
                           enabledBorder: OutlineInputBorder(
@@ -86,6 +102,17 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                       width: 0.8 * screenSize.size.width,
                       color: Colors.transparent,
                       child: TextFormField(
+                         validator: (input){
+                          if(input.isEmpty)
+                          {
+                            return "Enter a Password";
+                          }
+                          if(input.length<6)
+                          {
+                            return "Make a Longer Password";
+                          }
+                        },
+                        onSaved: (input) => _pass = input,
                         obscureText: true,
                         decoration: InputDecoration(
                           labelText: 'Household Password',
@@ -108,6 +135,20 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                       width: 0.8 * screenSize.size.width,
                       color: Colors.transparent,
                       child: TextFormField(
+                        validator: (input){
+                          if(input.isEmpty)
+                          {
+                            return "Enter a Buget";
+                          }
+                          if(input.contains('-'))
+                          {
+                            return "Please Give A Number Greater Than 0";
+                          }
+                        },
+                        inputFormatters: <TextInputFormatter>[
+                          WhitelistingTextInputFormatter.digitsOnly
+                        ], 
+                        onSaved: (input) => budget = input,
                         decoration: InputDecoration(
                           labelText: 'Budget/Base Rent',
                           enabledBorder: OutlineInputBorder(
@@ -131,7 +172,13 @@ class _CreateHouseholdState extends State<CreateHousehold> {
            ),
 
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                if(_formKey.currentState.validate())
+               {
+                _formKey.currentState.save();
+                loginInToHouse(_pass, _houseHoldName, budget);
+               }
+              },
               child: FittedBox(
                 child: Text(
                   "Create",
@@ -154,5 +201,16 @@ class _CreateHouseholdState extends State<CreateHousehold> {
          ],
        ),
     ));
+  }
+
+  Future<void> loginInToHouse(String password, String houseName, String budget) async {
+    if(_formKey.currentState.validate())
+    {
+      _formKey.currentState.save();
+      FirebaseUser user= (await FirebaseAuth.instance.currentUser());
+      DatabaseService(uid: user.uid).updateHouseHoldData(password,houseName,budget);
+
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(uid:user.uid)));
+    }
   }
 }

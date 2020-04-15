@@ -1,5 +1,7 @@
 
 
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +26,9 @@ class Welcome extends StatelessWidget{
               Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginPage()));
+                  },
                   textColor: Colors.white,
                   child: Text('Login',
                     style: TextStyle(
@@ -43,7 +47,9 @@ class Welcome extends StatelessWidget{
                 ),
               ),
               FlatButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> RegisterUser()));
+                },
                 textColor: Colors.white,
                 child: Text('Register',
                   style: TextStyle(

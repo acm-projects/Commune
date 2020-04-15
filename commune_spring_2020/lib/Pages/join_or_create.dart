@@ -1,3 +1,4 @@
+import 'package:commune_spring_2020/Pages/createhousehold.dart';
 import 'package:flutter/material.dart';
 
 class JoinOrCreate extends StatefulWidget {
@@ -25,7 +26,9 @@ class _JoinOrCreateState extends State<JoinOrCreate>{
             Column(
               children: <Widget>[
                 MaterialButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CreateHousehold()));
+                  },
                   elevation: 20.0,
                   child: Stack(
                     alignment: AlignmentDirectional.center,
@@ -70,7 +73,9 @@ class _JoinOrCreateState extends State<JoinOrCreate>{
             Column(
               children: <Widget>[
                 MaterialButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CreateHousehold()));
+                  },
                   elevation: 20.0,
                   child: Stack(
                     alignment: AlignmentDirectional.center,

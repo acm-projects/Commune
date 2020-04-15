@@ -6,11 +6,14 @@ import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 
 class HouseHoldJoinPage extends StatefulWidget {
   @override
-  _HouseHoldJoinPageState createState() => _HouseHoldJoinPageState();
+   final String uid;
+  HouseHoldJoinPage({this.uid});
+  _HouseHoldJoinPageState createState() => _HouseHoldJoinPageState(uid: uid);
 }
 
 class _HouseHoldJoinPageState extends State<HouseHoldJoinPage> {
-
+  final String uid;
+  _HouseHoldJoinPageState({this.uid});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String _houseName, _housePassword;

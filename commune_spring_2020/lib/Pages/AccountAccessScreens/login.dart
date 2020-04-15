@@ -1,6 +1,8 @@
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
 import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/Pages/chore_expansion.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/Pages/app_card.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -94,7 +96,7 @@ class LoginPage extends StatelessWidget {
                   if(_formKey.currentState.validate()){
                     dynamic result = await _auth.signIn(email, password);
                       if(result==null){
-                        // setState(()=>error="Yout username or password dont match our records");
+                         //setState((){error="Your username or password dont match our records";});
                       }else{
                         
                       }
@@ -116,9 +118,27 @@ class LoginPage extends StatelessWidget {
               ),
               FlatButton(
                 onPressed: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> RegisterUser()));
+                },
+                child: Text("Create an account",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Raleway',
+                  fontSize: 18.0,
+                ),
+                ),
+                color: Colors.transparent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                  side: BorderSide(color: Colors.white),
+                   ),
+              ),
+              FlatButton(
+                onPressed: (){
                   final formState = _formKey.currentState;
                   if(formState.validate()){
                     formState.save();
+                    resetPassword(email);
                     _showDialogForPasswordReset(context,email);
                  }
                 },
@@ -142,9 +162,14 @@ class LoginPage extends StatelessWidget {
     );
   }
 
+  Future<void> resetPassword(String _email) async {     
+          var auth = FirebaseAuth.instance;     
+          auth.sendPasswordResetEmail(email: _email);
+    }
+
+  //Here add front end stuff for Neha
    void _showDialogForPasswordReset(BuildContext context, String email)
   {
-    print("\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"+email);
     showDialog(
       context: context,
       builder:(BuildContext context){
