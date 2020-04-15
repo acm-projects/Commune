@@ -30,152 +30,6 @@ class _HomescreenState extends State<Homescreen> {
     int currentPts=0;
     final screenSize = MediaQuery.of(context);
     return Scaffold(
-<<<<<<< HEAD
-      key: UniqueKey(),
-      body: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFFFFFFF), Color(0xFFFBF4F5)]
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              //set up hhname
-              StreamBuilder(
-                stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
-                builder:(context, snap){
-                  if(!snap.hasData){
-                    return Text("loading....");
-                  }
-                  widget.hhname=snap.data["HouseHoldName"];
-                  return Text('');
-                }
-              ),
-              StreamBuilder(
-                stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
-                builder: (context, snap){
-                  if(!snap.hasData){
-                    return Text("loading...");
-                  }
-                    return Text("");
-                }
-              ),
-              //to do container
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.fromLTRB(15, 15, 0, 30),
-                margin: EdgeInsets.fromLTRB(25, 40, 30, 10),
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
-                  ),
-                  shape: BoxShape.rectangle,
-                  borderRadius: new BorderRadius.circular(25)
-                ),
-                child: Column(
-                  children: <Widget>[
-                    //To Do title
-                    Container(
-                      alignment: Alignment.topLeft,
-                      child: Row(
-                        children: <Widget>[
-                          Text('To-Do',
-                            style: TextStyle(
-                              color: Color(0xFFF2F2F2),
-                              fontSize: 40,
-                              fontFamily: 'Raleway',
-                              fontWeight: FontWeight.bold
-                            )
-                          ),
-                          Spacer(),
-                          //no need for a button to add chores, this is done in the household profiles page
-                          // FlatButton(
-                          //   onPressed: (){
-                          //     showDialog(
-                          //       context: context,
-                          //       builder: (BuildContext context){
-                          //         return AlertDialog(
-                          //           content: ChoreExpansion(uid: widget.uid,),
-                          //           // shape: RoundedRectangleBorder(
-                          //           //   borderRadius: new BorderRadius.circular(25.0)
-                          //           // ),
-                          //         );
-                          //       }
-                          //     );
-                          //   },
-                          //   child: Icon(
-                          //     Icons.add,
-                          //     size: 30,
-                          //     color: Color(0xFF7E86DF)
-                          //   ),
-                           //   shape: CircleBorder(
-                          //     side: BorderSide(
-                          //       color: Color(0xB3FFFFFF),
-                          //       width: 2.0,
-                          //     )
-                          //   ),
-                          //   color: Color(0xB3FFFFFF),
-                          // )
-                        ],
-                      )
-                    ),
-                    //actual list
-                    Container(
-                      height: 180.0,
-                      padding: EdgeInsets.fromLTRB(0, 5.0, 0, 2.0),
-                      child: StreamBuilder(
-                        stream: Firestore.instance.collection('users').document(widget.uid).snapshots(),
-                        builder: (context, snapshot) {
-                          if(!snapshot.hasData){
-                            return Text("loading...");
-                          }
-                          List chores=snapshot.data["Chores"];
-                          return new ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: chores.length,
-                            itemBuilder: (context, index){
-                              String desc=cv.getJobFromDescription(chores[index]);
-                              String date=cv.getDateFromDescription(chores[index]);
-                              int points=cv.getPointFromDescription(chores[index]);
-
-                              return Dismissible(
-                                key:UniqueKey(),
-                                  child: ListTile(
-                                  title: Text(
-                                    desc,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600
-                                    )
-                                  ),
-                                  trailing: Text(
-                                    date,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: 'Roboto',
-                                      fontSize: 20
-                                    )
-                                  ),
-                                ), 
-                                direction: DismissDirection.horizontal,
-                                onDismissed: (direction) {
-                                    setState2(() {
-                                      items.removeAt(index);
-                                    });
-                                },
-                                background: slideBackground(points)
-                              );
-                            }
-                          );
-=======
         key: UniqueKey(),
         body: Container(
             alignment: Alignment.center,
@@ -197,11 +51,10 @@ class _HomescreenState extends State<Homescreen> {
                       builder: (context, snap) {
                         if (!snap.hasData) {
                           return Text("loading....");
->>>>>>> a99a9dd84929b6206b22e234a6f517f807884bff
                         }
                         widget.hhname = snap.data["HouseHoldName"];
                         currentPts=snap.data["Points"];
-                        return Text("null");
+                        return Text("");
                       }),
                   StreamBuilder(
                       stream: Firestore.instance
