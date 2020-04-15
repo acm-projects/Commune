@@ -139,62 +139,62 @@ class _UserProfileState extends State<UserProfile> {
                             height: 5
                           ),
                           //household members
-                              Container(
-                                child: StreamBuilder(
-                                  stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                                  builder: (context, snapshot) {
-                                    
-                                  if (!snapshot.hasData) {
-                                    return new Text("Loading");
-                                  }                                          
-                                  List groupOfUsersList = snapshot.data["Group Users"];                            
-                                  sortList(groupOfUsersList); 
+                              //Container(
+                              //  child: StreamBuilder(
+                              //    stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                              //    builder: (context, snapshot) {
+                              //      
+                              //    if (!snapshot.hasData) {
+                              //      return new Text("Loading");
+                              //    }                                          
+                              //    List groupOfUsersList = snapshot.data["Group Users"];                            
+                              //    sortList(groupOfUsersList); 
 
-                                  return Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      for(var item in groupOfUsersList)
-                                      StreamBuilder(
-                                        stream: Firestore.instance.collection('users').document(item).snapshots(),
-                                        builder: (context, snapshot) {
-                                          if (!snapshot.hasData) {
-                                            return new Text("Loading");
-                                          }
-                                          sortList(groupOfUsersList);
-                                          return Container(
-                                            height: 70.0,
-                                            child: new ListView.builder(
-                                              scrollDirection: Axis.vertical,
-                                              itemCount: groupOfUsersList.length,
-                                              itemBuilder: (context, index){
-                                                return ListTile(
-                                                  leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                                                    style: TextStyle(
-                                                      color: Color(0xFF1B4079),
-                                                      fontSize: 25,
-                                                      fontFamily: 'Raleway',
-                                                      fontWeight: FontWeight.normal
-                                                    )
-                                                  ),
-                                                  trailing: Text(snapshot.data["Points"].toString(),
-                                                    style: TextStyle(
-                                                      color: Color(0xFF1B4079),
-                                                      fontSize: 25,
-                                                      fontFamily: 'Raleway',
-                                                      fontWeight: FontWeight.normal
-                                                      )
-                                                    )
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        }
-                                      )
-                                    ],
-                                  );
-                                }
-                              ),
-                              ),
+                              //    return Column(
+                              //      mainAxisAlignment: MainAxisAlignment.center,
+                              //      children: <Widget>[
+                              //        for(var item in groupOfUsersList)
+                              //        StreamBuilder(
+                              //          stream: Firestore.instance.collection('users').document(item).snapshots(),
+                              //          builder: (context, snapshot) {
+                              //            if (!snapshot.hasData) {
+                              //              return new Text("Loading");
+                              //            }
+                              //            sortList(groupOfUsersList);
+                              //            return Container(
+                              //              height: 70.0,
+                              //              child: new ListView.builder(
+                              //                scrollDirection: Axis.vertical,
+                              //                itemCount: groupOfUsersList.length,
+                              //                itemBuilder: (context, index){
+                              //                  return ListTile(
+                              //                    leading: Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                              //                      style: TextStyle(
+                              //                        color: Color(0xFF1B4079),
+                              //                        fontSize: 25,
+                              //                        fontFamily: 'Raleway',
+                              //                        fontWeight: FontWeight.normal
+                              //                      )
+                              //                    ),
+                              //                    trailing: Text(snapshot.data["Points"].toString(),
+                              //                      style: TextStyle(
+                              //                        color: Color(0xFF1B4079),
+                              //                        fontSize: 25,
+                              //                        fontFamily: 'Raleway',
+                              //                        fontWeight: FontWeight.normal
+                              //                        )
+                              //                      )
+                              //                  );
+                              //                },
+                              //              ),
+                              //            );
+                              //          }
+                              //        )
+                              //      ],
+                              //    );
+                              //  }
+                              //),
+                              //),
                                     //return ListView.builder(
                                     //   scrollDirection: Axis.vertical,
                                     //   itemCount: groupOfUsersList.length,
@@ -220,62 +220,62 @@ class _UserProfileState extends State<UserProfile> {
                                     //   },
                                     // );
 
-                        //  Container(
-                        //   child :StreamBuilder(
-                        //     stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                        //     builder: (context, snapshot) {
-                        //     if (!snapshot.hasData) {
-                        //      return new Text("Loading");
-                        //     }
-                        //     List groupOfUsersList = snapshot.data["Group Users"];                            
-                        //     sortList(groupOfUsersList); 
-                        //     return Column(
-                        //       mainAxisAlignment: MainAxisAlignment.center,
-                        //       children: <Widget>[
-                        //         for(var item in groupOfUsersList)
-                        //         StreamBuilder(
-                        //           stream: Firestore.instance.collection('users').document(item).snapshots(),
-                        //           builder: (context, snapshot) {
-                        //             if (!snapshot.hasData) {
-                        //              return new Text("Loading");
-                        //             }
-                        //             sortList(groupOfUsersList);
-                        //             return Container(
-                        //               margin: EdgeInsets.fromLTRB(20,20,20,0),
-                        //               child: Column(
-                        //                 children: <Widget>[
-                        //                   Row(
-                        //                   mainAxisAlignment: MainAxisAlignment.start,
-                        //                   children: <Widget>[
-                        //                     Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
-                        //                      style: TextStyle(
-                        //                         color: Color(0xFF1B4079),
-                        //                         fontSize: 25,
-                        //                         fontFamily: 'Raleway',
-                        //                         fontWeight: FontWeight.normal
-                        //                       )
-                        //                      ),
-                        //                      Spacer(),
-                        //                      Text(snapshot.data["Points"].toString(),
-                        //                      style: TextStyle(
-                        //                        color: Color(0xFF1B4079),
-                        //                        fontSize: 25,
-                        //                        fontFamily: 'Raleway',
-                        //                        fontWeight: FontWeight.normal
-                        //                       )
-                        //                      )
-                        //                   ]
-                        //                 )
-                        //                ]
-                        //               )
-                        //             );
-                        //           }
-                        //         )
-                        //       ],
-                        //     );
-                        //    }
-                        //  ),
-                        // ),
+                        Container(
+                         child :StreamBuilder(
+                           stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                           builder: (context, snapshot) {
+                           if (!snapshot.hasData) {
+                            return new Text("Loading");
+                           }
+                           List groupOfUsersList = snapshot.data["Group Users"];                            
+                           sortList(groupOfUsersList); 
+                           return Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             children: <Widget>[
+                               for(var item in groupOfUsersList)
+                               StreamBuilder(
+                                 stream: Firestore.instance.collection('users').document(item).snapshots(),
+                                 builder: (context, snapshot) {
+                                   if (!snapshot.hasData) {
+                                    return new Text("Loading");
+                                   }
+                                   sortList(groupOfUsersList);
+                                   return Container(
+                                     margin: EdgeInsets.fromLTRB(20,20,20,0),
+                                     child: Column(
+                                       children: <Widget>[
+                                         Row(
+                                         mainAxisAlignment: MainAxisAlignment.start,
+                                         children: <Widget>[
+                                           Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
+                                            style: TextStyle(
+                                               color: Color(0xFF1B4079),
+                                               fontSize: 25,
+                                               fontFamily: 'Raleway',
+                                               fontWeight: FontWeight.normal
+                                             )
+                                            ),
+                                            Spacer(),
+                                            Text(snapshot.data["Points"].toString(),
+                                            style: TextStyle(
+                                              color: Color(0xFF1B4079),
+                                              fontSize: 25,
+                                              fontFamily: 'Raleway',
+                                              fontWeight: FontWeight.normal
+                                             )
+                                            )
+                                         ]
+                                       )
+                                      ]
+                                     )
+                                   );
+                                 }
+                               )
+                             ],
+                           );
+                          }
+                        ),
+                        ),
                         Container(
                             margin: EdgeInsets.only(top: 35),
                             color: Color(0xFF1B4079),
@@ -366,30 +366,7 @@ class _UserProfileState extends State<UserProfile> {
                                     color: Color(0xFF1b4079),
                                   )
                                 ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  margin: EdgeInsets.only( top: 10 ),
-                                  child: FlatButton(
-                                    onPressed: () {},
-                                    child: Text( 'Kick Member',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'Raleway',
-                                        color: Color(0xFFF2F2F2)
-                                      )
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(25),
-                                      side: BorderSide(
-                                        color: Color(0xFF1B4079),
-                                        width: 2.0,
-                                      )
-                                    ),
-                                    padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                                    color: Color(0xFF1b4079),
-                                  )
-                                ),
-
+                                
                                 ],);
                             }
                             return Container(
@@ -450,7 +427,6 @@ class _UserProfileState extends State<UserProfile> {
             await userDoc2.get().then((doc){
               pointValue2= doc['Points'];
             }); 
-            //print(pointValue1.toString() +" < "+pointValue2.toString());
             if(pointValue1 < pointValue2)
             {
               temp = listUsers[item];
@@ -484,7 +460,14 @@ class _UserProfileState extends State<UserProfile> {
                          child: Column(
                            children: <Widget>[
                              TextFormField(
-                               validator: (e)=> e.isEmpty? "Enter an email" : null,
+                               validator: (input) {
+                                  if(input.isEmpty){
+                                    return 'Type in a Email';
+                                  }
+                                  if(!input.contains('@')){
+                                    return 'Not a valid email';
+                                  }
+                                },
                                onChanged: (val){
                                  email=val.toString();
                                },
@@ -502,7 +485,7 @@ class _UserProfileState extends State<UserProfile> {
                          ),
                          RaisedButton(
                          child: Text("Confirm"),
-                         color: Colors.blue[200],
+                         color: Colors.red[200],
                          onPressed: ()async{
                          if(_formKey.currentState.validate()){
 
@@ -512,10 +495,6 @@ class _UserProfileState extends State<UserProfile> {
                               var db= Firestore.instance;
                               bool foundUser=false;
                               int adminIndex;
-                              
-                              
-                              
-                              
                               var adminDoc = db.collection('users').document(uid);
                               await adminDoc.get().then((doc){
                                 adimnEmail = doc['Email'];
@@ -592,7 +571,32 @@ class _UserProfileState extends State<UserProfile> {
        }
        else
        {
-
+         showDialog(
+           context: context,
+           builder:(BuildContext context){
+             return AlertDialog(
+               title: new Text("Leave Household"),
+               content:new Column(
+                children: <Widget>[
+                 new Text("You are about to leave this household. Are you sure you would like to leave?"),
+                 new Row(
+                   children: <Widget>[
+                     new FlatButton(onPressed: null, child: null)
+                   ],
+                   )
+                ]
+               ),
+               actions: <Widget>[
+                 new FlatButton(
+                   child: new Text("No"),
+                   onPressed:() {
+                     Navigator.of(context).pop();
+                   },
+                 ),
+               ],
+             );
+           },
+         );
        }
      }
 }
