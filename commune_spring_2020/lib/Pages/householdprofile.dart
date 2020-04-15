@@ -330,7 +330,8 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                   if (!snap.hasData) {
                                     return Text("loading...");
                                   }
-                                  double t = snap.data["Budget"];
+                                  double t=0;
+                                  t = double.parse(snap.data["Budget"].toString());
                                   return Text(
                                     "\$" + t.toStringAsFixed(2),
                                     style: TextStyle(
