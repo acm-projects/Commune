@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 
-class CreateHousehold extends StatefulWidget {
-  CreateHousehold({Key key}) : super(key: key);
+class JoinHousehold extends StatefulWidget {
+  JoinHousehold({Key key}) : super(key: key);
 
   @override
-  _CreateHouseholdState createState() => _CreateHouseholdState();
+  _JoinHouseholdState createState() => _JoinHouseholdState();
 }
 
-class _CreateHouseholdState extends State<CreateHousehold> {
+class _JoinHouseholdState extends State<JoinHousehold> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
@@ -23,8 +23,6 @@ class _CreateHouseholdState extends State<CreateHousehold> {
           end: Alignment.bottomCenter,
           colors: [Color.fromARGB(255, 245, 159, 155), Color.fromARGB(255, 229, 98, 92)]
         ),
-        // shape: BoxShape.rectangle,
-        // borderRadius: new BorderRadius.circular(25)
       ),
        child: Column(
          children: <Widget>[
@@ -37,7 +35,7 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                      Text(
-                      "Create a new household",
+                      "Join an Existing Household",
                       style: TextStyle(
                           color: Color.fromARGB(255, 255, 255, 255),
                           //fontSize: 15.0,
@@ -79,7 +77,7 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                               TextStyle(color: Colors.white))),
                     ),
 
-                    Container(height: 0.05 * screenSize.size.height, color: Colors.transparent),
+                    Container(height: 0.03 * screenSize.size.height, color: Colors.transparent),
 
                     Container(
                       height: 0.1 * screenSize.size.height,
@@ -98,29 +96,11 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                           ),
                           border: OutlineInputBorder(),
                           labelStyle:
-                              TextStyle(color: Colors.white))),
+                              TextStyle(color: Colors.white,
+                              ))),
                     ),
 
-                    Container(height: 0.05 * screenSize.size.height, color: Colors.transparent),
-
-                    Container(
-                      height: 0.1 * screenSize.size.height,
-                      width: 0.8 * screenSize.size.width,
-                      color: Colors.transparent,
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          labelText: 'Budget/Base Rent',
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                              width: 0.002 * screenSize.size.height),
-                            borderRadius: BorderRadius.all(
-                                Radius.circular(8.0)),
-                          ),
-                          border: OutlineInputBorder(),
-                          labelStyle:
-                              TextStyle(color: Colors.white))),
-                    ),
+                    Container(height: 0.03 * screenSize.size.height, color: Colors.transparent),
 
                     Spacer(),
 
@@ -134,14 +114,13 @@ class _CreateHouseholdState extends State<CreateHousehold> {
               onPressed: () {},
               child: FittedBox(
                 child: Text(
-                  "Create",
+                  "Join!",
                   style: TextStyle(
                     color: Colors.red,
                     fontFamily: 'Raleway',
                     fontSize: 24.0,
-                    fontWeight: FontWeight.w300
                   ),
-                ),
+                )
               ),
               color: Color.fromARGB(255, 255, 255, 255),
               shape: RoundedRectangleBorder(
@@ -151,6 +130,7 @@ class _CreateHouseholdState extends State<CreateHousehold> {
               ),
               padding: EdgeInsets.fromLTRB(30, 8, 30, 8)
             ),
+
          ],
        ),
     ));

@@ -27,7 +27,7 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     choresServices cv = new choresServices();
-
+    int currentPts=0;
     final screenSize = MediaQuery.of(context);
     return Scaffold(
         key: UniqueKey(),
@@ -53,6 +53,7 @@ class _HomescreenState extends State<Homescreen> {
                           return Text("loading....");
                         }
                         widget.hhname = snap.data["HouseHoldName"];
+                        currentPts=snap.data["Points"];
                         return Text("null");
                       }),
                   StreamBuilder(
@@ -176,7 +177,7 @@ class _HomescreenState extends State<Homescreen> {
                                                     widget.hhname);
                                                 removeChoreFromUser(
                                                     chores[index], widget.uid);
-                                                updateScore(cv.getPointFromDescription(chores[index]),widget.uid);
+                                                updateScore(cv.getPointFromDescription(chores[index]),widget.uid,currentPts);
                                               },
                                               background:
                                                   slideBackground(points));
@@ -382,15 +383,11 @@ void removeChoreFromUser(String chore, String id) {
   });
 }
 
-void updateScore(int pts, String id) {
-  var currentScore =
-      int.parse(Firestore.instance.collection('users').document(id).get().then((doc) {
-    doc.data['Points'];
-  }).toString());
+void updateScore(int pts, String id, int current) {
   Firestore.instance
       .collection('users')
       .document(id)
-      .updateData({'Points': currentScore + pts});
+      .updateData({'Points': current + pts});
 }
 
 void setState2(Null Function() param0) {}
@@ -403,7 +400,7 @@ Widget slideBackground(int pts) {
         children: <Widget>[
           Icon(
             Icons.delete,
-            color: Color(0xFF582D8F),
+            color: Color(0xFF6D77E0),
           ),
           Text(
             pts.toString() + " points",

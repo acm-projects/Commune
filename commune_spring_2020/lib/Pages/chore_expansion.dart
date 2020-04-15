@@ -214,7 +214,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                       alignment: Alignment.centerLeft,
                       child: FittedBox(
                         child: Text(
-                          "Assign Bill to:",
+                          "Assign Chore to:",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 20.0,
