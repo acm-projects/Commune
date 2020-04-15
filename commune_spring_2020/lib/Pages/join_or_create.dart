@@ -1,4 +1,5 @@
 import 'package:commune_spring_2020/Pages/createhousehold.dart';
+import 'package:commune_spring_2020/Pages/join_household.dart';
 import 'package:flutter/material.dart';
 
 class JoinOrCreate extends StatefulWidget {
@@ -74,7 +75,7 @@ class _JoinOrCreateState extends State<JoinOrCreate>{
               children: <Widget>[
                 MaterialButton(
                   onPressed: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> CreateHousehold()));
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinHousehold()));
                   },
                   elevation: 20.0,
                   child: Stack(

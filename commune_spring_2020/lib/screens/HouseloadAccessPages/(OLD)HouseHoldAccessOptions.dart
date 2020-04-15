@@ -1,5 +1,5 @@
-import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldCreatePage.dart';
-import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldJoinPage.dart';
+//import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldCreatePage.dart';
+//import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldJoinPage.dart';
 import 'package:flutter/material.dart';
 
 class HouseHoldSelectionPage extends StatefulWidget {
@@ -32,10 +32,10 @@ class _HouseHoldSelectionPageState extends State<HouseHoldSelectionPage> {
 
   void switchPageToJoinPage()
   {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldJoinPage()));
+    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldJoinPage()));
   }
   void switchPageToSignUpPage()
   {
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldCreation()));
+    //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldCreation()));
   }
 }

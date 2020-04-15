@@ -1,4 +1,5 @@
 import 'package:commune_spring_2020/screens/Home_Files/home.dart';
+import 'package:commune_spring_2020/screens/wrapper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/services/database.dart';
@@ -67,8 +68,7 @@ class _HouseHoldCreationState extends State<HouseHoldCreation> {
       FirebaseUser user= (await FirebaseAuth.instance.currentUser());
 
       //DatabaseService(uid: user.uid).updateHouseHoldData(_password,_householdName);
-
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(uid: user.uid)));
+      //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(uid: user.uid)));
     }
   }
 }

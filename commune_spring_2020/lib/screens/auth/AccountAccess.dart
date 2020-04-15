@@ -48,8 +48,12 @@ class AuthService{
   }  
   // sign out
   Future signOut()async{
+    print("login00");
+    FirebaseUser result= await _auth.currentUser();
+
     try{
       return await _auth.signOut();
+     
     }catch(e){
       print(e.message);
       return null;

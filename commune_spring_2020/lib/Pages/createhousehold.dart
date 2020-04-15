@@ -208,6 +208,7 @@ class _CreateHouseholdState extends State<CreateHousehold> {
     {
       _formKey.currentState.save();
       FirebaseUser user= (await FirebaseAuth.instance.currentUser());
+      
       DatabaseService(uid: user.uid).updateHouseHoldData(password,houseName,budget);
 
       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home(uid:user.uid)));

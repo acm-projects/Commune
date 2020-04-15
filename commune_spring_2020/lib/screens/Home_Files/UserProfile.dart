@@ -1,7 +1,9 @@
 
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
+import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
+import 'package:commune_spring_2020/Pages/join_or_create.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
@@ -213,6 +215,7 @@ class _UserProfileState extends State<UserProfile> {
                         FlatButton(
                           onPressed: () async {
                             await _auth.signOut();
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginPage()));
                           },
                           child: Text( 'Sign Out',
                             style: TextStyle(
@@ -475,7 +478,7 @@ class _UserProfileState extends State<UserProfile> {
                                           'Points':0,
                                });
                                 Navigator.of(context).pop();
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldSelectionPage()));
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinOrCreate()));
                               }
                               else
                               {

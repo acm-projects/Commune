@@ -1,6 +1,5 @@
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:commune_spring_2020/Pages/join_or_create.dart';
-import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -133,10 +132,10 @@ class _RegisterUserState extends State {
                   
                   dynamic result = await _auth.signUp(
                       _firstName, _lastName, _email, _age, 0, _password);
-                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinOrCreate()));
                   if (result == null) {
                     setState(() => _error = "something went wrong try again");
                   } else {
+                     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinOrCreate()));
                     print("about to go to home");
                   }
                 },

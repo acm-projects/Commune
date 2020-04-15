@@ -1,9 +1,7 @@
 import 'package:commune_spring_2020/Pages/homepage.dart';
-import 'package:commune_spring_2020/screens/HouseloadAccessPages/HouseHoldAccessOptions.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:commune_spring_2020/screens/Home_Files/home.dart';
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:commune_spring_2020/services/database.dart';
