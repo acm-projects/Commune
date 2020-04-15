@@ -54,7 +54,7 @@ class _HomescreenState extends State<Homescreen> {
                         }
                         widget.hhname = snap.data["HouseHoldName"];
                         currentPts=snap.data["Points"];
-                        return Text("null");
+                        return Text("");
                       }),
                   StreamBuilder(
                       stream: Firestore.instance
