@@ -138,6 +138,9 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                   admin = snapshot.data["Admin"];
 
                                   List chores = snapshot.data["Chores"];
+                                  if(chores.isEmpty){
+                                    return Text("No chores");
+                                  }
                                   return Text(
                                     cs.getDateFromDescription(chores[0]),
                                     style: TextStyle(
