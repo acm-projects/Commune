@@ -262,7 +262,7 @@ class _HomescreenState extends State<Homescreen> {
                                           context: context,
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              content: BillsExpansion(),
+                                              content: BillsExpansion(uid: widget.uid, userChange: true,),
                                             );
                                           });
                                     },

@@ -248,6 +248,7 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                               }
                                               return FlatButton(
                                                 onPressed: () {
+                                                  print("adding bill");
                                                   double o = double.parse(
                                                       snapshot.data["Budget"].toString());
                                                   if (widget.userChange) {
