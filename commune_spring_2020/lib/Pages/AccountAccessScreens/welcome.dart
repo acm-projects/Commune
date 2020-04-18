@@ -9,6 +9,7 @@ class Welcome extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           Column(
@@ -64,7 +65,7 @@ class Welcome extends StatelessWidget{
                     width: 2.0,
                   )
                 ),
-                padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
+                padding: EdgeInsets.fromLTRB( 39, 15, 39, 15 ),
               )
             ],
           )

@@ -329,7 +329,8 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                     changeBudget(
                                                         original, budgetChange);
                                                   }
-                                                  Navigator.pop(context);
+                                                  //Navigator.pop(context);
+                                                  Navigator.of(context).pop();
                                                 },
                                               // onPressed: () {
                                               //   Navigator.pop(context);

@@ -27,6 +27,7 @@ class _RegisterUserState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 126, 134, 233),
+        resizeToAvoidBottomInset: false,
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

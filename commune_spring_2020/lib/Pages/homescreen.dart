@@ -259,12 +259,55 @@ class _HomescreenState extends State<Homescreen> {
                                   FlatButton(
                                     onPressed: () {
                                       showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              content: BillsExpansion(uid: widget.uid, userChange: true,),
-                                            );
-                                          });
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25.0)), //this right here
+                                            child: Container(
+                                              height: 600,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(0),
+                                                child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    BillsExpansion(),
+                                                    
+                                                    SizedBox(
+                                                      width: 320.0,
+                                                      child: RaisedButton(
+                                                        onPressed: () {},
+                                                        child: Text(
+                                                          "Save",
+                                                          style: TextStyle(color: Colors.white),
+                                                        ),
+                                                        color: const Color(0xFF1BC0C5),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      );
+                                      // showDialog(
+                                      //     context: context,
+                                      //     builder: (BuildContext context) {
+                                      //       return AlertDialog(
+                                      //         content: BillsExpansion(),
+                                      //         actions: <Widget>[
+                                      //           FlatButton.icon(
+                                      //             onPressed: (){Navigator.of(context).pop();},
+                                      //             icon: Icon( Icons.close ),
+                                      //             label: Text('')
+                                      //           )
+                                      //         ],
+                                      //       );
+                                      //     }
+                                      //   );
                                     },
                                     child: Icon(Icons.add,
                                         size: 50, color: Color(0xFF7E86DF)),
@@ -281,10 +324,22 @@ class _HomescreenState extends State<Homescreen> {
                       )),
                   //sign out button
                   RaisedButton(
-                      child: Text("sign out"),
+                      child: Text("Sign Out",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: 'Raleway',
+                          fontSize: 18.0,
+                        )
+                      ),
                       onPressed: () async {
                         await _auth.signOut();
-                      }),
+                      },
+                      color: Color(0xFF8C94EB),
+                       shape: RoundedRectangleBorder(
+                       borderRadius: new BorderRadius.circular(18.0),
+                       side: BorderSide(color: Colors.white),
+                      ),
+                  ),
                 ],
               ),
             )));
