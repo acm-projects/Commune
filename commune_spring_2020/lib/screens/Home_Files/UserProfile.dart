@@ -49,7 +49,7 @@ class _UserProfileState extends State<UserProfile> {
                       children: <Widget>[
                         Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
                           style: TextStyle(
-                          color: Color(0xFFDADADA),
+                          color: Color(0xFF582D8F),
                           fontSize: 40,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.bold
@@ -65,7 +65,7 @@ class _UserProfileState extends State<UserProfile> {
                             {
                               return Text('(Admin)',
                                 style: TextStyle(
-                                  color: Color(0xFF582D8F),
+                                  color: Color(0xFFB3B9FA),
                                   fontSize: 20,
                                   fontFamily: 'Raleway',
                                   fontWeight: FontWeight.normal
@@ -90,7 +90,7 @@ class _UserProfileState extends State<UserProfile> {
                             children: <Widget>[
                               Text(snapshot.data["Email"],
                                 style: TextStyle(
-                                  color: Color(0XFFdadada),
+                                  color: Color(0XFF6D77E0),
                                   fontSize: 18,
                                   fontFamily: 'Raleway',
                                   fontWeight: FontWeight.normal
@@ -99,7 +99,7 @@ class _UserProfileState extends State<UserProfile> {
                               Spacer(),
                               Text('Age: '+snapshot.data["Age"],
                                 style: TextStyle(
-                                  color: Color(0XFFDADADA),
+                                  color: Color(0XFF6D77E0),
                                   fontSize: 18,
                                   fontFamily: 'Raleway',
                                   fontWeight: FontWeight.normal,
@@ -110,22 +110,31 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                       ]
                     ),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Color(0xFFB3B9FA), Color(0XFF8C94EB)]
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.rectangle,
+                        //borderRadius: new BorderRadius.circular(25)
                       ),
-                      shape: BoxShape.rectangle,
-                      //borderRadius: new BorderRadius.circular(25)
-                    ),
                     padding: EdgeInsets.fromLTRB(0, 125, 0, 25)
                   ),
                   //leaderboard
                   Container(
                       alignment: Alignment.center,
+                      margin: EdgeInsets.all(15),
                       decoration: BoxDecoration(
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(25),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0XFFDADADA),
+                            blurRadius: 10.0, // has the effect of softening the shadow
+                            spreadRadius: 5.0, // has the effect of extending the shadow
+                            offset: Offset(
+                              10.0, // horizontal, move right 10
+                              10.0, // vertical, move down 10
+                            ),
+                          )
+                        ],
                       ),
                       child: Column(
                         children: <Widget>[
@@ -156,7 +165,7 @@ class _UserProfileState extends State<UserProfile> {
                           ),
                           Container(
                             decoration: BoxDecoration(
-                              color: Color(0xAA1F1B38),
+                              color: Color(0xfF582D8F),
                               borderRadius: new BorderRadius.circular(25)
                             ),
                             margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
@@ -221,7 +230,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                            color: Color(0xAA1F1B38),
+                            color: Color(0xfF582D8F),
                             borderRadius: new BorderRadius.circular(25)
                           ),
                           margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
@@ -230,7 +239,7 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         Container(
                           alignment: Alignment.centerRight,
-                          padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+                          padding: EdgeInsets.fromLTRB(0, 5, 15, 15),
                           child: Text('(Leaderboard)',
                             style: TextStyle(
                               color: Color(0xFF1F1B38),
@@ -244,13 +253,6 @@ class _UserProfileState extends State<UserProfile> {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 35),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [Color(0xFFB3B9FA), Color(0XFF7A83E5)]
-                      ),
-                    ),
                     padding: EdgeInsets.fromLTRB(0, 15, 0, 10),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
@@ -261,17 +263,18 @@ class _UserProfileState extends State<UserProfile> {
                             await _auth.signOut();
                             Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginPage()));
                           },
+                          splashColor: Color(0xFF582D8F),
                           child: Text( 'Sign Out',
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Raleway',
-                              color: Color(0xFFDADADA)
+                              color: Color(0XFF6D77E0)
                             )
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(25),
                             side: BorderSide(
-                              color: Color(0xFFDADADA),
+                              color: Color(0XFF6D77E0),
                               width: 2.0,
                             )
                           ),
@@ -295,13 +298,13 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Raleway',
-                              color: Color(0xFFDADADA)
+                              color: Color(0XFF6D77E0)
                             )
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(25),
                             side: BorderSide(
-                              color: Color(0xFFDADADA),
+                              color: Color(0XFF6D77E0),
                               width: 2.0,
                             )
                           ),
@@ -322,13 +325,6 @@ class _UserProfileState extends State<UserProfile> {
                                   Container(
                                     alignment: Alignment.center,
                                     width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [Color(0xFF7A83E5), Color(0XFF6D77E0)]
-                                      ),
-                                    ),
                                     padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
                                     child: Column(
                                       children: <Widget>[
@@ -340,17 +336,20 @@ class _UserProfileState extends State<UserProfile> {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontFamily: 'Raleway',
-                                          color: Color(0xFFDADADA)
+                                          color: Color(0XFF6D77E0)
                                         )
                                       ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.circular(25),
                                         side: BorderSide(
-                                          color: Color(0xFFDADADA),
+                                          color: Color(0XFF6D77E0),
                                           width: 2.0,
                                         )
                                       ),
                                       padding: EdgeInsets.fromLTRB(50, 15, 50, 15)
+                                    ),
+                                    Container(
+                                      height: 10
                                     ),
                                     FlatButton(
                                       onPressed: () {
@@ -360,13 +359,13 @@ class _UserProfileState extends State<UserProfile> {
                                         style: TextStyle(
                                           fontSize: 20,
                                           fontFamily: 'Raleway',
-                                          color: Color(0xFFDADADA)
+                                          color: Color(0XFF6D77E0)
                                         )
                                       ),
                                       shape: RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.circular(25),
                                         side: BorderSide(
-                                          color: Color(0xFFDADADA),
+                                          color: Color(0XFF6D77E0),
                                           width: 2.0,
                                         )
                                       ),
