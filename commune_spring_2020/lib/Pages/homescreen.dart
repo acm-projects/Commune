@@ -213,6 +213,7 @@ class _HomescreenState extends State<Homescreen> {
                           Container(
                               alignment: Alignment.centerLeft,
                               padding: EdgeInsets.only(top: 15.0),
+                              margin: EdgeInsets.all(0),
                               child: Row(
                                 children: <Widget>[
                                   Column(

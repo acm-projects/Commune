@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/join_or_create.dart';
+import 'package:commune_spring_2020/screens/HouseloadAccessPages/(OLD)HouseHoldAccessOptions.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -294,6 +295,7 @@ class _UserProfileState extends State<UserProfile> {
                               print(userEmail+"dfgfdd");
                               resetPassword(userEmail);
                           },
+                          splashColor: Color(0xFF582D8F),
                           child: Text( 'Reset Password',
                             style: TextStyle(
                               fontSize: 20,
@@ -332,6 +334,7 @@ class _UserProfileState extends State<UserProfile> {
                                       onPressed: () {
                                         leaveHouse(true);
                                       },
+                                      splashColor: Color(0xFF582D8F),
                                       child: Text( 'Leave Household',
                                         style: TextStyle(
                                           fontSize: 20,
@@ -355,6 +358,7 @@ class _UserProfileState extends State<UserProfile> {
                                       onPressed: () {
                                         leaveHouse(true);
                                       },
+                                      splashColor: Color(0xFF582D8F),
                                       child: Text( 'Kick Member',
                                         style: TextStyle(
                                           fontSize: 20,
@@ -425,7 +429,7 @@ class _UserProfileState extends State<UserProfile> {
         });
       }
 
-    void leaveHouse( bool isAdmin)
+    void leaveHouse(bool isAdmin)
      {
        String error="", email="";
        if(isAdmin)
@@ -433,120 +437,191 @@ class _UserProfileState extends State<UserProfile> {
          showDialog(
                context: context,
                builder:(BuildContext context){
-                 return AlertDialog(
-                   title: new Text("Leave Household"),
-                   content: new Column(
-                     children: <Widget>[
-                       Text("Since you are the admin of this household, you need to select the new Admin. Type the email of the user below."),
-                       Form(
-                         key: _formKey,
-                         child: Column(
-                           children: <Widget>[
-                             TextFormField(
-                               validator: (input) {
-                                  if(input.isEmpty){
-                                    return 'Type in a Email';
-                                  }
-                                  if(!input.contains('@')){
-                                    return 'Not a valid email';
-                                  }
-                                },
-                               onChanged: (val){
-                                 email=val.toString();
-                               },
+                 return Dialog(
+                   shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(25)
+                   ),
+                  //  title: new Text("Leave Household"),
+                  child: Container(
+                    height: 450,
+                     child: Column(
+                       children: <Widget>[
+                         Container(
+                           padding: EdgeInsets.only(top: 25 ),
+                           child: Text( 'Leave Household',
+                             style: TextStyle(
+                               fontFamily: 'Raleway',
+                               fontSize: 32,
+                               color: Color(0xfF582D8F)
+                             )
+                           ),
+                         ),
+                         Padding(
+                           padding: EdgeInsets.fromLTRB(25, 10, 10, 10),
+                           child: Text("Since you are the admin of this household, you need to select the new Admin. Type the email of the user below.",
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 18,
+                              color: Color(0xFF1F1B38)
+                            )
+                           ),
+                         ),
+                         Form(
+                           key: _formKey,
+                           child: Padding(
+                             padding: const EdgeInsets.only(top: 8.0),
+                             child: Container(
+                               margin: EdgeInsets.fromLTRB(15, 0, 15, 5),
+                               child: TextFormField(
+                                  validator: (input) {
+                                    if(input.isEmpty){
+                                      return 'Type in a Email';
+                                    }
+                                    if(!input.contains('@')){
+                                      return 'Not a valid email';
+                                    }
+                                  },
+                                  onChanged: (val){
+                                    email=val.toString();
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: "Email",
+                                    labelStyle: TextStyle(color: Color(0xFF582D8F)),
+                                    enabledBorder: UnderlineInputBorder(
+                                      borderSide: BorderSide(color: Color(0XFF1F1B38))
+                                    ),
+                                  ),
+                                ),
                              ),
-                           ],
+                           ),
                          ),
-                       ),
-                       
-                       Row(children: <Widget>[
-                         RaisedButton(
-                           child: new Text("Cancel"),
-                           onPressed:() {
-                             Navigator.of(context).pop();
-                           },
-                         ),
-                         RaisedButton(
-                         child: Text("Confirm"),
-                         color: Colors.red[200],
-                         onPressed: ()async{
-                         if(_formKey.currentState.validate()){
+                         
+                         Column(children: <Widget>[
+                           Container(
+                             padding: EdgeInsets.fromLTRB(0, 30, 0, 10),
+                             child: RaisedButton(
+                             splashColor: Color(0xFF582D8F),
+                              child: Text( 'Confirm',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'Raleway',
+                                  color: Color(0XFFE5625C)
+                                )
+                              ),
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: new BorderRadius.circular(25),
+                                side: BorderSide(
+                                  color: Color(0XFFE5625C),
+                                  width: 2.0,
+                                )
+                              ),
+                              padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                             onPressed: ()async{
+                             if(_formKey.currentState.validate()){
 
-                              String householdName, adimnEmail="";
-                              String newAdminUID;
-                              List listOfUserUIDS;
-                              var db= Firestore.instance;
-                              bool foundUser=false;
-                              int adminIndex;
-                              var adminDoc = db.collection('users').document(uid);
-                              await adminDoc.get().then((doc){
-                                adimnEmail = doc['Email'];
-                                householdName = doc["HouseHoldName"];
-                              });
+                                  String householdName, adimnEmail="";
+                                  String newAdminUID;
+                                  List listOfUserUIDS;
+                                  var db= Firestore.instance;
+                                  bool foundUser=false;
+                                  int adminIndex;
+                                  var adminDoc = db.collection('users').document(uid);
+                                  await adminDoc.get().then((doc){
+                                    adimnEmail = doc['Email'];
+                                    householdName = doc["HouseHoldName"];
+                                  });
 
-                              var householdDoc = db.collection('HouseHoldGroups').document(householdName);
+                                  var householdDoc = db.collection('HouseHoldGroups').document(householdName);
 
-                              await householdDoc.get().then((doc){
-                                listOfUserUIDS = doc['Group Users'];
-                              });
+                                  await householdDoc.get().then((doc){
+                                    listOfUserUIDS = doc['Group Users'];
+                                  });
 
-                              for(int x=0; x<listOfUserUIDS.length; x++)
-                              {
-                                String currentEmail = "";
-                                var currentUsers = db.collection('users').document(listOfUserUIDS[x]);
+                                  for(int x=0; x<listOfUserUIDS.length; x++)
+                                  {
+                                    String currentEmail = "";
+                                    var currentUsers = db.collection('users').document(listOfUserUIDS[x]);
 
-                                await currentUsers.get().then((doc){
-                                 currentEmail = doc['Email'];
-                                });
+                                    await currentUsers.get().then((doc){
+                                     currentEmail = doc['Email'];
+                                    });
 
-                                if(currentEmail==adimnEmail)
-                                {
-                                  adminIndex=x;
-                                }
+                                    if(currentEmail==adimnEmail)
+                                    {
+                                      adminIndex=x;
+                                    }
 
-                                if(currentEmail==email && currentEmail!=adimnEmail)
-                                {
-                                  foundUser=true;
-                                  newAdminUID=listOfUserUIDS[x];
-                                }
-                              }
-                              
-                              if(foundUser)
-                              { 
-                                listOfUserUIDS.removeAt(adminIndex);
-                                await householdDoc.updateData({
-                                          'Group Users': listOfUserUIDS,
-                                          'Admin': newAdminUID,
-                                          
-                               });
-                               await adminDoc.updateData({
-                                          'HouseHoldName': "Null",
-                                          'Budget Changes': new List(),
-                                          'Chores': new List(),   
-                                          'Points':0,
-                               });
-                                Navigator.of(context).pop();
-                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinOrCreate()));
-                              }
-                              else
-                              {
-                                
-                                 setState((){ 
-                                   error = "A user with that email is not in your household. Try Again";
-                                });
+                                    if(currentEmail==email && currentEmail!=adimnEmail)
+                                    {
+                                      foundUser=true;
+                                      newAdminUID=listOfUserUIDS[x];
+                                    }
+                                  }
                                   
-                              }
+                                  if(foundUser)
+                                  { 
+                                    listOfUserUIDS.removeAt(adminIndex);
+                                    await householdDoc.updateData({
+                                              'Group Users': listOfUserUIDS,
+                                              'Admin': newAdminUID,
+                                              
+                                   });
+                                   await adminDoc.updateData({
+                                              'HouseHoldName': "Null",
+                                              'Budget Changes': new List(),
+                                              'Chores': new List(),   
+                                              'Points':0,
+                                   });
+                                    Navigator.of(context).pop();
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> JoinOrCreate()));
+                                  }
+                                  else
+                                  {
+                                    
+                                     setState((){ 
+                                       error = "A user with that email is not in your household. Try Again";
+                                    });
+                                      
+                                  }
 
-                           }
-                         }
-                        ),
-                       ],),
-                       Text(
-                         error,
-                         style: TextStyle(color:Colors.red),
-                       ),
-                     ],
-                    ),
+                               }
+                             }
+                          ),
+                           ),
+                          Container(
+                             margin: EdgeInsets.fromLTRB(0, 10,0, 10),
+                             child: RaisedButton(
+                               onPressed:() {
+                                 Navigator.of(context).pop();
+                               },
+                               splashColor: Color(0xFF582D8F),
+                                child: Text( 'Cancel',
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'Raleway',
+                                    color: Color(0XFF6D77E0)
+                                  )
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(25),
+                                  side: BorderSide(
+                                    color: Color(0XFF6D77E0),
+                                    width: 2.0,
+                                  )
+                                ),
+                                color: Colors.white,
+                                padding: EdgeInsets.fromLTRB(50, 15, 50, 15)
+                             ),
+                           ),
+                         ],),
+                         Text(
+                           error,
+                           style: TextStyle(color:Colors.red),
+                         ),
+                       ],
+                      ),
+                   ),
                     
                  );
                },
@@ -570,10 +645,22 @@ class _UserProfileState extends State<UserProfile> {
            context: context,
            builder:(BuildContext context){
              return AlertDialog(
-               title: new Text("Leave Household"),
+               title: new Text("Leave Household",
+                style: TextStyle(
+                  fontFamily: 'Raleway',
+                  fontSize: 32,
+                  color: Color(0xfF582D8F)
+                )
+               ),
                content:new Column(
                 children: <Widget>[
-                 new Text("You are about to leave this household. Are you sure you would like to leave?"),
+                 new Text("You are about to leave this household. Are you sure you would like to leave?",
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 18,
+                    color: Color(0xFF1F1B38)
+                  )
+                 ),
                  new Row(
                    children: <Widget>[
                      new FlatButton(onPressed: null, child: null)
@@ -583,9 +670,34 @@ class _UserProfileState extends State<UserProfile> {
                ),
                actions: <Widget>[
                  new FlatButton(
-                   child: new Text("No"),
-                   onPressed:() {
-                     Navigator.of(context).pop();
+                   splashColor: Color(0xFF582D8F),
+                  child: Text( 'No',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Raleway',
+                      color: Color(0XFFE5625C)
+                    )
+                  ),
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(25),
+                    side: BorderSide(
+                      color: Color(0XFFE5625C),
+                      width: 2.0,
+                    )
+                  ),
+                  padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
+                   onPressed:() async {
+                    Navigator.of(context).pop();
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> HouseHoldSelectionPage()));
+                    var db= Firestore.instance;
+                    var userDoc = db.collection('users').document(uid);
+                    await userDoc.updateData({
+                                'HouseHoldName': "Null",
+                                  'Budget Changes': new List(),
+                                  'Chores': new List(),   
+                                'Points':0,
+                    });
                    },
                  ),
                ],
@@ -607,17 +719,56 @@ class _UserProfileState extends State<UserProfile> {
        showDialog(
       context: context,
       builder:(BuildContext context){
-        return AlertDialog(
-          title: new Text("Password Reset"),
-          content: new Text('A password reset link was sent to '+email),
-          actions: <Widget>[
-            new FlatButton(
-              child: new Text("Close"),
-              onPressed:() {
-                Navigator.of(context).pop();
-              },
+        return Dialog(
+          child: Container(
+            height: 250,
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Text("Password Reset",
+                    style: TextStyle(
+                      fontFamily: 'Raleway',
+                      fontSize: 32,
+                      color: Color(0xfF582D8F)
+                    )
+                  ),
+                ),
+                Container(
+                  child: Text('A password reset link was sent to '+email,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                      color: Color(0xFF1F1B38)
+                    ),
+                  ),
+                  padding: EdgeInsets.fromLTRB(25, 0, 10, 20),
+                ),
+                FlatButton(
+                  splashColor: Color(0xFF582D8F),
+                  child: Text( 'Close',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'Raleway',
+                      color: Color(0XFF6D77E0)
+                    )
+                  ),
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(25),
+                    side: BorderSide(
+                      color: Color(0XFF6D77E0),
+                      width: 2.0,
+                    )
+                  ),
+                  padding: EdgeInsets.fromLTRB(25, 15, 25, 15),
+                  onPressed:() {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             ),
-          ],
+          )          
         );
       },
     );
