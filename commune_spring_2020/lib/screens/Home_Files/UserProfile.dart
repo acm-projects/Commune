@@ -49,66 +49,84 @@ class _UserProfileState extends State<UserProfile> {
                       children: <Widget>[
                         Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
                           style: TextStyle(
-                          color: Color(0xFFF2F2F2),
-                          fontSize: 35,
+                          color: Color(0xFFDADADA),
+                          fontSize: 40,
                           fontFamily: 'Raleway',
                           fontWeight: FontWeight.bold
                           )
-                          ),
-                          Text(snapshot.data["Email"],
-                            style: TextStyle(
-                              color: Color(0xFF1b4079),
-                              fontSize: 20,
-                              fontFamily: 'Raleway',
-                              fontWeight: FontWeight.normal
-                            )
-                          ),
-                          Text('Age: '+snapshot.data["Age"],
-                            style: TextStyle(
-                              color: Color(0xFF1b4079),
-                              fontSize: 20,
-                              fontFamily: 'Raleway',
-                              fontWeight: FontWeight.normal,
-                            )
-                          ),
-                          StreamBuilder(
-                            stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
-                            builder: (context, snapshot) {
-                              if (!snapshot.hasData) {
-                                return new Text("Loading");
-                              }
-                              String isAdminYesNo="No";
-                              if(uid==snapshot.data["Admin"])
-                              {
-                                isAdminYesNo="Yes";
-                              }
-                              return Text('Admin:'+isAdminYesNo,
+                        ),
+                        StreamBuilder(
+                          stream: Firestore.instance.collection('HouseHoldGroups').document(snapshot.data["HouseHoldName"]).snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return new Text("Loading");
+                            }
+                            if(uid==snapshot.data["Admin"])
+                            {
+                              return Text('(Admin)',
                                 style: TextStyle(
-                                  color: Color(0xFF1B4079),
+                                  color: Color(0xFF582D8F),
                                   fontSize: 20,
                                   fontFamily: 'Raleway',
                                   fontWeight: FontWeight.normal
                                 )
                               );
                             }
-                          ),
-                        ]
-                      ),
+                          }
+                        ),
+                        Container(                
+                          margin: EdgeInsets.fromLTRB(10,65,10,0),    
+                          padding: EdgeInsets.fromLTRB(10, 15, 10, 15),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            border: Border(
+                              bottom: BorderSide(
+                                width: 1.0,
+                                color: Color(0xfF582D8F)
+                                )
+                              )
+                            ),
+                          child: Row(
+                            children: <Widget>[
+                              Text(snapshot.data["Email"],
+                                style: TextStyle(
+                                  color: Color(0XFFdadada),
+                                  fontSize: 18,
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.normal
+                                )
+                              ),
+                              Spacer(),
+                              Text('Age: '+snapshot.data["Age"],
+                                style: TextStyle(
+                                  color: Color(0XFFDADADA),
+                                  fontSize: 18,
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.normal,
+                                )
+                              ),
+                            ],
+                          )
+                        ),
+                      ]
+                    ),
                   decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [Color(0xFFB3B9FA), Color(0xFF6D77E0)]
+                        colors: [Color(0xFFB3B9FA), Color(0XFF8C94EB)]
                       ),
                       shape: BoxShape.rectangle,
                       //borderRadius: new BorderRadius.circular(25)
                     ),
-                    padding: EdgeInsets.fromLTRB(15, 15, 0, 15),
-                    margin: EdgeInsets.fromLTRB(0, 75, 0, 0),
+                    padding: EdgeInsets.fromLTRB(0, 125, 0, 25)
                   ),
                   //leaderboard
                   Container(
                       alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
                       child: Column(
                         children: <Widget>[
                           //leaderboard header
@@ -123,10 +141,10 @@ class _UserProfileState extends State<UserProfile> {
                                 }
                                 return Container(
                                   margin: EdgeInsets.fromLTRB(15, 25, 0, 0),
-                                  child: Text('Leaderboard | ' + snapshot.data["HouseHoldName"],
+                                  child: Text(snapshot.data["HouseHoldName"],
                                     style: TextStyle(
-                                      color: Color(0xFF1B4079),
-                                      fontSize: 32,
+                                      color: Color(0xFF1F1B38),
+                                      fontSize: 30,
                                       fontFamily: 'Raleway',
                                       fontWeight: FontWeight.bold
                                     )
@@ -137,8 +155,11 @@ class _UserProfileState extends State<UserProfile> {
                             width: MediaQuery.of(context).size.width
                           ),
                           Container(
-                            margin: EdgeInsets.only(top: 15),
-                            color: Color(0xFF1B4079),
+                            decoration: BoxDecoration(
+                              color: Color(0xAA1F1B38),
+                              borderRadius: new BorderRadius.circular(25)
+                            ),
+                            margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
                             width: MediaQuery.of(context).size.width,
                             height: 5
                           ),
@@ -171,7 +192,7 @@ class _UserProfileState extends State<UserProfile> {
                                          children: <Widget>[
                                            Text(snapshot.data["First Name"]+" "+snapshot.data["Last Name"],
                                             style: TextStyle(
-                                               color: Color(0xFF1B4079),
+                                               color: Color(0xFF1F1B38),
                                                fontSize: 25,
                                                fontFamily: 'Raleway',
                                                fontWeight: FontWeight.normal
@@ -180,7 +201,7 @@ class _UserProfileState extends State<UserProfile> {
                                             Spacer(),
                                             Text(snapshot.data["Points"].toString(),
                                             style: TextStyle(
-                                              color: Color(0xFF1B4079),
+                                              color: Color(0xFF1F1B38),
                                               fontSize: 25,
                                               fontFamily: 'Raleway',
                                               fontWeight: FontWeight.normal
@@ -199,17 +220,40 @@ class _UserProfileState extends State<UserProfile> {
                         ),
                         ),
                         Container(
-                            margin: EdgeInsets.only(top: 35),
-                            color: Color(0xFF1B4079),
-                            width: MediaQuery.of(context).size.width,
-                            height: 5
+                          decoration: BoxDecoration(
+                            color: Color(0xAA1F1B38),
+                            borderRadius: new BorderRadius.circular(25)
                           ),
-                        ]
-                      )
+                          margin: EdgeInsets.fromLTRB(10, 15, 10, 0),
+                          width: MediaQuery.of(context).size.width,
+                          height: 5
+                        ),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          padding: EdgeInsets.fromLTRB(0, 5, 5, 0),
+                          child: Text('(Leaderboard)',
+                            style: TextStyle(
+                              color: Color(0xFF1F1B38),
+                              fontSize: 20,
+                              fontFamily: 'Raleway',
+                            )
+                          )
+                        ),
+                      ]
+                    )
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 35),
-                    child: Row(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFFB3B9FA), Color(0XFF7A83E5)]
+                      ),
+                    ),
+                    padding: EdgeInsets.fromLTRB(0, 15, 0, 10),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
                         FlatButton(
@@ -221,22 +265,23 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Raleway',
-                              color: Color(0xFFF2F2F2)
+                              color: Color(0xFFDADADA)
                             )
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(25),
                             side: BorderSide(
-                              color: Color(0xFF1B4079),
+                              color: Color(0xFFDADADA),
                               width: 2.0,
                             )
                           ),
-                          padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
-                          color: Color(0xFF7E86DF),
+                          padding: EdgeInsets.fromLTRB( 39, 15, 39, 15)
+                        ),
+                        Container(
+                          height: 10.0
                         ),
                         FlatButton(
                           onPressed: () async {
-
                                var db = Firestore.instance;
                                var adminDoc = db.collection('users').document(uid);
                                String userEmail;
@@ -250,18 +295,17 @@ class _UserProfileState extends State<UserProfile> {
                             style: TextStyle(
                               fontSize: 20,
                               fontFamily: 'Raleway',
-                              color: Color(0xFFF2F2F2)
+                              color: Color(0xFFDADADA)
                             )
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: new BorderRadius.circular(25),
                             side: BorderSide(
-                              color: Color(0xFF1B4079),
+                              color: Color(0xFFDADADA),
                               width: 2.0,
                             )
                           ),
-                          padding: EdgeInsets.fromLTRB( 39, 15, 39, 15),
-                          color: Color(0xFF7E86DF),
+                          padding: EdgeInsets.fromLTRB( 39, 15, 39, 15)
                         )
                       ]
                     )
@@ -274,68 +318,73 @@ class _UserProfileState extends State<UserProfile> {
                             }
                             if(uid==snapshot.data["Admin"])
                             {
-                              return Row(
-                                children: <Widget>[
+                              return 
                                   Container(
-                                  alignment: Alignment.bottomRight,
-                                  margin: EdgeInsets.only( top: 15 ),
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      leaveHouse(true);
-                                    },
-                                    child: Text( 'LEAVE HOUSEHOLD',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        fontFamily: 'Raleway',
-                                        color: Color(0xFFF2F2F2)
-                                      )
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [Color(0xFF7A83E5), Color(0XFF6D77E0)]
+                                      ),
                                     ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: new BorderRadius.circular(25),
-                                      side: BorderSide(
-                                        color: Color(0xFF1B4079),
-                                        width: 2.0,
-                                      )
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                    child: Column(
+                                      children: <Widget>[
+                                        FlatButton(
+                                      onPressed: () {
+                                        leaveHouse(true);
+                                      },
+                                      child: Text( 'Leave Household',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'Raleway',
+                                          color: Color(0xFFDADADA)
+                                        )
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.circular(25),
+                                        side: BorderSide(
+                                          color: Color(0xFFDADADA),
+                                          width: 2.0,
+                                        )
+                                      ),
+                                      padding: EdgeInsets.fromLTRB(50, 15, 50, 15)
                                     ),
-                                    padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                                    color: Color(0xFF1b4079),
-                                  )
-                                ),
-                                
-                                ],);
+                                    FlatButton(
+                                      onPressed: () {
+                                        leaveHouse(true);
+                                      },
+                                      child: Text( 'Kick Member',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'Raleway',
+                                          color: Color(0xFFDADADA)
+                                        )
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.circular(25),
+                                        side: BorderSide(
+                                          color: Color(0xFFDADADA),
+                                          width: 2.0,
+                                        )
+                                      ),
+                                      padding: EdgeInsets.fromLTRB(50, 15, 50, 15)
+                                    )
+                                  ],
+                                )
+                              );
                             }
-                            return Container(
-                            alignment: Alignment.center,
-                            margin: EdgeInsets.only( top: 15 ),
-                            child: FlatButton(
-                              onPressed: () {},
-                              child: Text( 'LEAVE HOUSEHOLD',
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontFamily: 'Raleway',
-                                  color: Color(0xFFF2F2F2)
-                                )
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(25),
-                                side: BorderSide(
-                                  color: Color(0xFF1B4079),
-                                  width: 2.0,
-                                )
-                              ),
-                              padding: EdgeInsets.fromLTRB(50, 15, 50, 15),
-                              color: Color(0xFF1b4079),
-                            ),
-                            );
-                             }
-                            ),
-                         ]
-                      ),
-            )
-                  );
-                 }
-               );
-              }
+                          }
+                        ),
+                      ]
+                    ),
+                  )
+              );
+            }
+        );
+      }
         
       void sortList(List listUsers) async
       {

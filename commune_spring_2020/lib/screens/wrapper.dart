@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/join_or_create.dart';
+import 'package:commune_spring_2020/screens/Home_Files/UserProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
@@ -47,7 +48,7 @@ class Wrapper extends StatelessWidget {
       print("yoooo");
       return FutureBuilder(
       future: householdIsNull(user.uid),
-      builder: (context,AsyncSnapshot<bool> snapshot)
+      builder: (context, AsyncSnapshot<bool> snapshot)
       {
          if(snapshot.hasData)
          {

@@ -97,7 +97,7 @@ class LoginPage extends StatelessWidget {
                       if(result==null){
                          //setState((){error="Your username or password dont match our records";});
                       }else{
-                        //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
+                       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
                       }
                     print("user is: "+result.toString());
                  }
