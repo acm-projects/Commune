@@ -1,13 +1,8 @@
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/register_user.dart';
-import 'package:commune_spring_2020/Pages/bill_expansion.dart';
-import 'package:commune_spring_2020/Pages/chore_expansion.dart';
-import 'package:commune_spring_2020/Pages/homepage.dart';
-
 import 'package:commune_spring_2020/screens/auth/AccountAccess.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:commune_spring_2020/Pages/app_card.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 
 class LoginPage extends StatelessWidget {
@@ -97,9 +92,8 @@ class LoginPage extends StatelessWidget {
                       if(result==null){
                          //setState((){error="Your username or password dont match our records";});
                       }else{
-                       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
+                        //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Home()));
                       }
-                    print("user is: "+result.toString());
                  }
                 },
                 child: Text("Sign in",
