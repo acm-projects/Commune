@@ -387,21 +387,22 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                   }
                               );
                             },
-                            child: FittedBox(
-                              child: Text(
-                                "Add a Chore",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Raleway',
-                                  //fontSize: 17.0,
-                                ),
-                              ),
+                            splashColor: Color(0xFF582D8F),
+                            child: Text( 'Add a Chore',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Raleway',
+                                color: Color.fromARGB(255, 27, 64, 121)
+                              )
                             ),
-                            color: Color.fromARGB(255, 27, 64, 121),
                             shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(12.0),
-                              side: BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(25),
+                              side: BorderSide(
+                                color: Color.fromARGB(255, 27, 64, 121),
+                                width: 2.0,
+                              )
                             ),
+                            padding: EdgeInsets.fromLTRB(35, 15, 35, 15),                       
                           ),
                         ),
                         StreamBuilder(
@@ -445,21 +446,22 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                                     );
                                   });
                             },
-                            child: FittedBox(
-                              child: Text(
-                                "Add a Bill",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Raleway',
-                                  //fontSize: 17.0,
-                                ),
-                              ),
+                            splashColor: Color(0xFF582D8F),
+                            child: Text( 'Add a Bill',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontFamily: 'Raleway',
+                                color: Color.fromARGB(255, 27, 64, 121)
+                              )
                             ),
-                            color: Color.fromARGB(255, 27, 64, 121),
                             shape: RoundedRectangleBorder(
-                              borderRadius: new BorderRadius.circular(12.0),
-                              side: BorderSide(color: Colors.white),
+                              borderRadius: new BorderRadius.circular(25),
+                              side: BorderSide(
+                                color: Color.fromARGB(255, 27, 64, 121),
+                                width: 2.0,
+                              )
                             ),
+                            padding: EdgeInsets.fromLTRB(35, 15, 35, 15), 
                           ),
                         )
                       ]),

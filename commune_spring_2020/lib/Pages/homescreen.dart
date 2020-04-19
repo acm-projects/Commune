@@ -213,7 +213,6 @@ class _HomescreenState extends State<Homescreen> {
                           Container(
                               alignment: Alignment.centerLeft,
                               padding: EdgeInsets.only(top: 15.0),
-                              margin: EdgeInsets.all(0),
                               child: Row(
                                 children: <Widget>[
                                   Column(
@@ -324,23 +323,23 @@ class _HomescreenState extends State<Homescreen> {
                         ],
                       )),
                   //sign out button
-                  RaisedButton(
-                      child: Text("Sign Out",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Raleway',
-                          fontSize: 18.0,
-                        )
-                      ),
-                      onPressed: () async {
-                        await _auth.signOut();
-                      },
-                      color: Color(0xFF8C94EB),
-                       shape: RoundedRectangleBorder(
-                       borderRadius: new BorderRadius.circular(18.0),
-                       side: BorderSide(color: Colors.white),
-                      ),
-                  ),
+                  // RaisedButton(
+                  //     child: Text("Sign Out",
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontFamily: 'Raleway',
+                  //         fontSize: 18.0,
+                  //       )
+                  //     ),
+                  //     onPressed: () async {
+                  //       await _auth.signOut();
+                  //     },
+                  //     color: Color(0xFF8C94EB),
+                  //      shape: RoundedRectangleBorder(
+                  //      borderRadius: new BorderRadius.circular(18.0),
+                  //      side: BorderSide(color: Colors.white),
+                  //     ),
+                  // ),
                 ],
               ),
             )));
