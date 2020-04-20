@@ -247,7 +247,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                 .snapshots(),
                             builder: (context, snap) {
                               if (!snap.hasData) {
-                                return Text("loading....");
+                                return Text(" ");
                               }
                               return StreamBuilder(
                                   stream: Firestore.instance
@@ -271,7 +271,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                     .snapshots(),
                                                 builder: (context, snap) {
                                                   if (!snap.hasData) {
-                                                    return Text("Loading...");
+                                                    return Text(" ");
                                                   }
                                                   return new RaisedButton(
                                                     color: Color(0xFFF59F9B),

@@ -226,7 +226,7 @@ class _HomescreenState extends State<Homescreen> {
                                                   //the BillList class is defined at the bottom of this doc
                                                   child: Container(
                                                     height: 640,
-                                                    child: BillList()
+                                                    child: BillList(uid: widget.uid,)
                                                   ),
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
@@ -367,10 +367,12 @@ class _BillListState extends State<BillList> {
                     .document(widget.uid)
                     .snapshots(),
                 builder: (context, snapshot) {
+                  print(widget.uid);
                   budgetServices bs = budgetServices();
                   if (!snapshot.hasData) {
                     return Text("loading...");
                   }
+                  print("object");
                   List bills = snapshot.data["Budget Changes"];
                   return Container(
                       height: 500.0,
