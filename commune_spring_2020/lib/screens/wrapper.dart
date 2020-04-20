@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:commune_spring_2020/Pages/AccountAccessScreens/login.dart';
 import 'package:commune_spring_2020/Pages/join_or_create.dart';
 import 'package:commune_spring_2020/Pages/listofbills.dart';
+import 'package:commune_spring_2020/Pages/listofchores.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:commune_spring_2020/Models/User.dart';
@@ -44,7 +45,7 @@ class Wrapper extends StatelessWidget {
     } else {
       //return Home(uid:user.uid);
       print("yoooo");
-      //return BillsList();
+      //return ChoreList();
       return FutureBuilder(
       future: householdIsNull(user.uid),
       builder: (context, AsyncSnapshot<bool> snapshot)

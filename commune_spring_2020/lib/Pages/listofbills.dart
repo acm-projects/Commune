@@ -33,7 +33,7 @@ class _BillsListState extends State<BillsList> {
                     
                     Container(
                     height: 0.8 * screenSize.size.height,
-                    width: 0.95 * screenSize.size.width,
+                    width: 0.85 * screenSize.size.width,
                     // foregroundDecoration: BoxDecoration(
                     //   border: Border.all(
                     //   width: 0.005 * screenSize.size.width,
@@ -44,7 +44,7 @@ class _BillsListState extends State<BillsList> {
                     color: Color.fromARGB(255, 255, 255, 255),
                     
                       height: 0.8 * screenSize.size.height,
-                      width: 0.95 * screenSize.size.width,
+                      width: 0.85 * screenSize.size.width,
                       child: Column(
                         children: <Widget>[
 
@@ -62,7 +62,7 @@ class _BillsListState extends State<BillsList> {
                           //Container(height: 0.02 * screenSize.size.height, color: Color.fromARGB(255, 183, 209, 251),),
                           Container(
                             height: 0.05 * screenSize.size.height,
-                            width: 0.95 * screenSize.size.width,
+                            width: 0.85 * screenSize.size.width,
                             margin: EdgeInsets.all(0.0),
                             padding: EdgeInsets.all(0.0),
                             // decoration: BoxDecoration(
@@ -79,13 +79,13 @@ class _BillsListState extends State<BillsList> {
 
                             child: Container(
                             height: 0.03 * screenSize.size.height,
-                              width: 0.95 * screenSize.size.width,
+                              width: 0.85 * screenSize.size.width,
                               color: Color.fromARGB(255, 255, 255, 255),
                                   child: FittedBox(
                                     child: Text(
                                       "Household Bills",
                                       style: TextStyle(
-                                          color: Color.fromARGB(255, 159, 166, 248),
+                                          color: Color.fromARGB(255, 128, 88, 178),
                                           //fontSize: 15.0,
                                           fontWeight: FontWeight.w400,
                                           fontFamily: 'Raleway'),
@@ -112,7 +112,7 @@ class _BillsListState extends State<BillsList> {
                                       child: Text(
                                       "All Expenses",
                                       style: TextStyle(
-                                        color: Color.fromARGB(255, 88, 45, 143),
+                                        color: Color.fromARGB(255, 159, 166, 248),
                                         //fontSize: 24.0,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Raleway'
@@ -126,7 +126,7 @@ class _BillsListState extends State<BillsList> {
                                       child: Text(
                                         "Due Date ",
                                         style: TextStyle(
-                                          color: Color.fromARGB(255, 88, 45, 143),
+                                          color: Color.fromARGB(255, 159, 166, 248),
                                           //fontSize: 24.0,
                                           fontWeight: FontWeight.bold,
                                           fontFamily: 'Raleway'
@@ -164,7 +164,7 @@ class _BillsListState extends State<BillsList> {
                                 }
                                 return Container(
                                   height: 0.6 * screenSize.size.height,
-                                  color: Color.fromARGB(255, 83, 185, 249),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   child: StreamBuilder(
                                     stream: Firestore.instance.collection('HouseHoldGroups').document(widget.hhname).snapshots(),
                                     builder: (context, snapshot) {
@@ -183,13 +183,13 @@ class _BillsListState extends State<BillsList> {
                                             decoration: BoxDecoration(
                                             border: Border.all(
                                               width: 0.003 * screenSize.size.width,
-                                              color: Color.fromARGB(255, 88, 45, 143)),
+                                              color: Color.fromARGB(255, 29, 30, 24)),
                                             borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                             child: ListTile(
                                               title: Text(
                                                 bs.getDescriptionFromDescription(bills[index]),
                                                 style: TextStyle(
-                                                  color: Color.fromARGB(255, 88, 45, 143),
+                                                  color: Color.fromARGB(255, 159, 166, 248),
                                                   fontFamily: 'Roboto',
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.w300
@@ -203,7 +203,7 @@ class _BillsListState extends State<BillsList> {
                                               trailing: Text(
                                                 bs.getDateFromDescription(bills[index]),
                                                 style: TextStyle(
-                                                  color: Color.fromARGB(255, 88, 45, 143),
+                                                  color: Color.fromARGB(255, 159, 166, 248),
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 20
