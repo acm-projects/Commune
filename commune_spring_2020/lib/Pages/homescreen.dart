@@ -222,9 +222,12 @@ class _HomescreenState extends State<Homescreen> {
                                           showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
-                                                return AlertDialog(
+                                                return Dialog(
                                                   //the BillList class is defined at the bottom of this doc
-                                                  content: BillList(),
+                                                  child: Container(
+                                                    height: 640,
+                                                    child: BillList()
+                                                  ),
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           new BorderRadius
@@ -259,12 +262,34 @@ class _HomescreenState extends State<Homescreen> {
                                   FlatButton(
                                     onPressed: () {
                                       showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              content: BillsExpansion(uid: widget.uid, userChange: true,),
-                                            );
-                                          });
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return Dialog(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(25.0)), //this right here
+                                            child: Container(
+                                              height: 450,
+                                              child: BillsExpansion()
+                                            ),
+                                          );
+                                        }
+                                      );
+                                      // showDialog(
+                                      //     context: context,
+                                      //     builder: (BuildContext context) {
+                                      //       return AlertDialog(
+                                      //         content: BillsExpansion(),
+                                      //         actions: <Widget>[
+                                      //           FlatButton.icon(
+                                      //             onPressed: (){Navigator.of(context).pop();},
+                                      //             icon: Icon( Icons.close ),
+                                      //             label: Text('')
+                                      //           )
+                                      //         ],
+                                      //       );
+                                      //     }
+                                      //   );
                                     },
                                     child: Icon(Icons.add,
                                         size: 50, color: Color(0xFF7E86DF)),
@@ -280,11 +305,23 @@ class _HomescreenState extends State<Homescreen> {
                         ],
                       )),
                   //sign out button
-                  RaisedButton(
-                      child: Text("sign out"),
-                      onPressed: () async {
-                        await _auth.signOut();
-                      }),
+                  // RaisedButton(
+                  //     child: Text("Sign Out",
+                  //       style: TextStyle(
+                  //         color: Colors.white,
+                  //         fontFamily: 'Raleway',
+                  //         fontSize: 18.0,
+                  //       )
+                  //     ),
+                  //     onPressed: () async {
+                  //       await _auth.signOut();
+                  //     },
+                  //     color: Color(0xFF8C94EB),
+                  //      shape: RoundedRectangleBorder(
+                  //      borderRadius: new BorderRadius.circular(18.0),
+                  //      side: BorderSide(color: Colors.white),
+                  //     ),
+                  // ),
                 ],
               ),
             )));
@@ -309,14 +346,18 @@ class _BillListState extends State<BillList> {
         children: <Widget>[
           //To Do title
           Container(
-              height: 40,
-              alignment: Alignment.centerLeft,
-              child: Text('Bills',
-                  style: TextStyle(
-                      color: Color(0xFF6D77E0),
-                      fontSize: 40,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.bold))),
+            height: 40,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.fromLTRB(15, 35, 15, 35),
+            child: Text('Bills',
+                style: TextStyle(
+                  color: Color(0xFF6D77E0),
+                  fontSize: 40,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold
+                )
+            )
+          ),
           //actual list
           Container(
             height: 600,

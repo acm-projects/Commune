@@ -64,7 +64,14 @@ class _BillsExpansionState extends State<BillsExpansion> {
     return Material(
         child: Center(
             child: Container(
-                color: Color.fromARGB(255, 251, 244, 245),
+                decoration:  BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Color(0xFFF59F9B), Color(0xFFE5625C)]
+                  ),
+                ),
+                padding: EdgeInsets.fromLTRB(15, 35, 15, 0),
                 child: Column(
                   children: <Widget>[
                     // Container(
@@ -72,14 +79,14 @@ class _BillsExpansionState extends State<BillsExpansion> {
                     //   color: Color.fromARGB(255, 251, 244, 245),
                     // ),
                     Container(
-                      height: 0.55 * screenSize.size.height,
+                      //height: 0.55 * screenSize.size.height,
                       width: 0.95 * screenSize.size.width,
                       child: Column(
                         children: <Widget>[
                           Container(
                               height: 0.00 * screenSize.size.height,
                               width: 0.95 * screenSize.size.width,
-                              color: Color.fromARGB(230, 174, 181, 255),
+                              //color: Color.fromARGB(230, 174, 181, 255),
                               child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
@@ -148,40 +155,33 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                     ),
                                   ])),
                           Container(
-                            height: 0.49 * screenSize.size.height,
+                            //height: 0.49 * screenSize.size.height,
                             width: 0.95 * screenSize.size.width,
-                            color: Color.fromARGB(230, 174, 181, 255),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.zero)),
-                              color: Color.fromARGB(230, 174, 181, 255),
-                              elevation: 0,
+                            child: Container(
                               margin: EdgeInsets.all(0.0),
                               child: Form(
-                                  child: Column(children: <Widget>[
+                                child: Column(children: <Widget>[
                                 Container(
-                                    height: 0.02 * screenSize.size.height,
-                                    color: Color.fromARGB(230, 174, 181, 255)),
+                                    height: 0.02 * screenSize.size.height
+                                ),
                                 Container(
                                   height: 0.05 * screenSize.size.height,
                                   width: 1.0 * screenSize.size.width,
-                                  color: Color.fromARGB(230, 174, 181, 255),
                                   child: FittedBox(
                                     child: Text(
                                       "Add a Bill",
                                       style: TextStyle(
-                                          color: Color.fromARGB(
-                                              255, 245, 229, 252),
-                                          //fontSize: 24.0,
-                                          fontWeight: FontWeight.w400,
-                                          fontFamily: 'Raleway'),
+                                          color: Color.fromARGB(255, 255, 255, 255),
+                                          //fontSize: 15.0,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: 'Raleway')
                                     ),
                                   ),
                                 ),
                                 Container(
                                     height: 0.02 * screenSize.size.height,
-                                    color: Color.fromARGB(230, 174, 181, 255)),
+                                    //color: Color.fromARGB(230, 174, 181, 255)
+                                ),
                                 Container(
                                   height: 0.1 * screenSize.size.height,
                                   width: 0.8 * screenSize.size.width,
@@ -189,19 +189,22 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                       onChanged: (val) {
                                         desc = val;
                                       },
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
                                       decoration: InputDecoration(
                                           labelText: 'Memo',
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
-                                                width: 0.005 *
-                                                    screenSize.size.height),
+                                              color: Colors.white,
+                                              width: 0.002 * screenSize.size.height
+                                            ),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(8.0)),
                                           ),
                                           border: OutlineInputBorder(),
                                           labelStyle: TextStyle(
-                                              color: Colors.blueGrey))),
+                                              color: Colors.white))),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 0,
@@ -213,26 +216,29 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                       onChanged: (val) {
                                         budgetChange = double.parse(val);
                                       },
+                                      style: TextStyle(
+                                        color: Colors.white
+                                      ),
                                       decoration: InputDecoration(
                                           labelText: 'Bill Amount',
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                                color: Colors.white,
-                                                width: 0.005 *
-                                                    screenSize.size.height),
+                                              color: Colors.white,
+                                              width: 0.002 * screenSize.size.height
+                                            ),
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(8.0)),
                                           ),
                                           border: OutlineInputBorder(),
                                           labelStyle: TextStyle(
-                                              color: Colors.blueGrey))),
+                                              color: Colors.white))),
                                 ),
                                 Padding(
                                     padding: EdgeInsets.fromLTRB(0, 0, 0,
-                                        0.02 * screenSize.size.height)),
+                                        0.06 * screenSize.size.height)),
                                 Container(
-                                  height: 0.1 * screenSize.size.height,
-                                  width: 0.8 * screenSize.size.width,
+                                 // height: 0.1 * screenSize.size.height,
+                                  //width: 0.8 * screenSize.size.width,
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -285,12 +291,10 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                     ),
                                                   ),
                                                 ),
-                                                color: Color.fromARGB(
-                                                    255, 27, 64, 121),
+                                                //color: Color.fromARGB(255, 27, 64, 121),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      new BorderRadius.circular(
-                                                          12.0),
+                                                      new BorderRadius.circular(12.0),
                                                   side: BorderSide(
                                                       color: Colors.white),
                                                 ),
@@ -329,7 +333,8 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                     changeBudget(
                                                         original, budgetChange);
                                                   }
-                                                  Navigator.pop(context);
+                                                  //Navigator.pop(context);
+                                                  Navigator.of(context).pop();
                                                 },
                                               // onPressed: () {
                                               //   Navigator.pop(context);
@@ -359,12 +364,11 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                                   style: TextStyle(
                                                     color: Colors.white,
                                                     fontFamily: 'Raleway',
-                                                    //fontSize: 17.0,
+                                                    fontSize: 17.0,
                                                   ),
                                                 ),
                                               ),
-                                              color:
-                                                  Color.fromARGB(255, 27, 64, 121),
+                                              //color: Color.fromARGB(255, 27, 64, 121),
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
                                                     new BorderRadius.circular(12.0),
@@ -378,19 +382,9 @@ class _BillsExpansionState extends State<BillsExpansion> {
                                 ),
                               ])),
                             ),
-                          ),
-                          Expanded(
-                              child: Container(
-                            color: Color.fromARGB(230, 174, 181, 255),
-                          ))
+                          )
                         ],
                       ),
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 0.02 * screenSize.size.width,
-                              color: Colors.black),
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(14.0))),
                     ),
                     // Container(
                     //   height: 0.215 * screenSize.size.height,
