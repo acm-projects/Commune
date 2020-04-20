@@ -376,13 +376,14 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      content: ChoreExpansion(
-                                          uid: widget.uid,                                    
+                                    return Dialog(
+                                     child: Container(
+                                       child: ChoreExpansion(uid: widget.uid),
+                                       height: 650
                                       ),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: new BorderRadius.circular(25.0)
-                                      ),
+                                        borderRadius: BorderRadius.circular(25.0)
+                                      )
                                     );
                                   }
                               );
@@ -434,10 +435,13 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
                               showDialog(
                                   context: context,
                                   builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      content: BillsExpansion(
-                                        uid: widget.uid,
-                                        userChange: false,
+                                    return Dialog(
+                                      child: Container(
+                                        height: 450,
+                                        child: BillsExpansion(
+                                          uid: widget.uid,
+                                          userChange: false,
+                                        ),
                                       ),
 
                                       // shape: RoundedRectangleBorder(

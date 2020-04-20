@@ -41,15 +41,16 @@ class _ChoreExpansion extends State<ChoreExpansion> {
         child: SingleChildScrollView(
           child: Container(
           decoration:  BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Color(0xFFF59F9B), Color(0xFFE5625C)]
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color(0xFFF59F9B), Color(0xFFE5625C)]
+            ),
+            //borderRadius: BorderRadius.circular(25)
           ),
-        ),
+        padding: EdgeInsets.fromLTRB(15, 35, 15, 0),
       child: Column(
           children: <Widget>[
-            
             Container(
               height: 0.85 * screenSize.size.height,
               width: 0.95 * screenSize.size.width,
@@ -302,15 +303,15 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                       ],
                     ),
                   ),
-                  Container(
-                      height: 0.02 * screenSize.size.height,
-                      width: 1 * screenSize.size.width,
-                      //color: Color.fromARGB(230, 174, 181, 255),
-                      child: Container(
-                        height: 0.05 * screenSize.size.height,
-                        width: 0.35 * screenSize.size.width,
-                        child: FlatButton(),
-                      )),
+                  // Container(
+                  //     height: 0.02 * screenSize.size.height,
+                  //     width: 1 * screenSize.size.width,
+                  //     //color: Color.fromARGB(230, 174, 181, 255),
+                  //     child: Container(
+                  //       height: 0.05 * screenSize.size.height,
+                  //       width: 0.35 * screenSize.size.width,
+                  //       child: FlatButton(),
+                  //     )),
                 ],
               ),
               // decoration: BoxDecoration(
@@ -320,11 +321,11 @@ class _ChoreExpansion extends State<ChoreExpansion> {
               //       ),
               //     borderRadius: BorderRadius.all(Radius.circular(9.0))),
             ),
-            Container(
-                height: 0.035 * screenSize.size.height,
-               // color: Color.fromARGB(255, 251, 244, 245)
-               ),
-            Container(height: 0.075 * screenSize.size.height, color: Colors.blue),
+            // Container(
+            //     height: 0.010 * screenSize.size.height,
+            //    // color: Color.fromARGB(255, 251, 244, 245)
+            //    ),
+            //Container(height: 0.075 * screenSize.size.height, color: Colors.blue),
           ],
       ),
     ),

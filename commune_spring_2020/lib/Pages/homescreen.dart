@@ -222,9 +222,12 @@ class _HomescreenState extends State<Homescreen> {
                                           showDialog(
                                               context: context,
                                               builder: (BuildContext context) {
-                                                return AlertDialog(
+                                                return Dialog(
                                                   //the BillList class is defined at the bottom of this doc
-                                                  content: BillList(),
+                                                  child: Container(
+                                                    height: 640,
+                                                    child: BillList()
+                                                  ),
                                                   shape: RoundedRectangleBorder(
                                                       borderRadius:
                                                           new BorderRadius
@@ -266,29 +269,8 @@ class _HomescreenState extends State<Homescreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(25.0)), //this right here
                                             child: Container(
-                                              height: 600,
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(0),
-                                                child: Column(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    BillsExpansion(),
-                                                    
-                                                    SizedBox(
-                                                      width: 320.0,
-                                                      child: RaisedButton(
-                                                        onPressed: () {},
-                                                        child: Text(
-                                                          "Save",
-                                                          style: TextStyle(color: Colors.white),
-                                                        ),
-                                                        color: const Color(0xFF1BC0C5),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
+                                              height: 450,
+                                              child: BillsExpansion()
                                             ),
                                           );
                                         }
@@ -364,14 +346,18 @@ class _BillListState extends State<BillList> {
         children: <Widget>[
           //To Do title
           Container(
-              height: 40,
-              alignment: Alignment.centerLeft,
-              child: Text('Bills',
-                  style: TextStyle(
-                      color: Color(0xFF6D77E0),
-                      fontSize: 40,
-                      fontFamily: 'Raleway',
-                      fontWeight: FontWeight.bold))),
+            height: 40,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.fromLTRB(15, 35, 15, 35),
+            child: Text('Bills',
+                style: TextStyle(
+                  color: Color(0xFF6D77E0),
+                  fontSize: 40,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold
+                )
+            )
+          ),
           //actual list
           Container(
             height: 600,
