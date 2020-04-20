@@ -260,7 +260,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                   .snapshots(),
                                               builder: (context, snap) {
                                                 if (!snap.hasData) {
-                                                  return null;
+                                                  return Text("loading...");
                                                 }
                                                 return new RaisedButton(
                                                   color: Color.fromARGB(
