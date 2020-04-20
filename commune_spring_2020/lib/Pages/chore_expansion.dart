@@ -233,60 +233,6 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                 fontFamily: 'Raleway'),
                           ),
                         ),
-<<<<<<< HEAD
-                      ),
-                    )),
-                Container(
-                  height: 0.31 * screenSize.size.height,
-                  width: 1 * screenSize.size.width,
-                  color: Color.fromARGB(255, 159, 166, 248),
-                  child: Column(
-                    children: [
-                      StreamBuilder(
-                          stream: Firestore.instance
-                              .collection("HouseHoldGroups")
-                              .document(widget.hhname)
-                              .snapshots(),
-                          builder: (context, snap) {
-                            if (!snap.hasData) {
-                              return Text("loading....");
-                            }
-                            return StreamBuilder(
-                                stream: Firestore.instance
-                                    .collection("HouseHoldGroups")
-                                    .document(widget.hhname)
-                                    .snapshots(),
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData) {
-                                    return Text("loading...");
-                                  }
-                                  List roomates = snapshot.data["Group Users"];
-                                  return Expanded(
-                                    child: ListView.builder(
-                                        scrollDirection: Axis.vertical,
-                                        itemCount: roomates.length,
-                                        itemBuilder: (context, index) {
-                                          return StreamBuilder(
-                                              stream: Firestore.instance
-                                                  .collection("users")
-                                                  .document(roomates[index])
-                                                  .snapshots(),
-                                              builder: (context, snap) {
-                                                if (!snap.hasData) {
-                                                  return Text("loading...");
-                                                }
-                                                return new RaisedButton(
-                                                  color: Color.fromARGB(
-                                                      230, 174, 181, 255),
-                                                  child: Text(
-                                                    snap.data["First Name"],
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontFamily: 'Raleway',
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 24.0,
-=======
                       )),
                   Container(
                     height: 0.31 * screenSize.size.height,
@@ -325,7 +271,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                     .snapshots(),
                                                 builder: (context, snap) {
                                                   if (!snap.hasData) {
-                                                    return null;
+                                                    return Text("Loading...");
                                                   }
                                                   return new RaisedButton(
                                                     color: Color(0xFFF59F9B),
@@ -338,7 +284,6 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                             FontWeight.bold,
                                                         fontSize: 24.0,
                                                       ),
->>>>>>> 8551636d09eb58eeee0acdd654c269dbd8fe4fcd
                                                     ),
                                                     onPressed: () {
                                                       String d=_datePicked.toString();
@@ -397,4 +342,3 @@ class _ChoreExpansion extends State<ChoreExpansion> {
   }
 }
 
-// void setState(Null Function() param0) {}
