@@ -23,7 +23,13 @@ class _BillsListState extends State<BillsList> {
        child: Container(
           height: 1 * screenSize.size.height,
           width: 1 * screenSize.size.width,
-          color: Color.fromARGB(255, 255, 255, 255),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFFFFFFF), Color(0xFFFBF4F5)]),
+          ),
+          //color: Color.fromARGB(255, 255, 255, 255),
           child: StreamBuilder(
             stream: Firestore.instance.collection("users").document().snapshots(),
             builder: (context, s) {
@@ -41,8 +47,6 @@ class _BillsListState extends State<BillsList> {
                     //   borderRadius: BorderRadius.all(Radius.circular(10.0))),
                     
                     child: Container(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    
                       height: 0.8 * screenSize.size.height,
                       width: 0.85 * screenSize.size.width,
                       child: Column(
@@ -80,7 +84,7 @@ class _BillsListState extends State<BillsList> {
                             child: Container(
                             height: 0.03 * screenSize.size.height,
                               width: 0.85 * screenSize.size.width,
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              //color: Color.fromARGB(255, 255, 255, 255),
                                   child: FittedBox(
                                     child: Text(
                                       "Household Bills",
@@ -103,7 +107,7 @@ class _BillsListState extends State<BillsList> {
                             Container(
                               height: 0.04 * screenSize.size.height,
                               width: 0.7 * screenSize.size.width,
-                              color: Color.fromARGB(255, 255, 255, 255),
+                              //color: Color.fromARGB(255, 255, 255, 255),
                                 child: Row(
                                   
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,7 +145,7 @@ class _BillsListState extends State<BillsList> {
 
                             Container(child: 
                             Divider(color: Colors.black, thickness: 0.003 * screenSize.size.width,), 
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            //color: Color.fromARGB(255, 255, 255, 255),
                             height: 0.01*screenSize.size.height,),
                             
                             //Container(height: 0.01 * screenSize.size.height, color: Color.fromARGB(255, 83, 185, 249),),
@@ -164,7 +168,7 @@ class _BillsListState extends State<BillsList> {
                                 }
                                 return Container(
                                   height: 0.6 * screenSize.size.height,
-                                  color: Color.fromARGB(255, 255, 255, 255),
+                                  //color: Color.fromARGB(255, 255, 255, 255),
                                   child: StreamBuilder(
                                     stream: Firestore.instance.collection('HouseHoldGroups').document(widget.hhname).snapshots(),
                                     builder: (context, snapshot) {
@@ -189,7 +193,8 @@ class _BillsListState extends State<BillsList> {
                                               title: Text(
                                                 bs.getDescriptionFromDescription(bills[index]),
                                                 style: TextStyle(
-                                                  color: Color.fromARGB(255, 159, 166, 248),
+                                                  //color: Color.fromARGB(255, 159, 166, 248),
+                                                  color: Color.fromARGB(255, 128, 88, 178),
                                                   fontFamily: 'Roboto',
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.w300
@@ -203,7 +208,8 @@ class _BillsListState extends State<BillsList> {
                                               trailing: Text(
                                                 bs.getDateFromDescription(bills[index]),
                                                 style: TextStyle(
-                                                  color: Color.fromARGB(255, 159, 166, 248),
+                                                 // color: Color.fromARGB(255, 159, 166, 248),
+                                                  color: Color.fromARGB(255, 128, 88, 178),
                                                   fontFamily: 'Roboto',
                                                   fontWeight: FontWeight.w300,
                                                   fontSize: 20
@@ -218,9 +224,9 @@ class _BillsListState extends State<BillsList> {
                               }
                             ),
 
-                            Container(child: Divider(color: Colors.black, thickness: 0.005 * screenSize.size.width,), color: Color.fromARGB(255, 255, 255, 255),
+                            Container(child: Divider(color: Colors.black, thickness: 0.005 * screenSize.size.width,),// color: Color.fromARGB(255, 255, 255, 255),
                             height: 0.01*screenSize.size.height,),
-                            Expanded(child: Container(color: Colors.transparent,))
+                            //Expanded(child: Container(color: Colors.transparent,))
                           ]
                       ),
 

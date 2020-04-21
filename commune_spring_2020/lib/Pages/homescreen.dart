@@ -71,7 +71,7 @@ class _HomescreenState extends State<Homescreen> {
                   Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.fromLTRB(15, 15, 0, 30),
-                      margin: EdgeInsets.fromLTRB(25, 40, 30, 10),
+                      margin: EdgeInsets.fromLTRB(25, 40, 25, 10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
                               begin: Alignment.topCenter,
@@ -137,6 +137,19 @@ class _HomescreenState extends State<Homescreen> {
                                       return Text("loading...");
                                     }
                                     List chores = snapshot.data["Chores"];
+                                    if(chores.isEmpty){
+                                      return Padding(
+                                        padding: const EdgeInsets.fromLTRB(0, 55, 0, 15),
+                                        child: Text('You have no chores!\nEnjoy your day :)',
+                                          style: TextStyle(
+                                            color: Color(0xCCFFFFFF),
+                                            fontFamily: 'Raleway',
+                                            fontSize: 22.0
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      );                                  
+                                    }
                                     return new ListView.builder(
                                         scrollDirection: Axis.vertical,
                                         itemCount: chores.length,
@@ -189,7 +202,7 @@ class _HomescreenState extends State<Homescreen> {
                   Container(
                       alignment: Alignment.center,
                       padding: EdgeInsets.fromLTRB(15, 15, 0, 60),
-                      margin: EdgeInsets.fromLTRB(25, 10, 30, 10),
+                      margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
@@ -225,7 +238,7 @@ class _HomescreenState extends State<Homescreen> {
                                                 return Dialog(
                                                   //the BillList class is defined at the bottom of this doc
                                                   child: Container(
-                                                    height: 640,
+                                                    height: 400,
                                                     child: BillList(uid: widget.uid,)
                                                   ),
                                                   shape: RoundedRectangleBorder(
@@ -340,27 +353,30 @@ class _BillListState extends State<BillList> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 700,
+      height: 200,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
           body: Column(
         children: <Widget>[
           //To Do title
           Container(
-            height: 40,
+            //height: 30,
             alignment: Alignment.centerLeft,
-            padding: EdgeInsets.fromLTRB(15, 35, 15, 35),
+            padding: EdgeInsets.fromLTRB(25, 35, 15, 25),
             child: Text('Bills',
                 style: TextStyle(
-                  color: Color(0xFF6D77E0),
+                  color: Color.fromARGB(255, 27, 64, 121),
                   fontSize: 40,
                   fontFamily: 'Raleway',
                   fontWeight: FontWeight.bold
                 )
             )
           ),
+          Container(child: Divider(color: Colors.black, thickness: 0.005 * MediaQuery.of(context).size.width,), color: Color.fromARGB(255, 255, 255, 255),
+                        height: 0.01*MediaQuery.of(context).size.height,),
           //actual list
           Container(
-            height: 600,
+            height: 200,
             child: StreamBuilder(
                 stream: Firestore.instance
                     .collection('users')
@@ -375,33 +391,81 @@ class _BillListState extends State<BillList> {
                   print("object");
                   List bills = snapshot.data["Budget Changes"];
                   return Container(
-                      height: 500.0,
-                      padding: EdgeInsets.only(top: 2.0),
+                      height: 20.0,
+                      padding: EdgeInsets.fromLTRB(10, 15, 5, 10),
                       child: new ListView.builder(
                           scrollDirection: Axis.vertical,
                           itemCount: bills.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              height: 60,
-                              child: ListTile(
-                                title: Text(
-                                    //this should be the bill amount
-                                    bs
-                                        .getAmountFromDescription(bills[index])
-                                        .toString(),
-                                    style: TextStyle(
-                                        color: Color(0xFF6D77E0),
-                                        fontFamily: 'Roboto',
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600)),
-                                trailing: Text(
-                                    bs.getDateFromDescription(bills[index]),
-                                    style: TextStyle(
-                                        color: Color(0xFF6D77E0),
-                                        fontFamily: 'Roboto',
-                                        fontSize: 20)),
-                              ),
-                            );
+                              if( bs.getAmountFromDescription(bills[index]) > 0 ){
+                                return Container(
+                                  height: 60,
+                                  child: ListTile(
+                                    isThreeLine: true,
+                                    title: Text('Description',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(255, 27, 64, 121),
+                                          fontFamily: 'Roboto',
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600
+                                        )
+                                    ),
+                                    subtitle: Text( '\$' + 
+                                        //this should be the bill amount
+                                        bs
+                                            .getAmountFromDescription(bills[index])
+                                            .toString().substring(1),
+                                        style: TextStyle(
+                                          color: Color(0xFF549A5B),
+                                          fontFamily: 'Roboto',
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600
+                                        )
+                                      ),
+                                    trailing: Text(
+                                        bs.getDateFromDescription(bills[index]),
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 27, 64, 121),
+                                            fontFamily: 'Roboto',
+                                            fontSize: 20)),
+                                  ),
+                                );
+                              }
+                              else{
+                                 return Container(
+                                  height: 60,
+                                  child: ListTile(
+                                    isThreeLine: true,
+                                    title: Text('Description',
+                                      style: TextStyle(
+                                          color: Color.fromARGB(255, 27, 64, 121),
+                                          fontFamily: 'Roboto',
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w600
+                                        )
+                                    ),
+                                    subtitle: Text( '-\$' + 
+                                        //this should be the bill amount
+                                        bs
+                                            .getAmountFromDescription(bills[index])
+                                            .toString().substring(1),
+                                        style: TextStyle(
+                                          color: Color(0xFFE5625C),
+                                          fontFamily: 'Roboto',
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600
+                                        )
+                                      ),
+                                    trailing: Text(
+                                        bs.getDateFromDescription(bills[index]),
+                                        style: TextStyle(
+                                            color: Color.fromARGB(255, 27, 64, 121),
+                                            fontFamily: 'Roboto',
+                                            fontSize: 20)),
+                                  ),
+                                );
+                              }
+                            
                           }));
                 }),
           )

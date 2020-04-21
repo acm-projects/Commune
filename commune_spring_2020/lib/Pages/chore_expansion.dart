@@ -105,6 +105,9 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                         onChanged: (val) {
                           memo = val;
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         decoration: InputDecoration(
                             labelText: 'Memo',
                             enabledBorder: OutlineInputBorder(
@@ -200,6 +203,9 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                         onChanged: (val) {
                           point = int.parse(val);
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         decoration: InputDecoration(
                             labelText: 'Point Value (Numbers Only)',
                             enabledBorder: OutlineInputBorder(

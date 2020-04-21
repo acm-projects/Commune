@@ -22,7 +22,13 @@ class _ChoreListState extends State<ChoreList> {
         child: Container(
           height: 1 * screenSize.size.height,
           width: 1 * screenSize.size.width,
-          color: Color.fromARGB(255, 251, 244, 245),
+          //color: Color.fromARGB(255, 251, 244, 245),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFFFFFFFF), Color(0xFFFBF4F5)]),
+          ),
           child: Column(
             children: <Widget>[
              StreamBuilder(
@@ -47,7 +53,7 @@ class _ChoreListState extends State<ChoreList> {
                 //   borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 
                 child: Container(
-                color: Color.fromARGB(255, 255, 255, 255),
+                //color: Color.fromARGB(255, 255, 255, 255),
                 
                   height: 0.8 * screenSize.size.height,
                   width: 0.85 * screenSize.size.width,
@@ -165,13 +171,15 @@ class _ChoreListState extends State<ChoreList> {
                                         decoration: BoxDecoration(
                                         border: Border.all(
                                           width: 0.003 * screenSize.size.width,
-                                          color: Color.fromARGB(255, 29, 30, 24)),
+                                          //color: Color.fromARGB(255, 29, 30, 24)),
+                                          color: Color.fromARGB(255, 128, 88, 178)),
                                         borderRadius: BorderRadius.all(Radius.circular(10.0))),
                                         child: ListTile(
                                           title: Text(
                                             cs.getJobFromDescription(chores[index]),
                                             style: TextStyle(
-                                              color: Color.fromARGB(255, 159, 166, 248),
+                                              //color: Color.fromARGB(255, 159, 166, 248),
+                                              color: Color.fromARGB(255, 128, 88, 178),
                                               fontFamily: 'Roboto',
                                               fontSize: 20,
                                               fontWeight: FontWeight.w300
@@ -180,7 +188,8 @@ class _ChoreListState extends State<ChoreList> {
                                           trailing: Text(
                                             cs.getDateFromDescription(chores[index]),
                                             style: TextStyle(
-                                              color: Color.fromARGB(255, 159, 166, 248),
+                                              //color: Color.fromARGB(255, 159, 166, 248),
+                                              color: Color.fromARGB(255, 128, 88, 178),
                                               fontFamily: 'Roboto',
                                               fontWeight: FontWeight.w300,
                                               fontSize: 20

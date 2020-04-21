@@ -144,7 +144,13 @@ class _HouseholdProfileState extends State<HouseholdProfile> {
 
                                       List chores = snapshot.data["Chores"];
                                       if(chores.isEmpty){
-                                        return Text("No chores");
+                                        return Text("No chores!",
+                                          style: TextStyle(
+                                            color: Color.fromARGB(255, 27, 64, 121),
+                                            fontSize: 10,
+                                            fontFamily: 'Raleway'
+                                          )
+                                        );
                                       }
                                       return Text(
                                         cs.getDateFromDescription(chores[0]),
