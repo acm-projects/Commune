@@ -11,7 +11,7 @@ Mobile app that simplifies the shared living experience between roommates throug
 ### MVP (Minimum Viable Product)
 - Completed tasks will be displayed as a list and added to a history of tasks
 - Individual profile
-- Household members with a possible admin option
+- Household members with a possible admin option (members also have the ability to leave a household)
 - Household profile
 - Active and completed tasks
 - Manually assign tasks to different users
@@ -24,21 +24,22 @@ Mobile app that simplifies the shared living experience between roommates throug
 - Manually create tasks based off of a pattern such as assigning a weekly task to a user
 - Automatic task generation based off of user patterns
 - Calendar view with tasks, completion status, and due dates
-- Reminders to notify users of an upcoming deadline
+- Reminders to notify users of an upcoming deadline (push notification system)
+- Roommate Ratings to rate other household members
+- Leaderboard to motivate users to complete household tasks
 
 ## Dependencies
 
-### React Native
-> React Native may be used over Android Studio for cross-platform compatibility and cleaner design.
+### Flutter
+> Flutter may be used over Android Studio for cross-platform compatibility and cleaner design.
 
-Install [React Native](https://facebook.github.io/react-native/docs/getting-started) and follow the EXPO CLI Quickstart Guide
-A brief intro to [Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) *will primarily be used for the user interface.*
+Install [Flutter](https://flutter.dev/docs/get-started/install)
 
-#### Additional Resources for setting up React Native
-- Setting up a development environment in [Windows](https://codeburst.io/setting-up-development-environment-using-react-native-on-windows-dd240e69f776?gi=106808b677dc)
+#### Additional Resources for setting up Flutter for Android Dev
+- Setting up [Flutter for Android development](https://flutter.dev/docs/get-started/flutter-for/android-devs)
 
 ### Android Studio *(Option)*
-> Android Studio may be used over React Native for more beginner-friendly implementation of Firebase.
+> Android Studio may be used over Flutter for more beginner-friendly implementation of Firebase.
 
 Install by following the guidelines [here](https://developer.android.com/studio)
 
@@ -51,8 +52,8 @@ Follow these guidelines to use the [Firebase CLI](https://firebase.google.com/do
 ## Resources
 *Below are some resources to help overcome possible roadblocks during the project*
 
-##### Combining front-end (React Native/Android Studio) with back-end (Firebase)
-- React Native and Firebase: [Manual Integration](https://rnfirebase.io/docs/v5.x.x/getting-started)
+##### Combining front-end (Flutter/Android Studio) with back-end (Firebase)
+- Flutter and Firebase: [Youtube playlist by Net Ninja](https://www.youtube.com/watch?v=sfA3NWDBPZ4&list=PL4cUxeGkcC9j--TKIdkb3ISfRbJeJYQwC)
 - Android Studio and Firebase: [Integrate](https://www.geeksforgeeks.org/adding-firebase-to-android-app/)
 	- [Connect to Firebase](https://developer.android.com/studio/write/firebase)
 	- [Installation and Set-up](https://firebase.google.com/docs/database/android/start)
@@ -65,11 +66,7 @@ Follow these guidelines to use the [Firebase CLI](https://firebase.google.com/do
 - [Link](https://www.raywenderlich.com/5359-firebase-tutorial-real-time-chat) to website
 - [Video](https://www.youtube.com/watch?v=wVCz1a3ogqk) Tutorial
 
-##### Firebase Authentication using Android Studio
+##### Firebase Authentication using Android Studio and Firebase Basics for User Authentication
 - [Authentication](https://firebase.google.com/docs/auth/)
 - [Password-based Accounts](https://firebase.google.com/docs/auth/android/password-auth)
-
-##### Setting up a Calendar in React Native
-- To learn how to set up the Calendar Component, click [here](https://code.tutsplus.com/tutorials/how-to-create-a-react-native-calendar-component--cms-33664)
-
-##### Push Notification System using [React Native and Firebase](https://medium.com/better-programming/react-native-local-scheduled-push-notification-with-firebase-8c775b71c35c)
+- [Basics for User Authentication in Firebase](https://www.youtube.com/watch?v=aN1LnNq4z54&list=PL4cUxeGkcC9jUPIes_B8vRjn1_GaplOPQ)
