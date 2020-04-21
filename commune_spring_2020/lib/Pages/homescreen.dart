@@ -50,7 +50,7 @@ class _HomescreenState extends State<Homescreen> {
                           .snapshots(),
                       builder: (context, snap) {
                         if (!snap.hasData) {
-                          return Text("loading....");
+                          return Text("");
                         }
                         widget.hhname = snap.data["HouseHoldName"];
                         currentPts=snap.data["Points"];
@@ -63,7 +63,7 @@ class _HomescreenState extends State<Homescreen> {
                           .snapshots(),
                       builder: (context, snap) {
                         if (!snap.hasData) {
-                          return Text("loading...");
+                          return Text("");
                         }
                         return Text("");
                       }),
@@ -134,7 +134,7 @@ class _HomescreenState extends State<Homescreen> {
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     if (!snapshot.hasData) {
-                                      return Text("loading...");
+                                      return Text("");
                                     }
                                     List chores = snapshot.data["Chores"];
                                     if(chores.isEmpty){
@@ -255,7 +255,7 @@ class _HomescreenState extends State<Homescreen> {
                                                 .snapshots(),
                                             builder: (context, snapshot) {
                                               if (!snapshot.hasData) {
-                                                return Text("Loading...");
+                                                return Text("");
                                               }
                                               return Text(
                                                   '\$' +
@@ -282,8 +282,8 @@ class _HomescreenState extends State<Homescreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(25.0)), //this right here
                                             child: Container(
-                                              height: 450,
-                                              child: BillsExpansion()
+                                              // height: 300,
+                                              child: BillsExpansion(userChange: true,uid: widget.uid,)
                                             ),
                                           );
                                         }
@@ -466,11 +466,17 @@ class _BillListState extends State<BillList> {
                                 );
                               }
                             
-                          }));
-                }),
+                          }
+                          )
+                          );
+                }
+              ),
           )
-        ],
-      )),
+         ],
+       )
+      //     
+      )
+     // ),
     );
   }
 }
