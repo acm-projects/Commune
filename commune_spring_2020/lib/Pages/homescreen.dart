@@ -383,12 +383,11 @@ class _BillListState extends State<BillList> {
                     .document(widget.uid)
                     .snapshots(),
                 builder: (context, snapshot) {
-                  print(widget.uid);
                   budgetServices bs = budgetServices();
                   if (!snapshot.hasData) {
                     return Text("loading...");
                   }
-                  print("object");
+                  
                   List bills = snapshot.data["Budget Changes"];
                   return Container(
                       height: 20.0,
@@ -398,11 +397,12 @@ class _BillListState extends State<BillList> {
                           itemCount: bills.length,
                           itemBuilder: (context, index) {
                               if( bs.getAmountFromDescription(bills[index]) > 0 ){
+                                print(bs.getAmountFromDescription(bills[index]));
                                 return Container(
                                   height: 60,
                                   child: ListTile(
                                     isThreeLine: true,
-                                    title: Text('Description',
+                                    title: Text(bs.getDescriptionFromDescription(bills[index]),
                                       style: TextStyle(
                                           color: Color.fromARGB(255, 27, 64, 121),
                                           fontFamily: 'Roboto',
@@ -414,7 +414,7 @@ class _BillListState extends State<BillList> {
                                         //this should be the bill amount
                                         bs
                                             .getAmountFromDescription(bills[index])
-                                            .toString().substring(1),
+                                            .toString().substring(0),
                                         style: TextStyle(
                                           color: Color(0xFF549A5B),
                                           fontFamily: 'Roboto',
@@ -436,7 +436,7 @@ class _BillListState extends State<BillList> {
                                   height: 60,
                                   child: ListTile(
                                     isThreeLine: true,
-                                    title: Text('Description',
+                                    title: Text(bs.getDescriptionFromDescription(bills[index]),
                                       style: TextStyle(
                                           color: Color.fromARGB(255, 27, 64, 121),
                                           fontFamily: 'Roboto',

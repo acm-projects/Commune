@@ -29,7 +29,6 @@ class _HomeState extends State<Home> {
         uid: widget.uid,
       )
     ];
-    print(widget.uid+"@home");
     return Scaffold(
         body: _children[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(

@@ -44,7 +44,6 @@ class Wrapper extends StatelessWidget {
       return LoginPage();
     } else {
       //return Home(uid:user.uid);
-      print("yoooo");
       //return ChoreList();
       return FutureBuilder(
       future: householdIsNull(user.uid),
