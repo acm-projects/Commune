@@ -448,7 +448,7 @@ class _BillListState extends State<BillList> {
                                         //this should be the bill amount
                                         bs
                                             .getAmountFromDescription(bills[index])
-                                            .toString().substring(1),
+                                            .toString().substring(0),
                                         style: TextStyle(
                                           color: Color(0xFFE5625C),
                                           fontFamily: 'Roboto',
