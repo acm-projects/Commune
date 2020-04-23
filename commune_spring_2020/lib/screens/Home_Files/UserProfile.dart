@@ -73,6 +73,17 @@ class _UserProfileState extends State<UserProfile> {
                                 )
                               );
                             }
+                            else
+                            {
+                              return Text('',
+                                style: TextStyle(
+                                  color: Color(0xFFB3B9FA),
+                                  fontSize: 20,
+                                  fontFamily: 'Raleway',
+                                  fontWeight: FontWeight.normal
+                                )
+                              );
+                            }
                           }
                         ),
                         Container(                
@@ -377,6 +388,38 @@ class _UserProfileState extends State<UserProfile> {
                                     )
                                   ],
                                 )
+                              );
+                            }
+                            else{
+                              return Container(
+                                    alignment: Alignment.center,
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                    child: Column(
+                                      children: <Widget>[
+                                    FlatButton(
+                                      onPressed: () {
+                                        leaveHouse(false);
+                                      },
+                                      splashColor: Color(0xFF582D8F),
+                                      child: Text( 'Leave Household',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontFamily: 'Raleway',
+                                          color: Color(0XFF6D77E0)
+                                        )
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: new BorderRadius.circular(25),
+                                        side: BorderSide(
+                                          color: Color(0XFF6D77E0),
+                                          width: 2.0,
+                                        )
+                                      ),
+                                      padding: EdgeInsets.fromLTRB(50, 15, 50, 15)
+                                    )
+                                      ]
+                                    )
                               );
                             }
                           }
