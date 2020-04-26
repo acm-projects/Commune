@@ -387,10 +387,10 @@ class _BillsExpansionState extends State<BillsExpansion> {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   height: 0.215 * screenSize.size.height,
-                      //   color: Color.fromARGB(255, 251, 244, 245),
-                      // ),
+                      Container(
+                        height: 0.215 * screenSize.size.height,
+                        //color: Color.fromARGB(255, 251, 244, 245),
+                      ),
                       // Container(
                       //   height: 0.075 * screenSize.size.height,
                       //   color: Color.fromARGB(255, 27, 64, 121),

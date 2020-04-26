@@ -80,6 +80,9 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                             return "Enter a Name";
                           }
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         onSaved: (input) => _houseHoldName = input,
                         decoration: InputDecoration(
                           labelText: 'Household Name',
@@ -112,6 +115,9 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                             return "Make a Longer Password";
                           }
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         onSaved: (input) => _pass = input,
                         obscureText: true,
                         decoration: InputDecoration(
@@ -145,6 +151,9 @@ class _CreateHouseholdState extends State<CreateHousehold> {
                             return "Please Give A Number Greater Than 0";
                           }
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         inputFormatters: <TextInputFormatter>[
                           WhitelistingTextInputFormatter.digitsOnly
                         ], 

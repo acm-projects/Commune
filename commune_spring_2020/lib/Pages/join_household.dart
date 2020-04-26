@@ -74,6 +74,9 @@ class _JoinHouseholdState extends State<JoinHousehold> {
                         return 'Type in a House name';
                          }
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         onSaved: (input) => _houseName = input,
                         decoration: InputDecoration(
                           labelText: 'Household Name',
@@ -101,6 +104,9 @@ class _JoinHouseholdState extends State<JoinHousehold> {
                           return 'Type in a password';
                          }
                         },
+                        style: TextStyle(
+                          color: Colors.white
+                        ),
                         onSaved: (input) => _housePassword = input,
                         obscureText: true,
                         decoration: InputDecoration(
