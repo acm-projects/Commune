@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:commune_spring_2020/Pages/bill_expansion.dart';
 import 'package:commune_spring_2020/screens/Home_Files/choresPage.dart';
 import 'package:commune_spring_2020/services/choresServices.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +7,6 @@ import 'package:commune_spring_2020/Pages/homescreen.dart';
 import 'package:commune_spring_2020/Pages/homepage.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/src/widgets/framework.dart';
-
-
 
 class ChoreExpansion extends StatefulWidget {
   final String uid;
@@ -34,22 +33,22 @@ class _ChoreExpansion extends State<ChoreExpansion> {
   int counter = 0;
 
   var _datePicked;
+  String dateCheckText = "No Date Chosen Yet";
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context);
     return Material(
         child: SingleChildScrollView(
-          child: Container(
-          decoration:  BoxDecoration(
-            gradient: LinearGradient(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Color(0xFFF59F9B), Color(0xFFE5625C)]
-            ),
-            //borderRadius: BorderRadius.circular(25)
-          ),
+              colors: [Color(0xFFF59F9B), Color(0xFFE5625C)]),
+          //borderRadius: BorderRadius.circular(25)
+        ),
         padding: EdgeInsets.fromLTRB(15, 35, 15, 0),
-      child: Column(
+        child: Column(
           children: <Widget>[
             Container(
               height: 0.85 * screenSize.size.height,
@@ -95,7 +94,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                       }),
                   Container(
                     height: 0.01 * screenSize.size.height,
-                   // color: Color.fromARGB(230, 174, 181, 255),
+                    // color: Color.fromARGB(230, 174, 181, 255),
                   ),
                   Container(
                     height: 0.07 * screenSize.size.height,
@@ -105,15 +104,12 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                         onChanged: (val) {
                           memo = val;
                         },
-                        style: TextStyle(
-                          color: Colors.white
-                        ),
+                        style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                             labelText: 'Memo',
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                             ),
@@ -122,7 +118,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                   ),
                   Container(
                     height: 0.04 * screenSize.size.height,
-                   // color: Color.fromARGB(230, 174, 181, 255),
+                    // color: Color.fromARGB(230, 174, 181, 255),
                   ),
                   Container(
                     height: 0.13 * screenSize.size.height,
@@ -131,13 +127,13 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                       alignment: Alignment.centerLeft,
                       child: Column(
                         children: <Widget>[
-                          Text(_datePicked == null
-                              ? 'No Date Chosen Yet'
-                              : _datePicked.toString(), style: TextStyle(
+                          Text(
+                            dateCheckText,
+                            style: TextStyle(
                                 fontSize: 20.0,
                                 color: Colors.white,
-                                fontFamily: 'Raleway'
-                              ),),
+                                fontFamily: 'Raleway'),
+                          ),
                           Container(
                             height: 0.1 * screenSize.size.height,
                             width: 0.30 * screenSize.size.width,
@@ -154,16 +150,16 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                 firstDate: DateTime(2019),
                                                 lastDate: DateTime(2021))
                                             .then((date) {
-                                              _datePicked=
-                                            _datePicked = (new DateFormat('MMMM')
-                                                    .format(date)) +
-                                                " " +
-                                                (new DateFormat('d')
-                                                    .format(date)) +
-                                                ", " +
-                                                (new DateFormat('y')
-                                                    .format(date));
-                                          
+                                          _datePicked = _datePicked =
+                                              (new DateFormat('MMMM')
+                                                      .format(date)) +
+                                                  " " +
+                                                  (new DateFormat('d')
+                                                      .format(date)) +
+                                                  ", " +
+                                                  (new DateFormat('y')
+                                                      .format(date));
+                                                      setState((){dateCheckText=_datePicked.toString();});
                                         });
                                       },
                                       color: Color(0xFFF59F9B),
@@ -192,26 +188,23 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                   ),
                   Container(
                     height: 0.02 * screenSize.size.height,
-                   // color: Color.fromARGB(230, 174, 181, 255),
+                    // color: Color.fromARGB(230, 174, 181, 255),
                   ),
                   Container(
                     height: 0.07 * screenSize.size.height,
-                   // color: Color.fromARGB(230, 174, 181, 255),
+                    // color: Color.fromARGB(230, 174, 181, 255),
                     //width: 0.8 * screenSize.size.width,
                     child: TextFormField(
                         keyboardType: TextInputType.number,
                         onChanged: (val) {
                           point = int.parse(val);
                         },
-                        style: TextStyle(
-                          color: Colors.white
-                        ),
+                        style: TextStyle(color: Colors.white),
                         decoration: InputDecoration(
                             labelText: 'Point Value (Numbers Only)',
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.white,
-                                  width: 2.0),
+                              borderSide:
+                                  BorderSide(color: Colors.white, width: 2.0),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                             ),
@@ -220,10 +213,10 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                   ),
                   Container(
                     height: 0.02 * screenSize.size.height,
-                  //  color: Color.fromARGB(230, 174, 181, 255),
+                    //  color: Color.fromARGB(230, 174, 181, 255),
                   ),
                   Container(
-                    //  color: Color.fromARGB(230, 174, 181, 255),
+                      //  color: Color.fromARGB(230, 174, 181, 255),
                       height: 0.05 * screenSize.size.height,
                       //width: 0.95 * screenSize.size.width,
 
@@ -243,7 +236,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                   Container(
                     height: 0.31 * screenSize.size.height,
                     width: 1 * screenSize.size.width,
-                   // color: Color.fromARGB(255, 159, 166, 248),
+                    // color: Color.fromARGB(255, 159, 166, 248),
                     child: Column(
                       children: [
                         StreamBuilder(
@@ -264,7 +257,8 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                     if (!snapshot.hasData) {
                                       return Text("loading...");
                                     }
-                                    List roomates = snapshot.data["Group Users"];
+                                    List roomates =
+                                        snapshot.data["Group Users"];
                                     return Expanded(
                                       child: ListView.builder(
                                           scrollDirection: Axis.vertical,
@@ -292,13 +286,15 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                       ),
                                                     ),
                                                     onPressed: () {
-                                                      String d=_datePicked.toString();
-                                                      String des=createChoreDescription(
-                                                          point,
-                                                          memo,
-                                                          d);
-                                                      cv.addChoreToHouseHold(des, widget.hhname);
-                                                      cv.addChoreToUser(des, widget.uid);
+                                                      String d = _datePicked
+                                                          .toString();
+                                                      String des =
+                                                          createChoreDescription(
+                                                              point, memo, d);
+                                                      cv.addChoreToHouseHold(
+                                                          des, widget.hhname);
+                                                      cv.addChoreToUser(
+                                                          des, widget.uid);
                                                     },
                                                   );
                                                 });
@@ -333,9 +329,9 @@ class _ChoreExpansion extends State<ChoreExpansion> {
             //    ),
             //Container(height: 0.075 * screenSize.size.height, color: Colors.blue),
           ],
+        ),
       ),
-    ),
-        ));
+    ));
   }
 
   String createChoreDescription(int points, String memo, String deadline) {
@@ -347,4 +343,3 @@ class _ChoreExpansion extends State<ChoreExpansion> {
     return desc;
   }
 }
-
