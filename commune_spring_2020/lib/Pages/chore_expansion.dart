@@ -164,9 +164,9 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                 ", " +
                                                 (new DateFormat('y')
                                                     .format(date));
-                                          
+                                          setState((){dateChosen = _datePicked;});
                                         });
-                                        setState((){dateChosen = _datePicked;});
+                                        
                                       },
                                       color: Color(0xFFF59F9B),
                                       child: FittedBox(
