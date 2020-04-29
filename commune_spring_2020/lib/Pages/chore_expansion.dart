@@ -32,6 +32,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
   List persons;
   bool checkBoxValue = false;
   int counter = 0;
+  String dateChosen = "No Date Chosen Yet";
 
   var _datePicked;
   @override
@@ -131,13 +132,13 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                       alignment: Alignment.centerLeft,
                       child: Column(
                         children: <Widget>[
-                          Text(_datePicked == null
-                              ? 'No Date Chosen Yet'
-                              : _datePicked.toString(), style: TextStyle(
-                                fontSize: 20.0,
-                                color: Colors.white,
-                                fontFamily: 'Raleway'
-                              ),),
+                          Text( dateChosen,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              color: Colors.white,
+                              fontFamily: 'Raleway'
+                            ),
+                          ),
                           Container(
                             height: 0.1 * screenSize.size.height,
                             width: 0.30 * screenSize.size.width,
@@ -165,6 +166,7 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                                     .format(date));
                                           
                                         });
+                                        setState((){dateChosen = _datePicked;});
                                       },
                                       color: Color(0xFFF59F9B),
                                       child: FittedBox(
@@ -178,8 +180,10 @@ class _ChoreExpansion extends State<ChoreExpansion> {
                                         ),
                                       ),
                                     )
-                                  ]),
+                                  ]
+                                ),
                             ),
+                            
                             //color: Color.fromARGB(255, 159, 166, 248),
                             // shape: RoundedRectangleBorder(
                             // borderRadius: new BorderRadius.circular(12.0),
