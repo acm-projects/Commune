@@ -70,7 +70,7 @@ class _HomescreenState extends State<Homescreen> {
                   //to do container
                   Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.fromLTRB(15, 15, 0, 30),
+                      padding: EdgeInsets.fromLTRB(0, 15, 0, 30),
                       margin: EdgeInsets.fromLTRB(25, 40, 25, 10),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -86,12 +86,15 @@ class _HomescreenState extends State<Homescreen> {
                               alignment: Alignment.topLeft,
                               child: Row(
                                 children: <Widget>[
-                                  Text('To-Do',
-                                      style: TextStyle(
-                                          color: Color(0xFFF2F2F2),
-                                          fontSize: 40,
-                                          fontFamily: 'Raleway',
-                                          fontWeight: FontWeight.bold)),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15.0),
+                                    child: Text('To-Do',
+                                        style: TextStyle(
+                                            color: Color(0xFFF2F2F2),
+                                            fontSize: 40,
+                                            fontFamily: 'Raleway',
+                                            fontWeight: FontWeight.bold)),
+                                  ),
                                   Spacer(),
                                   //no need for a button to add chores, this is done in the household profiles page
                                   // FlatButton(
@@ -125,7 +128,7 @@ class _HomescreenState extends State<Homescreen> {
                               )),
                           //actual list
                           Container(
-                              height: 180.0,
+                              height: 240.0,
                               padding: EdgeInsets.fromLTRB(0, 5.0, 0, 2.0),
                               child: StreamBuilder(
                                   stream: Firestore.instance
@@ -506,6 +509,7 @@ void updateScore(int pts, String id, int current) {
 void setState2(Null Function() param0) {}
 Widget slideBackground(int pts) {
   return Container(
+    padding: EdgeInsets.only( left: 15.0 ),
     color: Colors.white,
     child: Align(
       child: Row(

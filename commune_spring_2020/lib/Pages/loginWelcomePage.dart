@@ -1,5 +1,5 @@
-import 'package:commune_spring_2020/Pages/signIn.dart';
-import 'package:commune_spring_2020/Pages/signUp.dart';
+//import 'package:commune_spring_2020/Pages/signIn.dart';
+//import 'package:commune_spring_2020/Pages/signUp.dart';
 import 'package:commune_spring_2020/screens/auth/register.dart';
 import 'package:commune_spring_2020/screens/auth/sign_in.dart';
 import 'package:flutter/material.dart';
